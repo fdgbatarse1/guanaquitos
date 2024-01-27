@@ -4,7 +4,8 @@
   "info": {
     "singularName": "career",
     "pluralName": "careers",
-    "displayName": "career"
+    "displayName": "career",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -25,6 +26,19 @@
       "required": true,
       "maxLength": 200,
       "unique": false
+    },
+    "educationCenterIcon": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": false
     }
   }
 }
