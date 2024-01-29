@@ -5,8 +5,7 @@ services:
     build:
       context: ./frontend
     restart: unless-stopped
-    env_file:
-      - ./frontend/.env
+    env_file: ./frontend/.env
     volumes:
       - ./frontend/public:/frontend/app/public
       - ./frontend/src:/frontend/app/src
@@ -32,8 +31,7 @@ services:
     build:
       context: ./backend
     restart: unless-stopped
-    env_file:
-      - ./backend/.env
+    env_file: ./backend/.env
     volumes:
       - ./backend/config:/backend/app/config
       - ./backend/src:/backend/app/src
@@ -51,8 +49,7 @@ services:
   postgres:
     container_name: postgres
     restart: unless-stopped
-    env_file:
-      - ./backend/.env
+    env_file: ./postgres.env
     image: postgres:16.1-alpine3.18
     volumes:
       - postgres-data:/var/lib/postgresql/data/ #using a volume
