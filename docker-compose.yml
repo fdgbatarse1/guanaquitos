@@ -71,6 +71,13 @@ services:
       - "8000:8000"
     networks:
       - guanaquitos
+  
+  npm:
+    image: node:lts-alpine
+    working_dir: /frontend/app
+    volumes:
+      - ./frontend:/frontend/app
+    entrypoint: ["npm"]
 
 volumes:
   postgres-data:
