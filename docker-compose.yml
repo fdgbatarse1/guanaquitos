@@ -3,9 +3,9 @@ services:
   frontend:
     container_name: frontend
     build:
-      context: ./frontend 
-    restart: on-failure
-    env_file: 
+      context: ./frontend
+    restart: unless-stopped
+    env_file:
       - ./frontend/.env
     volumes:
       - ./frontend/public:/frontend/app/public
@@ -32,7 +32,7 @@ services:
     build:
       context: ./backend
     restart: unless-stopped
-    env_file: 
+    env_file:
       - ./backend/.env
     volumes:
       - ./backend/config:/backend/app/config
@@ -56,14 +56,28 @@ services:
     image: postgres:16.1-alpine3.18
     volumes:
       - postgres-data:/var/lib/postgresql/data/ #using a volume
-      - ./data:/var/lib/postgresql/data/ # if you want to use a bind folder
+      - ./data/postgres:/var/lib/postgresql/data/ # if you want to use a bind folder
     ports:
       - "5432:5432"
     networks:
       - guanaquitos
 
+  chroma:
+    container_name: chroma
+    restart: unless-stopped
+    env_file: ./chroma.env
+    image: chromadb/chroma
+    volumes:
+      - chroma-data:/chroma/chroma/
+      - ./data/chroma:/chroma/chroma/
+    ports:
+      - "8000:8000"
+    networks:
+      - guanaquitos
+
 volumes:
   postgres-data:
+  chroma-data:
 
 networks:
   guanaquitos:
