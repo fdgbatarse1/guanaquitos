@@ -7,18 +7,7 @@ services:
     restart: unless-stopped
     env_file: ./frontend/.env
     volumes:
-      - ./frontend/public:/frontend/app/public
-      - ./frontend/src:/frontend/app/src
-      - ./frontend/.env:/frontend/app/.env
-      - ./frontend/.eslintrc.json:/frontend/app/.eslintrc.json
-      - ./frontend/.gitignore:/frontend/app/.gitignore
-      - ./frontend/next.config.mjs:/frontend/app/next.config.mjs
-      - ./frontend/package-lock.json:/frontend/package-lock.json
-      - ./frontend/package.json:/frontend/package.json
-      - ./frontend/postcss.config.js:/frontend/postcss.config.js
-      - ./frontend/README.md:/frontend/README.md
-      - ./frontend/tailwind.config.ts:/frontend/tailwind.config.ts
-      - ./frontend/tsconfig.json:/frontend/tsconfig.json
+      - ./frontend:/frontend/app
     ports:
       - "3000:3000"
     networks:
@@ -33,12 +22,7 @@ services:
     restart: unless-stopped
     env_file: ./backend/.env
     volumes:
-      - ./backend/config:/backend/app/config
-      - ./backend/src:/backend/app/src
-      - ./backend/package.json:/backend/package.json
-      - ./backend/package-lock.json:/backend/package-lock.json
-      - ./backend/.env:/backend/app/.env
-      - ./backend/public/uploads:/backend/app/public/uploads
+      - ./backend:/backend/app
     ports:
       - "1337:1337"
     networks:
@@ -71,12 +55,19 @@ services:
       - "8000:8000"
     networks:
       - guanaquitos
-  
-  npm:
+
+  npm-frontend:
     image: node:lts-alpine
     working_dir: /frontend/app
     volumes:
       - ./frontend:/frontend/app
+    entrypoint: ["npm"]
+  
+  npm-backend:
+    image: node:lts-alpine
+    working_dir: /backend/app
+    volumes:
+      - ./backend:/backend/app
     entrypoint: ["npm"]
 
 volumes:
