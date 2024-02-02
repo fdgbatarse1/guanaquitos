@@ -1,11 +1,53 @@
-const Home = async () => {
-  const test = await fetch(`http://backend:1337/api/careers/1`);
-  const test_json = await test.json();
-  console.log(test_json);
+"use client";
+
+import Grid from "@mui/material/Grid/Grid";
+import Stack from "@mui/material/Stack/Stack";
+
+import StyledFiltersToogleButton from "@/components/styled-filters-toogle-button";
+import StyledPagination from "@/components/styled-pagination";
+import StyledSearch from "@/components/styled-search";
+import Box from "@mui/material/Box/Box";
+
+const Home = ({
+  searchParams,
+}: {
+  searchParams?: {
+    query?: string;
+    filters?: string;
+    page?: string;
+  };
+}) => {
+  const query = searchParams?.query || "";
+  const filters = searchParams?.filters || "";
+  const currentPage = Number(searchParams?.page) || 1;
+
+  const fetchOptions = async () => {
+    return [
+      "Ingeniería de Alimentos",
+      "Ingeniería Civil",
+      "Ingeniería Eléctrica",
+      "Ingeniería Energética",
+      "Ingeniería Industrial",
+      "Ingeniería Informática",
+      "Ingeniería Mecánica",
+      "Ingeniería Química",
+    ];
+  };
+
   return (
-    <div className="page">
-      <h1>{test_json?.data?.attributes?.title}</h1>
-    </div>
+    <Grid container padding={4} gap={4} direction="column" alignItems="center">
+      <Stack direction="row" gap={3} width="100%" alignItems="center">
+        <StyledSearch
+          value={query}
+          placeholder="Ingeniería Informática"
+          fetch={fetchOptions}
+        />
+        <Box height="100%">
+          <StyledFiltersToogleButton selected={filters} />
+        </Box>
+      </Stack>
+      <StyledPagination count={20} page={currentPage} />
+    </Grid>
   );
 };
 
