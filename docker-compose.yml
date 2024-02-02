@@ -43,36 +43,36 @@ services:
     networks:
       - guanaquitos
 
-  chroma:
-    container_name: chroma
-    restart: unless-stopped
-    env_file: ./chroma.env
-    image: chromadb/chroma
-    volumes:
-      - chroma-data:/chroma/chroma/
-      - ./data/chroma:/chroma/chroma/
-    ports:
-      - "8000:8000"
-    networks:
-      - guanaquitos
+  # chroma:
+  #   container_name: chroma
+  #   restart: unless-stopped
+  #   env_file: ./chroma.env
+  #   image: chromadb/chroma
+  #   volumes:
+  #     - chroma-data:/chroma/chroma/
+  #     - ./data/chroma:/chroma/chroma/
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - guanaquitos
 
-  npm-frontend:
-    image: node:lts-alpine
-    working_dir: /frontend/app
-    volumes:
-      - ./frontend:/frontend/app
-    entrypoint: ["npm"]
-  
-  npm-backend:
-    image: node:lts-alpine
-    working_dir: /backend/app
-    volumes:
-      - ./backend:/backend/app
-    entrypoint: ["npm"]
+  # npm-frontend:
+  #   image: node:lts-alpine
+  #   working_dir: /frontend/app
+  #   volumes:
+  #     - ./frontend:/frontend/app
+  #   entrypoint: ["npm"]
+
+  # npm-backend:
+  #   image: node:lts-alpine
+  #   working_dir: /backend/app
+  #   volumes:
+  #     - ./backend:/backend/app
+  #   entrypoint: ["npm"]
 
 volumes:
   postgres-data:
-  chroma-data:
+  # chroma-data:
 
 networks:
   guanaquitos:
