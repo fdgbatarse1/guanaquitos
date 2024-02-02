@@ -14,13 +14,21 @@
     "incremental": true,
     "plugins": [
       {
-        "name": "next"
-      }
+        "name": "next",
+      },
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": ["./src/*"],
+    },
+  },
+  "typedocOptions": {
+    "entryPoints": ["src/{utils,services,lib,hooks}/**/*.{tsx,ts}"],
+    "out": "./docs",
+    "exclude": [
+      "**/src/{utils,services,lib,hooks}/**/index.{tsx,ts}",
+      "**/*test.*",
+    ],
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
 }

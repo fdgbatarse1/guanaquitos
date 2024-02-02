@@ -1,13 +1,14 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import Autocomplete from "@mui/material/Autocomplete";
-import SearchIcon from "@mui/icons-material/Search";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
+import { useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import Autocomplete from '@mui/material/Autocomplete';
+import SearchIcon from '@mui/icons-material/Search';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import debounce from '@/utils/debounce';
 
 interface StyledSearchProps {
   value: string;
@@ -15,22 +16,9 @@ interface StyledSearchProps {
   fetch: () => Promise<string[]>;
 }
 
-function debounce<Params extends any[]>(
-  func: (...args: Params) => any,
-  timeout: number
-): (...args: Params) => void {
-  let timer: NodeJS.Timeout;
-  return (...args: Params) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func(...args);
-    }, timeout);
-  };
-}
-
 const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
   const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -42,12 +30,7 @@ const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
     <TextField
       {...params}
       label={
-        <Stack
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-          spacing={4}
-        >
+        <Stack direction="row" justifyContent="center" alignItems="center" spacing={4}>
           <SearchIcon /> Buscar
         </Stack>
       }
@@ -56,20 +39,20 @@ const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
   );
 
   const handleOnChange = (_event: any, newValue: string | null) => {
-    const query = newValue || "";
+    const query = newValue || '';
     const params = new URLSearchParams(searchParams);
-    params.set("query", query.toString());
+    params.set('query', query.toString());
     replace(`${pathname}?${params.toString()}`);
   };
 
-  const handleInputChange = async (_event: unknown, newInputValue: string) => {
+  const handleInputChange = async (_event: unknown, _newInputValue: string) => {
     const newOptions = await fetch();
     setOptions(newOptions);
   };
 
   const responsiveSize = () => {
-    if (isSmallScreen) return "small";
-    return "medium";
+    if (isSmallScreen) return 'small';
+    return 'medium';
   };
 
   const size = responsiveSize();
