@@ -7,6 +7,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import Autocomplete from "@mui/material/Autocomplete";
 import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 
 interface StyledSearchProps {
   value: string;
@@ -41,9 +42,14 @@ const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
     <TextField
       {...params}
       label={
-        <>
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={4}
+        >
           <SearchIcon /> Buscar
-        </>
+        </Stack>
       }
       placeholder={placeholder}
     />
