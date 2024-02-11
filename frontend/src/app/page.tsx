@@ -1,12 +1,9 @@
 'use client';
 
 import Grid from '@mui/material/Grid/Grid';
-import Stack from '@mui/material/Stack/Stack';
 
-import StyledFiltersToogleButton from '@/components/styled-filters-toogle-button';
-import StyledPagination from '@/components/styled-pagination';
-import StyledSearch from '@/components/styled-search';
-import Box from '@mui/material/Box/Box';
+import Pagination from '@/components/pagination';
+import ComplexSearch from '@/components/complex-search';
 
 const Home = ({
   searchParams,
@@ -15,10 +12,18 @@ const Home = ({
     query?: string;
     filters?: string;
     page?: string;
+    degree?: string;
+    category?: string;
+    institution?: string;
+    order?: string;
   };
 }) => {
   const query = searchParams?.query || '';
-  const filters = searchParams?.filters || '';
+  const showFilters = searchParams?.filters || '';
+  const degree = searchParams?.degree || '';
+  const category = searchParams?.category || '';
+  const institution = searchParams?.institution || '';
+  const order = searchParams?.order || '';
   const currentPage = Number(searchParams?.page) || 1;
 
   const fetchOptions = async () => {
@@ -38,15 +43,42 @@ const Home = ({
     ];
   };
 
+  const filters = [
+    {
+      value: degree,
+      id: 'degree',
+      items: ['Ingeniería', 'Licenciatura', 'Doctorado'],
+      label: 'Grado académico',
+    },
+    {
+      value: category,
+      id: 'category',
+      items: ['Ciencias', 'Matematicas', 'Humanistica'],
+      label: 'Categoría',
+    },
+    {
+      value: institution,
+      id: 'institution',
+      items: ['UNAM', 'IPN', 'UAM'],
+      label: 'Institución',
+    },
+    {
+      value: order,
+      id: 'order',
+      items: ['Nombre', 'Fecha'],
+      label: 'Ordenar por',
+    },
+  ];
+
   return (
     <Grid container padding={4} gap={4} direction="column" alignItems="center">
-      <Stack direction="row" gap={3} width="100%" alignItems="center">
-        <StyledSearch value={query} placeholder="Ingeniería Informática" fetch={fetchOptions} />
-        <Box height="100%">
-          <StyledFiltersToogleButton selected={filters} />
-        </Box>
-      </Stack>
-      <StyledPagination count={20} page={currentPage} />
+      <ComplexSearch
+        query={query}
+        fetchOptions={fetchOptions}
+        filters={filters}
+        showFilters={showFilters}
+      />
+      <Pagination count={20} page={currentPage} />
     </Grid>
   );
 };
