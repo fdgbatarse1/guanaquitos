@@ -80,7 +80,7 @@
       },
       "component": "text.text"
     },
-    "Acronym": {
+    "acronym": {
       "pluginOptions": {
         "i18n": {
           "localized": true

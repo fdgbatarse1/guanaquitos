@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid/Grid';
 
 import Pagination from '@/components/pagination';
 import ComplexSearch from '@/components/complex-search';
+import CareerCard from '@/components/career-card';
 
 const Home = ({
   searchParams,
@@ -78,6 +79,80 @@ const Home = ({
         filters={filters}
         showFilters={showFilters}
       />
+      <Grid container spacing={2}>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+        <Grid item xs={12} md={6} lg={4}>
+          <CareerCard
+            career_name="Ingeniería Informática"
+            university_name="Universidad Centroamericana José Simeón Cañas"
+            university_acronym="UCA"
+            university_logo="/assets/images/placeholder.webp"
+          />
+        </Grid>
+      </Grid>
       <Pagination count={20} page={currentPage} />
     </Grid>
   );

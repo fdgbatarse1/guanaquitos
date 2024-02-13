@@ -18,7 +18,7 @@ interface ComplexSearchProps {
 }
 
 const ComplexSearch = ({ query, fetchOptions, filters, showFilters }: ComplexSearchProps) => (
-  <Stack direction="column" gap={{ xs: 2, md: 3 }} width="100%">
+  <Stack direction="column" width="100%">
     <Stack direction="row" gap={3} width="100%" alignItems="center">
       <Search value={query} placeholder="Ingeniería Informática" fetch={fetchOptions} />
       <Box height="100%">

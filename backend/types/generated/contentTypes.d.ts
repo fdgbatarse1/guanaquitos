@@ -1012,7 +1012,7 @@ export interface ApiUniversityUniversity extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    Acronym: Attribute.String &
+    acronym: Attribute.String &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;

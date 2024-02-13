@@ -18,6 +18,7 @@ const StyledFilters = ({ filters, show }: StyledFiltersProps) => (
     <Stack
       direction={{ xs: 'column', sm: 'row' }}
       gap={{ xs: 2, md: 3 }}
+      paddingTop={{ xs: 2, md: 3 }}
       width="100%"
       alignItems="center"
     >
