@@ -30,10 +30,11 @@ const CareerCard = ({
     elevation={2}
     sx={{
       transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-      '&:hover': {
+      ':hover': {
+        color: 'rgba(25, 118, 210, 1)',
+        cursor: 'pointer',
         transform: 'scale(1.005)',
         boxShadow: '0px 4px 20px rgba(25, 118, 210, 0.25)',
-        cursor: 'pointer',
       },
     }}
   >
