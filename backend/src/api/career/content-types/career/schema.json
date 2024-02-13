@@ -4,7 +4,7 @@
   "info": {
     "singularName": "career",
     "pluralName": "careers",
-    "displayName": "career",
+    "displayName": "Career",
     "description": ""
   },
   "options": {
@@ -16,6 +16,15 @@
     }
   },
   "attributes": {
+    "name": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
     "title": {
       "pluginOptions": {
         "i18n": {
@@ -23,22 +32,125 @@
         }
       },
       "type": "string",
-      "required": true,
-      "maxLength": 200,
-      "unique": false
+      "required": true
     },
-    "educationCenterIcon": {
-      "allowedTypes": [
-        "images"
-      ],
+    "curriculum": {
       "type": "media",
-      "multiple": false,
+      "multiple": true,
+      "required": true,
+      "allowedTypes": [
+        "files"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "description": {
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
       },
-      "required": false
+      "type": "text",
+      "required": true
+    },
+    "modality": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "duration": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "text.text"
+    },
+    "study_areas": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "text.text"
+    },
+    "job_areas": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "text.text"
+    },
+    "costs": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "text"
+    },
+    "academic_grade": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "Técnico",
+        "Profesorado",
+        "Tecnólogo",
+        "Licenciatura",
+        "Arquitectura",
+        "Ingeniería",
+        "Doctorado (grado)",
+        "Especialista",
+        "Maestría",
+        "Doctorado posgrado"
+      ],
+      "required": true
+    },
+    "educational_field": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "enumeration",
+      "enum": [
+        "Programas generales",
+        "Educación",
+        "Humanidades y artes",
+        "Ciencias sociales, educación comercial y derecho",
+        "Ciencias",
+        "Ingeniería, industria y construcción",
+        "Agricultura",
+        "Salud y servicios sociales",
+        "Servicios",
+        "Sectores desconocidos o no especificados"
+      ]
     }
   }
 }

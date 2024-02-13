@@ -367,7 +367,7 @@ export interface ApiCareerCareer extends Schema.CollectionType {
   info: {
     singularName: 'career';
     pluralName: 'careers';
-    displayName: 'career';
+    displayName: 'Career';
     description: '';
   };
   options: {
@@ -379,17 +379,105 @@ export interface ApiCareerCareer extends Schema.CollectionType {
     };
   };
   attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     title: Attribute.String &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
-      }> &
-      Attribute.SetMinMaxLength<{
-        maxLength: 200;
       }>;
-    educationCenterIcon: Attribute.Media &
+    curriculum: Attribute.Media &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    modality: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    duration: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    links: Attribute.Component<'text.text', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    study_areas: Attribute.Component<'text.text', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    job_areas: Attribute.Component<'text.text', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    costs: Attribute.Text &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    academic_grade: Attribute.Enumeration<
+      [
+        'T\u00E9cnico',
+        'Profesorado',
+        'Tecn\u00F3logo',
+        'Licenciatura',
+        'Arquitectura',
+        'Ingenier\u00EDa',
+        'Doctorado (grado)',
+        'Especialista',
+        'Maestr\u00EDa',
+        'Doctorado posgrado'
+      ]
+    > &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    educational_field: Attribute.Enumeration<
+      [
+        'Programas generales',
+        'Educaci\u00F3n',
+        'Humanidades y artes',
+        'Ciencias sociales, educaci\u00F3n comercial y derecho',
+        'Ciencias',
+        'Ingenier\u00EDa, industria y construcci\u00F3n',
+        'Agricultura',
+        'Salud y servicios sociales',
+        'Servicios',
+        'Sectores desconocidos o no especificados'
+      ]
+    > &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
