@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_map_maps",
+  "info": {
+    "displayName": "Map",
+    "icon": "pinMap",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "map": {
+      "type": "customField",
+      "customField": "plugin::google-maps.location-picker"
+    },
+    "address": {
+      "type": "text"
+    }
+  }
+}

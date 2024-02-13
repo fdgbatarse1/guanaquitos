@@ -151,6 +151,12 @@
         "Servicios",
         "Sectores desconocidos o no especificados"
       ]
+    },
+    "university": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::university.university",
+      "inversedBy": "careers"
     }
   }
 }
