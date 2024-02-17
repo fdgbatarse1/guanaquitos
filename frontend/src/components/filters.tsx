@@ -7,7 +7,7 @@ interface StyledFiltersProps {
   filters: {
     value: string;
     id: string;
-    items: string[];
+    items: { label: string; id: string }[];
     label: string;
   }[];
   show: boolean;
@@ -23,7 +23,7 @@ const StyledFilters = ({ filters, show }: StyledFiltersProps) => (
       alignItems="center"
     >
       {filters.map((filter) => (
-        <StyledFilter key={filter.id} {...filter} />
+        <StyledFilter show={show} key={filter.id} {...filter} />
       ))}
     </Stack>
   </Collapse>

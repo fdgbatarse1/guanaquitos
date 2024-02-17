@@ -16,18 +16,24 @@
     "format": "prettier --write 'src/**/*.{js,jsx,ts,tsx,css,json}'",
     "storybook": "storybook dev -p 6006 -s ../public",
     "build-storybook": "storybook build -s public",
+    "codegen": "graphql-codegen --config codegen.ts",
     "typedoc": "typedoc"
   },
   "dependencies": {
+    "@apollo/client": "^3.9.4",
     "@emotion/react": "^11.11.3",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.7",
     "@mui/material": "^5.15.7",
+    "graphql": "^16.8.1",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^5.0.2",
+    "@graphql-codegen/client-preset": "^4.2.2",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@storybook/addon-essentials": "^7.6.12",
     "@storybook/addon-interactions": "^7.6.12",
     "@storybook/addon-links": "^7.6.12",
@@ -62,6 +68,6 @@
     "prettier": "^3.2.4",
     "storybook": "^7.6.12",
     "typedoc": "^0.25.7",
-    "typescript": "^5"
+    "typescript": "^5.3.3"
   }
 }

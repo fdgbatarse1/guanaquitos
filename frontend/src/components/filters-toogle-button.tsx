@@ -21,7 +21,13 @@ const StyledFiltersToogleButton = ({ selected }: StyledFiltersToogleButtonProps)
 
   const handleSelect = () => {
     const params = new URLSearchParams(searchParams);
-    params.set('filters', selected === 'true' ? 'false' : 'true');
+
+    if (selected) {
+      params.delete('filters');
+    } else {
+      params.set('filters', 'true');
+    }
+
     replace(`${pathname}?${params.toString()}`);
   };
 

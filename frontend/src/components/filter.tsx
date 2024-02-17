@@ -13,10 +13,11 @@ interface StyledFilterProps {
   id: string;
   label: string;
   value: string;
-  items: string[];
+  items: { label: string; id: string }[];
+  show: boolean;
 }
 
-const StyledFilter = ({ id, label, value, items }: StyledFilterProps) => {
+const StyledFilter = ({ id, label, value, items, show }: StyledFilterProps) => {
   const theme = useTheme();
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -56,8 +57,8 @@ const StyledFilter = ({ id, label, value, items }: StyledFilterProps) => {
           {id === 'order' ? <em>No ordenar</em> : <em>No filtrar</em>}
         </MenuItem>
         {items.map((item) => (
-          <MenuItem key={item} value={item}>
-            {item}
+          <MenuItem key={item.id} value={item.id}>
+            {item.label}
           </MenuItem>
         ))}
       </Select>

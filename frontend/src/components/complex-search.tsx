@@ -7,11 +7,11 @@ import Filters from '@/components/filters';
 
 interface ComplexSearchProps {
   query: string;
-  fetchOptions: () => Promise<string[]>;
+  fetchOptions: (newInputValue: string) => Promise<string[]>;
   filters: {
     value: string;
     id: string;
-    items: string[];
+    items: { label: string; id: string }[];
     label: string;
   }[];
   showFilters: string;

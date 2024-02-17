@@ -15,7 +15,7 @@ import debounce from '@/utils/debounce';
 interface StyledSearchProps {
   value: string;
   placeholder: string;
-  fetch: () => Promise<string[]>;
+  fetch: (newInputValue: string) => Promise<string[]>;
 }
 
 const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
@@ -47,8 +47,8 @@ const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
     replace(`${pathname}?${params.toString()}`);
   };
 
-  const handleInputChange = async (_event: unknown, _newInputValue: string) => {
-    const newOptions = await fetch();
+  const handleInputChange = async (_event: unknown, newInputValue: string) => {
+    const newOptions = await fetch(newInputValue);
     setOptions(newOptions);
   };
 
