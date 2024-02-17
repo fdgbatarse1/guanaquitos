@@ -29,6 +29,7 @@ const CareerCard = ({
   <StyledCard
     elevation={2}
     sx={{
+      minHeight: 90,
       transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
       ':hover': {
         color: 'rgba(25, 118, 210, 1)',
@@ -39,18 +40,17 @@ const CareerCard = ({
     }}
   >
     <Grid container spacing={3}>
-      <Grid item xs={12} sm={3}>
+      <Grid item xs={12} sm={1} md={2}>
         <Image
-          src={placeholder}
+          src={university_logo || placeholder}
+          width={100}
+          height={100}
           alt={university_name}
-          style={{
-            width: '100%',
-            height: 'auto',
-            objectFit: 'contain',
-          }}
+          objectFit="contain"
+          layout="responsive"
         />
       </Grid>
-      <Grid item xs={12} sm={9}>
+      <Grid item xs={12} sm={11} md={10}>
         <Stack direction="column" spacing={1}>
           <Typography sx={{ fontSize: 18 }}>{career_name}</Typography>
           <Typography sx={{ fontSize: 16 }} color="text.secondary">
