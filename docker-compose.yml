@@ -1,0 +1,82 @@
+version: "3"
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: ./frontend
+    restart: unless-stopped
+    env_file: ./frontend/.env
+    volumes:
+      - ./frontend:/frontend/app
+    ports:
+      - "3000:3000"
+    networks:
+      - guanaquitos
+    depends_on:
+      - backend
+
+  backend:
+    container_name: backend
+    build:
+      context: ./backend
+    restart: unless-stopped
+    env_file: ./backend/.env
+    volumes:
+      - ./backend:/backend/app
+    ports:
+      - "1337:1337"
+    networks:
+      - guanaquitos
+    depends_on:
+      - postgres
+
+  postgres:
+    container_name: postgres
+    restart: unless-stopped
+    env_file: ./postgres.env
+    image: postgres:16.1-alpine3.18
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/ #using a volume
+      - ./data/postgres:/var/lib/postgresql/data/ # if you want to use a bind folder
+    ports:
+      - "5432:5432"
+    networks:
+      - guanaquitos
+
+  # chroma:
+  #   container_name: chroma
+  #   restart: unless-stopped
+  #   env_file: ./chroma.env
+  #   image: chromadb/chroma
+  #   volumes:
+  #     - chroma-data:/chroma/chroma/
+  #     - ./data/chroma:/chroma/chroma/
+  #   ports:
+  #     - "8000:8000"
+  #   networks:
+  #     - guanaquitos
+
+  npm-frontend:
+    image: node:lts-alpine
+    working_dir: /frontend/app
+    volumes:
+      - ./frontend:/frontend/app
+    networks:
+      - guanaquitos
+    entrypoint: ["npm"]
+
+  # npm-backend:
+  #   image: node:lts-alpine
+  #   working_dir: /backend/app
+  #   volumes:
+  #     - ./backend:/backend/app
+  #   entrypoint: ["npm"]
+
+volumes:
+  postgres-data:
+  # chroma-data:
+
+networks:
+  guanaquitos:
+    name: guanaquitos
+    driver: bridge

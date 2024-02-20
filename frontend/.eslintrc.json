@@ -1,0 +1,24 @@
+{
+  "extends": [
+    "next/core-web-vitals",
+    "airbnb",
+    "airbnb/hooks",
+    "airbnb-typescript",
+    "prettier",
+    "plugin:storybook/recommended"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["jest-dom", "testing-library"],
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": [0, "arrow-function"],
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off",
+    "no-restricted-exports": "off",
+    "consistent-return": "off",
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": "off"
+  }
+}

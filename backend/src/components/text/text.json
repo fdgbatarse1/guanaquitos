@@ -1,0 +1,14 @@
+{
+  "collectionName": "components_text_texts",
+  "info": {
+    "displayName": "text",
+    "icon": "quote",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string"
+    }
+  }
+}
