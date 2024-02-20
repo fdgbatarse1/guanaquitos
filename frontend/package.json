@@ -27,6 +27,7 @@
     "@mui/material": "^5.15.7",
     "graphql": "^16.8.1",
     "next": "14.1.0",
+    "pg-connection-string": "^2.6.2",
     "react": "^18",
     "react-dom": "^18"
   },
