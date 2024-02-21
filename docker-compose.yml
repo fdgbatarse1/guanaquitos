@@ -56,14 +56,14 @@ services:
   #   networks:
   #     - guanaquitos
 
-  npm-frontend:
-    image: node:lts-alpine
-    working_dir: /frontend/app
-    volumes:
-      - ./frontend:/frontend/app
-    networks:
-      - guanaquitos
-    entrypoint: ["npm"]
+  # npm-frontend:
+  #   image: node:lts-alpine
+  #   working_dir: /frontend/app
+  #   volumes:
+  #     - ./frontend:/frontend/app
+  #   networks:
+  #     - guanaquitos
+  #   entrypoint: ["npm"]
 
   # npm-backend:
   #   image: node:lts-alpine
