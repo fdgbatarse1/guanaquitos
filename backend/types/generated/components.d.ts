@@ -22,7 +22,7 @@ export interface TextText extends Schema.Component {
     description: '';
   };
   attributes: {
-    text: Attribute.String;
+    text: Attribute.Text;
   };
 }
 
