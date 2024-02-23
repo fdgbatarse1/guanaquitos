@@ -1,4 +1,5 @@
 import Image, { StaticImageData } from 'next/image';
+import Link from 'next/link';
 
 import Stack from '@mui/material/Stack/Stack';
 import Typography from '@mui/material/Typography/Typography';
@@ -26,40 +27,45 @@ const CareerCard = ({
   university_acronym = '',
   university_logo,
 }: CareerCardProps) => (
-  <StyledCard
-    elevation={2}
-    sx={{
-      minHeight: 90,
-      transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-      ':hover': {
-        color: 'rgba(25, 118, 210, 1)',
-        cursor: 'pointer',
-        transform: 'scale(1.005)',
-        boxShadow: '0px 4px 20px rgba(25, 118, 210, 0.25)',
-      },
-    }}
+  <Link
+    href={`/careers/${university_acronym.toLowerCase()}/${career_name}`}
+    style={{ textDecoration: 'none' }}
   >
-    <Grid container spacing={3}>
-      <Grid item xs={12} sm={1} md={2}>
-        <Image
-          src={university_logo || placeholder}
-          width={100}
-          height={100}
-          alt={university_name}
-          objectFit="contain"
-          layout="responsive"
-        />
+    <StyledCard
+      elevation={2}
+      sx={{
+        minHeight: 90,
+        transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+        ':hover': {
+          color: 'rgba(25, 118, 210, 1)',
+          cursor: 'pointer',
+          transform: 'scale(1.005)',
+          boxShadow: '0px 4px 20px rgba(25, 118, 210, 0.25)',
+        },
+      }}
+    >
+      <Grid container spacing={3}>
+        <Grid item xs={12} sm={1} md={2}>
+          <Image
+            src={university_logo || placeholder}
+            width={100}
+            height={100}
+            alt={university_name}
+            objectFit="contain"
+            layout="responsive"
+          />
+        </Grid>
+        <Grid item xs={12} sm={11} md={10}>
+          <Stack direction="column" spacing={1}>
+            <Typography sx={{ fontSize: 18 }}>{career_name}</Typography>
+            <Typography sx={{ fontSize: 16 }} color="text.secondary">
+              {university_name} {university_acronym ? `(${university_acronym})` : ''}
+            </Typography>
+          </Stack>
+        </Grid>
       </Grid>
-      <Grid item xs={12} sm={11} md={10}>
-        <Stack direction="column" spacing={1}>
-          <Typography sx={{ fontSize: 18 }}>{career_name}</Typography>
-          <Typography sx={{ fontSize: 16 }} color="text.secondary">
-            {university_name} {university_acronym ? `(${university_acronym})` : ''}
-          </Typography>
-        </Stack>
-      </Grid>
-    </Grid>
-  </StyledCard>
+    </StyledCard>
+  </Link>
 );
 
 export default CareerCard;

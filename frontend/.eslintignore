@@ -6,3 +6,4 @@ jest.config.mjs
 jest.setup.js
 prettier.config.js
 docs
+codegen.ts
