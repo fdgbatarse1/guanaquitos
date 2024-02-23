@@ -16,7 +16,6 @@ const careerQuery = gql`
               }
             }
           }
-          description
           modality
           duration
           links {
@@ -28,7 +27,6 @@ const careerQuery = gql`
           job_areas {
             text
           }
-          costs
           academic_grade
           educational_field
           university {
