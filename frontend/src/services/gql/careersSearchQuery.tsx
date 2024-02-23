@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const careersSearchQuery = gql`
-  query (
+  query GetCareersSearch(
     $query: String
     $academic_grade: String
     $educational_field: String
