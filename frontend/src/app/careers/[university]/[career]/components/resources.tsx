@@ -9,7 +9,7 @@ interface ResourcesProps {
 }
 
 const Resources = ({ links }: ResourcesProps) => {
-  if (!links) return null;
+  if (!links || links.length === 0) return null;
   return (
     <Box
       sx={{
@@ -19,7 +19,7 @@ const Resources = ({ links }: ResourcesProps) => {
       <Heading4
         sx={{
           textAlign: { xs: 'center', md: 'left' },
-          marginTop: '1rem',
+          marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update Heading4 margin top
         }}
       >
         Más información
@@ -35,7 +35,9 @@ const Resources = ({ links }: ResourcesProps) => {
               key={link}
             >
               <Link href={link}>
-                <ListItemText primary={<Paragraph>{link}</Paragraph>} />
+                <ListItemText
+                  primary={<Paragraph sx={{ overflowWrap: 'break-word' }}>{link}</Paragraph>}
+                />
               </Link>
             </ListItem>
           );

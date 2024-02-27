@@ -2,10 +2,10 @@
 import { ReactNode } from 'react';
 import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
 
-import Box from '@mui/material/Box/Box';
-import Typography from '@mui/material/Typography/Typography';
-import ListItem from '@mui/material/ListItem/ListItem';
-import ListItemText from '@mui/material/ListItemText/ListItemText';
+import { Box, ListItem, ListItemText, Stack, Typography } from '@mui/material';
+
+import Paragraph from '@/styles/p';
+import Heading5 from '@/styles/h5';
 
 interface ListItemProps {
   children: ReactNode;
@@ -32,15 +32,15 @@ const ListChildren = ({ children, format }: ListItemProps): ReactNode => {
           <ListItemText
             sx={{
               padding: '0',
-              fontSize: { xs: '1rem', md: '1.125rem' },
-              lineHeight: { xs: '1.5rem', md: '1.75rem' },
+              fontSize: { xs: '1rem', md: '1.125rem', lg: '1.25rem' },
+              lineHeight: { xs: '1.5rem', md: '1.75rem', lg: '1.75' },
               letterSpacing: { xs: '0' },
             }}
             primary={
               <Typography
                 sx={{
-                  fontSize: { xs: '1rem', md: '1.125rem' },
-                  lineHeight: { xs: '1.5rem', md: '1.75rem' },
+                  fontSize: { xs: '1rem', md: '1.125rem', lg: '1.25rem' },
+                  lineHeight: { xs: '1.5rem', md: '1.75rem', lg: '1.75' },
                   letterSpacing: { xs: '0' },
                 }}
               >
@@ -63,12 +63,11 @@ const ListChildren = ({ children, format }: ListItemProps): ReactNode => {
         <Box
           component={format === 'ordered' ? 'ol' : 'ul'}
           sx={{
-            marginTop: '1rem',
-            marginLeft: '1rem',
+            marginLeft: { xs: '0.5rem', md: '1rem' },
             padding: '0',
             listStyleType: `${format === 'ordered' ? 'decimal' : 'disc'}`,
-            fontSize: { xs: '1rem', md: '1.125rem' },
-            lineHeight: { xs: '1.5rem', md: '1.75rem' },
+            fontSize: { xs: '1rem', md: '1.125rem', lg: '1.25rem' },
+            lineHeight: { xs: '1.5rem', md: '1.75rem', lg: '1.75' },
             letterSpacing: { xs: '0' },
           }}
         >
@@ -80,58 +79,43 @@ const ListChildren = ({ children, format }: ListItemProps): ReactNode => {
 };
 
 const RichTextBlocks = ({ content }: { content: BlocksContent }) => (
-  <BlocksRenderer
-    content={content}
-    blocks={{
-      paragraph: ({ children }) => (
-        <Typography
-          variant="body1"
-          sx={{
-            marginTop: '0.5rem',
-            fontSize: { xs: '1rem', md: '1.125rem' },
-            lineHeight: { xs: '1.5rem', md: '1.75rem' },
-            letterSpacing: { xs: '0' },
-          }}
-        >
-          {children}
-        </Typography>
-      ),
-      heading: ({ children }) => (
-        <Typography
-          variant="h5"
-          sx={{
-            marginTop: '1rem',
-            fontSize: { xs: '1rem', md: '1.125rem' },
-            lineHeight: { xs: '1.5rem', md: '1.75rem' },
-            letterSpacing: { xs: '0' },
-          }}
-        >
-          {children}
-        </Typography>
-      ),
-      list: ({ children, format }) => (
-        <Box
-          component={format === 'ordered' ? 'ol' : 'ul'}
-          sx={{
-            marginTop: '1rem',
-            marginLeft: '1rem',
-            padding: '0',
-            listStyleType: `${format === 'ordered' ? 'decimal' : 'disc'}`,
-            fontSize: { xs: '1rem', md: '1.125rem' },
-            lineHeight: { xs: '1.5rem', md: '1.75rem' },
-            letterSpacing: { xs: '0' },
-          }}
-        >
-          <ListChildren format={format}>{children}</ListChildren>
-        </Box>
-      ),
+  <Box
+    sx={{
+      marginTop: { xs: '0.5rem', md: '1rem' },
+      display: 'grid',
+      gap: { xs: '0.25rem', md: '0.5rem' },
     }}
-    modifiers={{
-      bold: ({ children }) => <span style={{ fontWeight: 500 }}>{children}</span>,
-      italic: ({ children }) => <span style={{ fontStyle: 'italic' }}>{children}</span>,
-      underline: ({ children }) => <span style={{ textDecoration: 'underline' }}>{children}</span>,
-    }}
-  />
+  >
+    <BlocksRenderer
+      content={content}
+      blocks={{
+        paragraph: ({ children }) => <Paragraph>{children}</Paragraph>,
+        heading: ({ children }) => <Heading5>{children}</Heading5>,
+        list: ({ children, format }) => (
+          <Box
+            component={format === 'ordered' ? 'ol' : 'ul'}
+            sx={{
+              marginLeft: { xs: '0.5rem', md: '1rem' },
+              padding: '0',
+              listStyleType: `${format === 'ordered' ? 'decimal' : 'disc'}`,
+              fontSize: { xs: '1rem', md: '1.125rem', lg: '1.25rem' },
+              lineHeight: { xs: '1.5rem', md: '1.75rem', lg: '1.75' },
+              letterSpacing: { xs: '0' },
+            }}
+          >
+            <ListChildren format={format}>{children}</ListChildren>
+          </Box>
+        ),
+      }}
+      modifiers={{
+        bold: ({ children }) => <span style={{ fontWeight: 500 }}>{children}</span>,
+        italic: ({ children }) => <span style={{ fontStyle: 'italic' }}>{children}</span>,
+        underline: ({ children }) => (
+          <span style={{ textDecoration: 'underline' }}>{children}</span>
+        ),
+      }}
+    />
+  </Box>
 );
 
 export default RichTextBlocks;

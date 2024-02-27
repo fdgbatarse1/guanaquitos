@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Box } from '@mui/material';
 
 import Map from '@/components/map';
-import Heading2 from '@/styles/h2';
+import Heading3 from '@/styles/h3';
 import Heading5 from '@/styles/h5';
 import Paragraph from '@/styles/p';
 
@@ -21,6 +21,7 @@ interface UniversityProps {
   universityWebsites?: (string | null | undefined)[];
   universityPhones?: (string | null | undefined)[];
   universityEmails?: (string | null | undefined)[];
+  universityAcronym?: string;
 }
 
 const University = ({
@@ -32,25 +33,30 @@ const University = ({
   universityWebsites,
   universityPhones,
   universityEmails,
+  universityAcronym,
 }: UniversityProps) => {
   const contactInformation = [
     {
-      title: 'Sitios web',
+      singularTitle: 'Sitio web',
+      pluralTitle: 'Sitios web',
       content: universityWebsites,
     },
     {
-      title: 'Telefono',
+      singularTitle: 'Teléfono',
+      pluralTitle: 'Teléfonos',
       content: universityPhones,
     },
     {
-      title: 'Correo electronico',
+      singularTitle: 'Correo electrónico',
+      pluralTitle: 'Correos electrónicos',
       content: universityEmails,
     },
   ];
 
   if (universityAddresses) {
     contactInformation.push({
-      title: 'Dirección',
+      singularTitle: 'Dirección',
+      pluralTitle: 'Direcciones',
       content: universityAddresses.map((address) => address.addressDescription),
     });
   }
@@ -58,9 +64,16 @@ const University = ({
   const hasImage = universityLogo && universityName && universityLogoWidth && universityLogoHeight;
 
   return (
-    <Box sx={{ gridArea: 'university', display: 'flex', flexDirection: 'column' }}>
+    <Box
+      sx={{
+        gridArea: 'university',
+        display: 'flex',
+        flexDirection: 'column',
+        marginTop: { xs: '0.5rem', md: '1rem' },
+      }}
+    >
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }}>
-        {hasImage && (
+        {/* {hasImage && (
           <Image
             style={{ width: '60px', height: 'auto' }}
             src={universityLogo}
@@ -68,49 +81,54 @@ const University = ({
             width={universityLogoWidth}
             height={universityLogoHeight}
           />
-        )}
-        {universityName && (
-          <Heading2
+        )} */}
+        {universityName && universityAcronym && (
+          <Heading3
             sx={{
-              marginLeft: hasImage ? '2rem' : '0',
+              marginLeft: '0',
+              weight: '900',
             }}
           >
-            {universityName}
-          </Heading2>
+            {`${universityName} (${universityAcronym})`}
+          </Heading3>
         )}
       </Box>
       <Box
         sx={{
-          marginTop: '1rem',
+          marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update Box university margin top
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
         }}
       >
         {universityAddresses && <Map locations={universityAddresses} />}
         <Box>
-          {contactInformation.map((information) => {
+          {contactInformation.map((information, index) => {
             if (!information.content || information.content.length === 0) return null;
             return (
               <Box
                 sx={{
                   marginLeft: { xs: '0', md: '1rem' },
-                  marginTop: { xs: '1rem', md: '0' },
+                  marginTop: { xs: '0.5rem', md: '0' }, // TODO - Update Box list margin top
                 }}
+                key={information.singularTitle}
               >
                 <Heading5
                   sx={{
-                    marginTop: '1rem',
+                    marginTop: index === 0 ? 0 : { xs: '0.5', md: '1rem' }, // TODO - Update Heading5 margin top
                   }}
                 >
-                  {information.title}
+                  {information.content.length > 1
+                    ? information.pluralTitle
+                    : information.singularTitle}
                 </Heading5>
                 {information.content.map((content) => {
                   if (!content) return null;
                   return (
                     <Paragraph
                       sx={{
-                        marginTop: '0.5rem',
+                        marginTop: { xs: '0.25rem', md: '0.5rem' }, // TODO - Update Heading5 margin top
                       }}
+                      key={content}
                     >
                       {content}
                     </Paragraph>

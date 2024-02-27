@@ -15,15 +15,17 @@ interface MapProps {
 }
 
 function Map({ locations }: MapProps) {
-  const center = {
-    lat: locations[0].lat || 0,
-    lng: locations[0].lng || 0,
-  };
-  
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
     googleMapsApiKey: 'AIzaSyB4rJpJGuv3b9lGrW0oJHNXMUYinD-3ATw',
   });
+
+  if (locations.length === 0) return null;
+
+  const center = {
+    lat: locations[0].lat || 0,
+    lng: locations[0].lng || 0,
+  };
 
   if (loadError || !isLoaded) return null;
 

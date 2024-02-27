@@ -1,5 +1,6 @@
 'use client';
 
+import { Fragment } from 'react';
 import { Paper, useMediaQuery, useTheme } from '@mui/material';
 
 import Heading4 from '@/styles/h4';
@@ -19,9 +20,9 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
   const isMediumScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const details = [
-    { title: 'Titulo obtenido', paragraph: title },
+    { title: 'Título obtenido', paragraph: title },
     { title: 'Modalidad', paragraph: modality },
-    { title: 'Grado Academico', paragraph: academicDegree },
+    { title: 'Grado Académico', paragraph: academicDegree },
     { title: 'Campo educacional', paragraph: educationalField },
     { title: 'Duración', paragraph: duration },
   ];
@@ -39,22 +40,22 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
       {details.map((detail, index) => {
         if (!detail.paragraph) return null;
         return (
-          <>
+          <Fragment key={detail.title}>
             <Heading4
               sx={{
-                marginTop: index === 0 ? '0' : '1rem',
+                marginTop: index === 0 ? '0' : { xs: '0.5rem', md: '1rem' }, // TODO - Update Heading4 margin top
               }}
             >
               {detail.title}
             </Heading4>
             <Paragraph
               sx={{
-                marginTop: '0.5rem',
+                marginTop: { xs: '0.25rem', md: '0.5rem' }, // TODO - Update paragraph margin top
               }}
             >
               {detail.paragraph}
             </Paragraph>
-          </>
+          </Fragment>
         );
       })}
     </Paper>

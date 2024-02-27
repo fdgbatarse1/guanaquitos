@@ -50,13 +50,13 @@ const CareerPage = ({ params }: CareerPageProps) => {
     >
       <Box
         sx={{
-          maxWidth: { xs: '100%', md: '768px', lg: '1024px', xl: '1280px' },
+          maxWidth: { xs: '100%', md: '800px', lg: '1024px', xl: '1280px' },
         }}
       >
         <Banner name={career.name} curriculum={career?.curriculum} />
         <Box
           sx={{
-            marginTop: '1rem',
+            marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update Box margin top
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', sm: '2fr 1fr' },
             gridTemplateRows: 'min-content 1fr',
@@ -64,11 +64,11 @@ const CareerPage = ({ params }: CareerPageProps) => {
               xs: '"details" "overview" "fees" "university" "resources"',
               sm: '"overview details" "overview resources" "fees fees" "university university"',
             },
-            gridGap: { xs: '1rem', md: '2rem' },
+            gridGap: { xs: '0.5rem', md: '1rem' },
           }}
         >
           <Overview
-            description={career.description}
+            description={career?.description}
             studyAreas={career?.studyAreas}
             jobAreas={career?.jobAreas}
           />
@@ -90,6 +90,7 @@ const CareerPage = ({ params }: CareerPageProps) => {
             universityWebsites={career?.universityWebsites}
             universityPhones={career?.universityPhones}
             universityEmails={career?.universityEmails}
+            universityAcronym={career?.universityAcronym}
           />
         </Box>
       </Box>

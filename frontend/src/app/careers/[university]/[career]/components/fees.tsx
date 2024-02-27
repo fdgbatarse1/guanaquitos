@@ -3,6 +3,7 @@ import { type BlocksContent } from '@strapi/blocks-react-renderer';
 
 import RichTextBlocks from '@/components/rich-text-blocks';
 import Heading3 from '@/styles/h3';
+import { Fragment } from 'react';
 
 interface FeesProps {
   costs?: BlocksContent;
@@ -20,17 +21,17 @@ const Fees = ({ costs, discounts }: FeesProps) => {
       {fees.map((fee, index) => {
         if (!fee.content) return null;
         return (
-          <>
+          <Fragment key={fee.title}>
             <Heading3
               sx={{
-                marginTop: index === 0 ? '0' : '1rem',
+                marginTop: index === 0 ? '0' : { xs: '0.5rem', md: '1rem' }, // TODO - Update Heading3 margin top
                 textAlign: { xs: 'center', md: 'left' },
               }}
             >
               {fee.title}
             </Heading3>
             <RichTextBlocks content={fee.content} />
-          </>
+          </Fragment>
         );
       })}
     </Box>
