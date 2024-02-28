@@ -1,0 +1,9 @@
+.next
+node_modules
+next-env.d.ts
+next.config.js
+jest.config.mjs
+jest.setup.js
+prettier.config.js
+docs
+codegen.ts
