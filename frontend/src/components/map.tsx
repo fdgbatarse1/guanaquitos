@@ -15,9 +15,11 @@ interface MapProps {
 }
 
 function Map({ locations }: MapProps) {
+  const GOOGLE_MAPS_API = process.env.GOOGLE_MAPS_API_KEY || '';
+
   const { isLoaded, loadError } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: 'AIzaSyB4rJpJGuv3b9lGrW0oJHNXMUYinD-3ATw',
+    googleMapsApiKey: GOOGLE_MAPS_API,
   });
 
   if (locations.length === 0) return null;
