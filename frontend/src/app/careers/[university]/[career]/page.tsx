@@ -1,40 +1,19 @@
 'use client';
 
-import Link from 'next/link';
 import { useQuery } from '@apollo/client';
-
-import careerQuery from '@/services/gql/careerQuery';
-
-import {
-  Container,
-  Typography,
-  Box,
-  List,
-  ListItem,
-  Button,
-  ListItemIcon,
-  Divider,
-  Paper,
-  Grid,
-  Card,
-  ListItemText,
-  Chip,
-  CardContent,
-} from '@mui/material';
-
-import {
-  School,
-  Work,
-  AccessTime,
-  Description,
-  Web,
-  Email,
-  Phone,
-  Home,
-  Link as LinkIcon,
-} from '@mui/icons-material';
+import { Box } from '@mui/material';
 
 import { GetCareerQuery } from '@/gql/graphql';
+import careerQuery from '@/services/gql/careerQuery';
+import { spacing3 } from '@/styles/spacing';
+
+import Banner from './components/banner';
+import Details from './components/details';
+import Fees from './components/fees';
+import Overview from './components/overview';
+import Resources from './components/resources';
+import University from './components/university';
+import format from './utils/format';
 
 interface CareerPageProps {
   params: {
@@ -56,43 +35,67 @@ const CareerPage = ({ params }: CareerPageProps) => {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
-  const careerData = data?.careers?.data?.[0]?.attributes;
-  const curriculumData = careerData?.curriculum?.data[0]?.attributes;
-  const universityData = careerData?.university?.data?.attributes;
-  const universityLogoData = universityData?.logo.data?.attributes;
+  const career = format(data);
 
-  if (!careerData) return <p>No career data found</p>;
+  if (!career) return <p>Error: No data</p>;
 
-  const career = {
-    name: careerData?.name,
-    title: careerData?.title,
-    academicDegree: careerData?.academic_grade,
-    educationalField: careerData?.educational_field,
-    modality: careerData?.modality,
-    duration: careerData?.duration,
-    curriculum: curriculumData?.url,
-    // description: careerData?.description?.split('\n'),
-    studyAreas: careerData?.study_areas?.map((studyArea) => studyArea?.text),
-    jobAreas: careerData?.job_areas?.map((jobArea) => jobArea?.text),
-    // costs: careerData?.costs?.split('\n'),
-    links: careerData?.links?.map((link) => link?.text),
-    universityName: universityData?.name,
-    universityAcronym: universityData?.acronym,
-    universityLogo: universityLogoData?.url,
-    universityWebsites: universityData?.websites?.map((website) => website?.text),
-    universityEmails: universityData?.emails?.map((email) => email?.text),
-    universityPhones: universityData?.phones?.map((phone) => phone?.text),
-    universityAddresses: universityData?.addresses?.map((address) => ({
-      lat: address?.map.coordinates.lat,
-      lng: address?.map.coordinates.lng,
-      address: address?.map.address,
-      addressDescription: address?.address,
-    })),
-  };
-
-  console.log(career);
-
-  return <div>hello</div>;
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: '1rem',
+      }}
+    >
+      <Box
+        sx={{
+          maxWidth: { xs: '100%', md: '800px', lg: '1024px', xl: '1280px' },
+        }}
+      >
+        <Banner name={career.name} curriculum={career?.curriculum} />
+        <Box
+          sx={{
+            marginTop: spacing3, // TODO - Update Box margin top
+            display: 'grid',
+            gridTemplateColumns: { xs: '1fr', sm: '2fr 1fr' },
+            gridTemplateRows: 'min-content 1fr',
+            gridTemplateAreas: {
+              xs: '"details" "overview" "fees" "university" "resources"',
+              sm: '"overview details" "overview resources" "fees fees" "university university"',
+            },
+            gridGap: spacing3,
+          }}
+        >
+          <Overview
+            description={career?.description}
+            studyAreas={career?.studyAreas}
+            jobAreas={career?.jobAreas}
+          />
+          <Details
+            title={career.title}
+            modality={career.modality}
+            academicDegree={career.academicDegree}
+            educationalField={career.educationalField}
+            duration={career.duration}
+          />
+          <Resources links={career?.links} />
+          <Fees costs={career?.costs} discounts={career?.discounts} />
+          <University
+            universityLogo={career?.universityLogo}
+            universityName={career?.universityName}
+            universityLogoWidth={career?.universityLogoWidth}
+            universityLogoHeight={career?.universityLogoHeight}
+            universityAddresses={career?.universityAddresses}
+            universityWebsites={career?.universityWebsites}
+            universityPhones={career?.universityPhones}
+            universityEmails={career?.universityEmails}
+            universityAcronym={career?.universityAcronym}
+          />
+        </Box>
+      </Box>
+    </Box>
+  );
 };
 
 export default CareerPage;
