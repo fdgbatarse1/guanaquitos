@@ -4,6 +4,7 @@ import { type BlocksContent } from '@strapi/blocks-react-renderer';
 import RichTextBlocks from '@/components/rich-text-blocks';
 import Heading3 from '@/styles/h3';
 import List from '@/styles/list';
+import { spacing3 } from '@/styles/spacing';
 
 interface OverviewProps {
   description?: BlocksContent;
@@ -22,7 +23,6 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
         <Heading3
           sx={{
             marginBottom: '0.5rem',
-            textAlign: { xs: 'center', md: 'left' },
           }}
         >
           Descripción
@@ -34,8 +34,7 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
       <>
         <Heading3
           sx={{
-            marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update Heading3 margin top
-            textAlign: { xs: 'center', md: 'left' },
+            marginTop: spacing3, // TODO - Update Heading3 margin top
           }}
         >
           Áreas de estudio
@@ -44,7 +43,7 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
           array={studyAreas}
           type="ul"
           sx={{
-            marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update List margin top
+            marginTop: spacing3, // TODO - Update List margin top
             marginLeft: '1rem',
           }}
         />
@@ -54,8 +53,7 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
       <>
         <Heading3
           sx={{
-            marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update Heading3 margin top
-            textAlign: { xs: 'center', md: 'left' },
+            marginTop: spacing3, // TODO - Update Heading3 margin top
           }}
         >
           Áreas de desempeño laboral
@@ -64,7 +62,7 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
           array={jobAreas}
           type="ul"
           sx={{
-            marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update List margin top
+            marginTop: spacing3, // TODO - Update List margin top
             marginLeft: '1rem',
           }}
         />

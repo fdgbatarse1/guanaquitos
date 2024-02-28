@@ -37,10 +37,10 @@ const CareerCard = ({
         minHeight: 90,
         transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
         ':hover': {
-          color: '#003366',
+          color: 'rgba(25, 118, 210, 1)',
           cursor: 'pointer',
           transform: 'scale(1.005)',
-          boxShadow: '0px 4px 20px rgba(0, 20, 40, 0.25)',
+          boxShadow: '0px 4px 20px rgba(25, 118, 210, 0.25)',
         },
       }}
     >

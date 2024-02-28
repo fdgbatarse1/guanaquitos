@@ -195,7 +195,7 @@ const Home = ({
   ];
 
   return (
-    <Grid container bgcolor="#f0f0f0" padding={4} gap={4} direction="column" alignItems="center">
+    <Grid container padding={4} gap={4} direction="column" alignItems="center">
       <ComplexSearch
         query={query}
         fetchOptions={fetchOptions}

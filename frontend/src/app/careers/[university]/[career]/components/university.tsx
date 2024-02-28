@@ -6,6 +6,7 @@ import Map from '@/components/map';
 import Heading3 from '@/styles/h3';
 import Heading5 from '@/styles/h5';
 import Paragraph from '@/styles/p';
+import { spacing2, spacing3 } from '@/styles/spacing';
 
 interface UniversityProps {
   universityLogo?: string;
@@ -69,7 +70,7 @@ const University = ({
         gridArea: 'university',
         display: 'flex',
         flexDirection: 'column',
-        marginTop: { xs: '0.5rem', md: '1rem' },
+        marginTop: spacing3,
       }}
     >
       <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'start' }}>
@@ -95,7 +96,7 @@ const University = ({
       </Box>
       <Box
         sx={{
-          marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update Box university margin top
+          marginTop: spacing3, // TODO - Update Box university margin top
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
         }}
@@ -107,14 +108,14 @@ const University = ({
             return (
               <Box
                 sx={{
-                  marginLeft: { xs: '0', md: '1rem' },
-                  marginTop: { xs: '0.5rem', md: '0' }, // TODO - Update Box list margin top
+                  marginLeft: { xs: '0', md: '2rem' },
+                  marginTop: { xs: '1rem', md: '0' }, // TODO - Update Box list margin top
                 }}
                 key={information.singularTitle}
               >
                 <Heading5
                   sx={{
-                    marginTop: index === 0 ? 0 : { xs: '0.5', md: '1rem' }, // TODO - Update Heading5 margin top
+                    marginTop: index === 0 ? 0 : spacing3, // TODO - Update Heading5 margin top
                   }}
                 >
                   {information.content.length > 1
@@ -126,7 +127,7 @@ const University = ({
                   return (
                     <Paragraph
                       sx={{
-                        marginTop: { xs: '0.25rem', md: '0.5rem' }, // TODO - Update Heading5 margin top
+                        marginTop: spacing2, // TODO - Update Heading5 margin top
                       }}
                       key={content}
                     >

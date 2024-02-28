@@ -6,6 +6,7 @@ import { Paper, useMediaQuery, useTheme } from '@mui/material';
 import Heading4 from '@/styles/h4';
 import Paragraph from '@/styles/p';
 import { Enum_Career_Educational_Field } from '@/gql/graphql';
+import { spacing2, spacing3 } from '@/styles/spacing';
 
 interface DetailsProps {
   title?: string;
@@ -31,11 +32,11 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
     <Paper
       sx={{
         gridArea: 'details',
-        backgroundColor: { xs: '#F0F0F0', sm: '#FAFAFA' },
-        padding: { xs: '0', sm: '1rem' },
-        borderRadius: { xs: '0', sm: '4px' },
+
+        boxShadow: '0px 4px 20px rgba(0, 20, 40, 0.25)',
+        padding: { xs: '1rem', sm: '2rem' },
+        borderRadius: { xs: '4px' },
       }}
-      elevation={isMediumScreen ? 0 : 1}
     >
       {details.map((detail, index) => {
         if (!detail.paragraph) return null;
@@ -43,14 +44,14 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
           <Fragment key={detail.title}>
             <Heading4
               sx={{
-                marginTop: index === 0 ? '0' : { xs: '0.5rem', md: '1rem' }, // TODO - Update Heading4 margin top
+                marginTop: index === 0 ? '0' : spacing3, // TODO - Update Heading4 margin top
               }}
             >
               {detail.title}
             </Heading4>
             <Paragraph
               sx={{
-                marginTop: { xs: '0.25rem', md: '0.5rem' }, // TODO - Update paragraph margin top
+                marginTop: spacing2, // TODO - Update paragraph margin top
               }}
             >
               {detail.paragraph}

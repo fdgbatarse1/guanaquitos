@@ -4,6 +4,7 @@ import { Box, Button, Divider } from '@mui/material';
 import { School } from '@mui/icons-material';
 
 import Heading1 from '@/styles/h1';
+import { spacing3 } from '@/styles/spacing';
 
 interface BannerProps {
   name: string;
@@ -49,7 +50,7 @@ const Banner = ({ name, curriculum }: BannerProps) => (
     </Box>
     <Divider
       sx={{
-        marginTop: '1rem', // TODO - Update Divider margin top
+        marginTop: spacing3, // TODO - Update Divider margin top
       }}
     />
   </>

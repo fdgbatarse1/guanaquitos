@@ -13,27 +13,20 @@ const inter = Inter({
 export const themeOptions: ThemeOptions = {
   palette: {
     mode: 'light',
-    primary: {
-      main: '#003366',
-      dark: '#00234f',
-      light: '#083c72',
-      contrastText: '#e5e9ef',
-    },
     secondary: {
-      main: '#c0c0c0',
-      dark: '#a1a1a1',
-      light: '#e3e3e3',
+      main: '#F3F8FF',
+      dark: '#EBF3FF',
+      light: '#FFFFFF',
       contrastText: '#232323',
     },
     background: {
-      default: '#f0f0f0',
-      paper: '#fafafa',
+      paper: '#F3F8FF',
     },
-    divider: '#3E363FFF',
+    divider: '#3a3637',
     text: {
-      primary: '#232323',
-      secondary: 'rgba(35,35,35,0.8)',
-      disabled: 'rgba(35,35,35,0.6)',
+      primary: '#3a3637',
+      secondary: '#4A4546',
+      disabled: '#6A6264',
     },
   },
   typography: {

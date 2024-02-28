@@ -3,6 +3,7 @@ import { Box, List, ListItem, ListItemText } from '@mui/material';
 import Heading4 from '@/styles/h4';
 import Link from 'next/link';
 import Paragraph from '@/styles/p';
+import { spacing3 } from '@/styles/spacing';
 
 interface ResourcesProps {
   links?: (string | null | undefined)[];
@@ -19,7 +20,7 @@ const Resources = ({ links }: ResourcesProps) => {
       <Heading4
         sx={{
           textAlign: { xs: 'center', md: 'left' },
-          marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update Heading4 margin top
+          marginTop: spacing3, // TODO - Update Heading4 margin top
         }}
       >
         Más información

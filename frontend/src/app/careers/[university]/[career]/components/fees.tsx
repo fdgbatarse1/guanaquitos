@@ -4,6 +4,7 @@ import { type BlocksContent } from '@strapi/blocks-react-renderer';
 import RichTextBlocks from '@/components/rich-text-blocks';
 import Heading3 from '@/styles/h3';
 import { Fragment } from 'react';
+import { spacing3 } from '@/styles/spacing';
 
 interface FeesProps {
   costs?: BlocksContent;
@@ -24,8 +25,7 @@ const Fees = ({ costs, discounts }: FeesProps) => {
           <Fragment key={fee.title}>
             <Heading3
               sx={{
-                marginTop: index === 0 ? '0' : { xs: '0.5rem', md: '1rem' }, // TODO - Update Heading3 margin top
-                textAlign: { xs: 'center', md: 'left' },
+                marginTop: index === 0 ? '0' : spacing3, // TODO - Update Heading3 margin top
               }}
             >
               {fee.title}

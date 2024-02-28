@@ -5,6 +5,7 @@ import { Box } from '@mui/material';
 
 import { GetCareerQuery } from '@/gql/graphql';
 import careerQuery from '@/services/gql/careerQuery';
+import { spacing3 } from '@/styles/spacing';
 
 import Banner from './components/banner';
 import Details from './components/details';
@@ -45,7 +46,6 @@ const CareerPage = ({ params }: CareerPageProps) => {
         justifyContent: 'center',
         alignItems: 'center',
         padding: '1rem',
-        backgroundColor: '#F0F0F0',
       }}
     >
       <Box
@@ -56,7 +56,7 @@ const CareerPage = ({ params }: CareerPageProps) => {
         <Banner name={career.name} curriculum={career?.curriculum} />
         <Box
           sx={{
-            marginTop: { xs: '0.5rem', md: '1rem' }, // TODO - Update Box margin top
+            marginTop: spacing3, // TODO - Update Box margin top
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', sm: '2fr 1fr' },
             gridTemplateRows: 'min-content 1fr',
@@ -64,7 +64,7 @@ const CareerPage = ({ params }: CareerPageProps) => {
               xs: '"details" "overview" "fees" "university" "resources"',
               sm: '"overview details" "overview resources" "fees fees" "university university"',
             },
-            gridGap: { xs: '0.5rem', md: '1rem' },
+            gridGap: spacing3,
           }}
         >
           <Overview
