@@ -13,8 +13,7 @@ function Loading() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      minHeight="100vh"
-      minWidth="100vw"
+      sx={{ minHeight: { xs: 'calc(100vh - 4rem)', sm: 'calc(100vh - 80px)' } }}
     >
       <CircularProgress variant="indeterminate" />
     </Box>

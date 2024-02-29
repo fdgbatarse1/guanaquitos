@@ -128,9 +128,29 @@ const Navbar = () => {
   const theme = useTheme();
   const [isOpen, toggle] = useToggle();
 
-  const handleToggle = () => {
+  const handleLink = () => {
+    if (!isOpen) return;
     toggle();
   };
+
+  const routes = [
+    {
+      name: 'Inicio',
+      path: '/',
+    },
+    {
+      name: 'Orientación',
+      path: '/orientation',
+    },
+    {
+      name: 'Carreras',
+      path: '/careers',
+    },
+    {
+      name: 'Becas',
+      path: '/scholarships',
+    },
+  ];
 
   return (
     <Header theme={theme} isOpen={isOpen}>
@@ -139,24 +159,24 @@ const Navbar = () => {
         <Name>Fernando González</Name>
       </LeftSide> */}
       {isOpen ? (
-        <CloseToogle theme={theme} aria-label="Cerrar" onClick={handleToggle} isOpen={isOpen} />
+        <CloseToogle theme={theme} aria-label="Cerrar" onClick={toggle} isOpen={isOpen} />
       ) : (
-        <OpenToogle theme={theme} aria-label="Abrir" onClick={handleToggle} isOpen={isOpen} />
+        <OpenToogle theme={theme} aria-label="Abrir" onClick={toggle} isOpen={isOpen} />
       )}
       <Navigation theme={theme} isOpen={isOpen}>
         <List>
-          <li>
-            <StyledLink href="/">Inicio</StyledLink>
-          </li>
-          <li>
-            <StyledLink href="/orientation">Orientación</StyledLink>
-          </li>
-          <li>
-            <StyledLink href="/careers">Carreras</StyledLink>
-          </li>
-          <li>
-            <StyledLink href="/scholarships">Becas</StyledLink>
-          </li>
+          {routes.map((route) => (
+            <li key={route.path}>
+              <StyledLink
+                onClick={() => {
+                  handleLink();
+                }}
+                href={route.path}
+              >
+                {route.name}
+              </StyledLink>
+            </li>
+          ))}
         </List>
       </Navigation>
     </Header>
