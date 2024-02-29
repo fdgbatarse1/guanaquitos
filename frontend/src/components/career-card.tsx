@@ -34,7 +34,7 @@ const CareerCard = ({
     <StyledCard
       elevation={2}
       sx={{
-        minHeight: 90,
+        minHeight: 120,
         transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
         ':hover': {
           color: 'rgba(25, 118, 210, 1)',
