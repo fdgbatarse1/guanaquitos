@@ -6,7 +6,7 @@ import Map from '@/components/map';
 import Heading3 from '@/styles/h3';
 import Heading5 from '@/styles/h5';
 import Paragraph from '@/styles/p';
-import { spacing2, spacing3 } from '@/styles/spacing';
+import { spacing1, spacing2, spacing3 } from '@/styles/spacing';
 
 interface UniversityProps {
   universityLogo?: string;
@@ -115,7 +115,7 @@ const University = ({
               >
                 <Heading5
                   sx={{
-                    marginTop: index === 0 ? 0 : spacing3, // TODO - Update Heading5 margin top
+                    marginTop: index === 0 ? 0 : spacing2, // TODO - Update Heading5 margin top
                   }}
                 >
                   {information.content.length > 1
@@ -127,7 +127,7 @@ const University = ({
                   return (
                     <Paragraph
                       sx={{
-                        marginTop: spacing2, // TODO - Update Heading5 margin top
+                        marginTop: spacing1, // TODO - Update Heading5 margin top
                       }}
                       key={content}
                     >

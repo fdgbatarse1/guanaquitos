@@ -3,6 +3,7 @@
 import { useQuery } from '@apollo/client';
 import { Box } from '@mui/material';
 
+import Loading from '@/components/loading';
 import { GetCareerQuery } from '@/gql/graphql';
 import careerQuery from '@/services/gql/careerQuery';
 import { spacing3 } from '@/styles/spacing';
@@ -32,7 +33,7 @@ const CareerPage = ({ params }: CareerPageProps) => {
     },
   });
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error.message}</p>;
 
   const career = format(data);
