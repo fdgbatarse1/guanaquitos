@@ -20,15 +20,15 @@ const NotFoundPage = () => (
       404
     </Typography>
     <Typography variant="h5" gutterBottom>
-      Oops! The page you&apos;re looking for isn&apos;t here.
+      ¡Ups! La página que buscas no está aquí.
     </Typography>
     <Typography variant="body1" gutterBottom>
-      You might have the wrong address, or the page may have moved.
+      Podrías tener la dirección incorrecta o quizás la página se haya movido.
     </Typography>
     <Box mt={4}>
       <Link href="/">
         <Button variant="contained" color="primary">
-          Go to Homepage
+          Volver a la página principal
         </Button>
       </Link>
     </Box>
