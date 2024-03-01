@@ -73,16 +73,16 @@ const Home = ({
       id: 'degree',
       items: [
         {
-          label: 'Tecnico',
-          id: 'Tecnico',
+          label: 'Técnico',
+          id: 'Técnico',
         },
         {
           label: 'Profesorado',
           id: 'Profesorado',
         },
         {
-          label: 'Tecnologo',
-          id: 'Tecnologo',
+          label: 'Tecnólogo',
+          id: 'Tecnólogo',
         },
         {
           label: 'Licenciatura',
@@ -93,24 +93,24 @@ const Home = ({
           id: 'Arquitectura',
         },
         {
-          label: 'Ingenieria',
-          id: 'Ingenieria',
+          label: 'Ingeniería',
+          id: 'Ingeniería',
         },
         {
           label: 'Doctorado (grado)',
-          id: 'Doctorado_grado',
+          id: 'Doctorado (grado)',
         },
         {
           label: 'Especialista',
           id: 'Especialista',
         },
         {
-          label: 'Maestria',
-          id: 'Maestria',
+          label: 'Maestría',
+          id: 'Maestría',
         },
         {
           label: 'Doctorado posgrado',
-          id: 'Doctorado_posgrado',
+          id: 'Doctorado posgrado',
         },
       ],
       label: 'Grado académico',
@@ -121,27 +121,27 @@ const Home = ({
       items: [
         {
           label: 'Programas generales',
-          id: 'Programas_generales',
+          id: 'Programas generales',
         },
         {
-          label: 'Educacion',
-          id: 'Educacion',
+          label: 'Educación',
+          id: 'Educación',
         },
         {
           label: 'Humanidades y artes',
-          id: 'Humanidades_y_artes',
+          id: 'Humanidades y artes',
         },
         {
           label: 'Ciencias sociales, educación comercial y derecho',
-          id: 'Ciencias_sociales_educacion_comercial_y_derecho',
+          id: 'Ciencias sociales, educación comercial y derecho',
         },
         {
           label: 'Ciencias',
           id: 'Ciencias',
         },
         {
-          label: 'Ingeniería industria y construcción',
-          id: 'Ingenieria_industria_y_construccion',
+          label: 'Ingeniería, industria y construcción',
+          id: 'Ingeniería, industria y construcción',
         },
         {
           label: 'Agricultura',
@@ -149,7 +149,7 @@ const Home = ({
         },
         {
           label: 'Salud y servicios sociales',
-          id: 'Salud_y_servicios_sociales',
+          id: 'Salud y servicios sociales',
         },
         {
           label: 'Servicios',
@@ -157,7 +157,7 @@ const Home = ({
         },
         {
           label: 'Sectores desconocidos o no especificados',
-          id: 'Sectores_desconocidos_o_no_especificados',
+          id: 'Sectores desconocidos o no especificados',
         },
       ],
       label: 'Categoría',
