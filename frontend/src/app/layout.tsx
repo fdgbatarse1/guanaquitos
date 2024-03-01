@@ -26,7 +26,13 @@ export default function RootLayout({
           <AppRouterCacheProvider options={{ key: 'css' }}>
             <ThemeProvider theme={theme}>
               <Navbar />
-              <Box component="main" sx={{ marginTop: { xs: '4rem', md: '80px' } }}>
+              <Box
+                component="main"
+                sx={{
+                  backgroundColor: theme.palette.background.default,
+                  marginTop: { xs: '4rem', md: '80px' },
+                }}
+              >
                 {children}
               </Box>
             </ThemeProvider>

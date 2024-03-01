@@ -19,7 +19,7 @@ const Header = styled('header')(({ theme, isOpen }: StyledProps) => ({
   alignItems: 'center',
   justifyContent: isOpen ? 'center' : 'end',
   height: isOpen ? '100%' : '4rem',
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: theme.palette.background.default,
   [theme.breakpoints.up('sm')]: {
     padding: '1.5rem',
   },
@@ -102,9 +102,6 @@ const List = styled('ul')(({ theme }) => ({
 const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   color: theme.palette.text.primary,
-  //   fontSize: { xs: '1.25rem', md: '1.5rem', lg: '1.875rem' },
-  //   lineHeight: { xs: '1.75rem', md: '2rem', lg: '2.25rem' },
-  //   letterSpacing: { xs: '0' },
   fontSize: '1.25rem',
   lineHeight: '1.75rem',
   letterSpacing: '0',
@@ -119,7 +116,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
 
   '&:hover': {
     color: theme.palette.primary.main,
-    // space between text and underline
     borderBottom: `2px solid ${theme.palette.primary.main}`,
   },
 }));

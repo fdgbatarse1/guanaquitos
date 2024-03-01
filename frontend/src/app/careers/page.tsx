@@ -1,7 +1,7 @@
 'use client';
 
 import client from '@/lib/apollo-client';
-import Grid from '@mui/material/Grid/Grid';
+import { Grid } from '@mui/material';
 
 import Pagination from '@/components/pagination';
 import ComplexSearch from '@/components/complex-search';
