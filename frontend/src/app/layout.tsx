@@ -31,6 +31,7 @@ export default function RootLayout({
                 sx={{
                   backgroundColor: theme.palette.background.default,
                   marginTop: { xs: '4rem', md: '80px' },
+                  minHeight: { xs: 'calc(100vh - 4rem)', sm: 'calc(100vh - 80px)' },
                 }}
               >
                 {children}
