@@ -8,7 +8,9 @@ interface StyledProps {
   isOpen: boolean;
 }
 
-const Header = styled('header')(({ theme, isOpen }: StyledProps) => ({
+const Header = styled('header', {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})(({ theme, isOpen }: StyledProps) => ({
   position: 'fixed',
   left: 0,
   top: 0,
@@ -51,14 +53,18 @@ const Header = styled('header')(({ theme, isOpen }: StyledProps) => ({
 //   },
 // }));
 
-const Navigation = styled('nav')(({ theme, isOpen }: StyledProps) => ({
+const Navigation = styled('nav', {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})(({ theme, isOpen }: StyledProps) => ({
   display: isOpen ? 'block' : 'none',
   [theme.breakpoints.up('md')]: {
     display: 'block',
   },
 }));
 
-const CloseToogle = styled(Close)(({ theme, isOpen }: StyledProps) => ({
+const CloseToogle = styled(Close, {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})(({ theme, isOpen }: StyledProps) => ({
   display: 'block',
   position: 'fixed',
   right: '1rem',
@@ -72,7 +78,9 @@ const CloseToogle = styled(Close)(({ theme, isOpen }: StyledProps) => ({
   },
 }));
 
-const OpenToogle = styled(Menu)(({ theme, isOpen }: StyledProps) => ({
+const OpenToogle = styled(Menu, {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})(({ theme, isOpen }: StyledProps) => ({
   display: 'block',
   position: 'fixed',
   right: '1rem',
