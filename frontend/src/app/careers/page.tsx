@@ -212,6 +212,12 @@ const Home = ({
               university_logo={
                 career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.url
               }
+              university_logo_width={
+                career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.width
+              }
+              university_logo_height={
+                career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.height
+              }
             />
           </Grid>
         ))}

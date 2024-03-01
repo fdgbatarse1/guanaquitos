@@ -21,6 +21,8 @@ interface CareerCardProps {
   university_name?: string;
   university_acronym?: string;
   university_logo?: string | StaticImageData;
+  university_logo_width?: number;
+  university_logo_height?: number;
 }
 
 const CareerCard = ({
@@ -28,6 +30,8 @@ const CareerCard = ({
   university_name = 'Centro de educación superior no especificado',
   university_acronym = '',
   university_logo,
+  university_logo_width,
+  university_logo_height,
 }: CareerCardProps) => {
   const theme = useTheme();
   return (
@@ -49,17 +53,17 @@ const CareerCard = ({
         }}
       >
         <Grid container spacing={3}>
-          <Grid item xs={12} sm={1} md={2}>
+          <Grid item xs={3} sm={1} md={2}>
             <Image
               src={university_logo || placeholder}
-              width={100}
-              height={100}
+              width={university_logo_width}
+              height={university_logo_height}
               alt={university_name}
               objectFit="contain"
               layout="responsive"
             />
           </Grid>
-          <Grid item xs={12} sm={11} md={10}>
+          <Grid item xs={9} sm={11} md={10}>
             <Stack direction="column" spacing={1}>
               <Typography sx={{ fontSize: 18 }}>{career_name}</Typography>
               <Typography sx={{ fontSize: 16 }} color="text.secondary">
