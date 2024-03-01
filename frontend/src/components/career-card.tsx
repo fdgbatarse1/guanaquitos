@@ -3,13 +3,13 @@
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
-import Stack from '@mui/material/Stack/Stack';
-import Typography from '@mui/material/Typography/Typography';
 import Card from '@mui/material/Card/Card';
-import { Grid, alpha, useTheme } from '@mui/material';
+import { Box, alpha, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import placeholder from '@/assets/images/no_image_available.png';
+import Paragraph from '@/styles/p';
+import Heading5 from '@/styles/h5';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -42,7 +42,7 @@ const CareerCard = ({
       <StyledCard
         elevation={2}
         sx={{
-          minHeight: 120,
+          minHeight: { xs: '0', md: '125px' },
           transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
           ':hover': {
             color: theme.palette.primary.main,
@@ -52,26 +52,33 @@ const CareerCard = ({
           },
         }}
       >
-        <Grid container spacing={3}>
-          <Grid item xs={3} sm={1} md={2}>
-            <Image
-              src={university_logo || placeholder}
-              width={university_logo_width}
-              height={university_logo_height}
-              alt={university_name}
-              objectFit="contain"
-              layout="responsive"
-            />
-          </Grid>
-          <Grid item xs={9} sm={11} md={10}>
-            <Stack direction="column" spacing={1}>
-              <Typography sx={{ fontSize: 18 }}>{career_name}</Typography>
-              <Typography sx={{ fontSize: 16 }} color="text.secondary">
-                {university_name} {university_acronym ? `(${university_acronym})` : ''}
-              </Typography>
-            </Stack>
-          </Grid>
-        </Grid>
+        <Box sx={{ display: 'flex', alignItems: 'start' }}>
+          <Image
+            src={university_logo || placeholder}
+            width={university_logo_width}
+            height={university_logo_height}
+            alt={university_name}
+            style={{
+              height: '100%',
+              minWidth: '40px',
+              maxWidth: '0',
+              objectFit: 'contain',
+            }}
+            layout="responsive"
+          />
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              marginLeft: '1rem',
+            }}
+          >
+            <Heading5>{career_name}</Heading5>
+            <Paragraph>
+              {university_name} {university_acronym ? `(${university_acronym})` : ''}
+            </Paragraph>
+          </Box>
+        </Box>
       </StyledCard>
     </Link>
   );
