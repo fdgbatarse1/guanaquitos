@@ -1,7 +1,8 @@
 import { Typography } from '@mui/material';
+import { ReactNode } from 'react';
 
 interface Heading3Props {
-  children: string;
+  children: ReactNode;
   sx?: object;
 }
 

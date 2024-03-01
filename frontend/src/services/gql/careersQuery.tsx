@@ -33,6 +33,8 @@ const careersQuery = gql`
                   data {
                     attributes {
                       url
+                      width
+                      height
                     }
                   }
                 }

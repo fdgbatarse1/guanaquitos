@@ -8,7 +8,9 @@ interface StyledProps {
   isOpen: boolean;
 }
 
-const Header = styled('header')(({ theme, isOpen }: StyledProps) => ({
+const Header = styled('header', {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})(({ theme, isOpen }: StyledProps) => ({
   position: 'fixed',
   left: 0,
   top: 0,
@@ -19,7 +21,7 @@ const Header = styled('header')(({ theme, isOpen }: StyledProps) => ({
   alignItems: 'center',
   justifyContent: isOpen ? 'center' : 'end',
   height: isOpen ? '100%' : '4rem',
-  backgroundColor: theme.palette.background.paper,
+  backgroundColor: theme.palette.background.default,
   [theme.breakpoints.up('sm')]: {
     padding: '1.5rem',
   },
@@ -51,14 +53,18 @@ const Header = styled('header')(({ theme, isOpen }: StyledProps) => ({
 //   },
 // }));
 
-const Navigation = styled('nav')(({ theme, isOpen }: StyledProps) => ({
+const Navigation = styled('nav', {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})(({ theme, isOpen }: StyledProps) => ({
   display: isOpen ? 'block' : 'none',
   [theme.breakpoints.up('md')]: {
     display: 'block',
   },
 }));
 
-const CloseToogle = styled(Close)(({ theme, isOpen }: StyledProps) => ({
+const CloseToogle = styled(Close, {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})(({ theme, isOpen }: StyledProps) => ({
   display: 'block',
   position: 'fixed',
   right: '1rem',
@@ -72,7 +78,9 @@ const CloseToogle = styled(Close)(({ theme, isOpen }: StyledProps) => ({
   },
 }));
 
-const OpenToogle = styled(Menu)(({ theme, isOpen }: StyledProps) => ({
+const OpenToogle = styled(Menu, {
+  shouldForwardProp: (prop) => prop !== 'isOpen',
+})(({ theme, isOpen }: StyledProps) => ({
   display: 'block',
   position: 'fixed',
   right: '1rem',
@@ -102,9 +110,6 @@ const List = styled('ul')(({ theme }) => ({
 const StyledLink = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   color: theme.palette.text.primary,
-  //   fontSize: { xs: '1.25rem', md: '1.5rem', lg: '1.875rem' },
-  //   lineHeight: { xs: '1.75rem', md: '2rem', lg: '2.25rem' },
-  //   letterSpacing: { xs: '0' },
   fontSize: '1.25rem',
   lineHeight: '1.75rem',
   letterSpacing: '0',
@@ -119,7 +124,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
 
   '&:hover': {
     color: theme.palette.primary.main,
-    // space between text and underline
     borderBottom: `2px solid ${theme.palette.primary.main}`,
   },
 }));

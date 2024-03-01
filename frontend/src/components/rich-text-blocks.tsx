@@ -63,7 +63,7 @@ const ListChildren = ({ children, format }: ListItemProps): ReactNode => {
         <Box
           component={format === 'ordered' ? 'ol' : 'ul'}
           sx={{
-            marginLeft: { xs: '0.5rem', md: '1rem' },
+            marginLeft: { xs: '1rem', md: '1rem' },
             padding: '0',
             listStyleType: `${format === 'ordered' ? 'decimal' : 'disc'}`,
             fontSize: { xs: '1rem', md: '1.125rem', lg: '1.25rem' },
@@ -95,7 +95,7 @@ const RichTextBlocks = ({ content }: { content: BlocksContent }) => (
           <Box
             component={format === 'ordered' ? 'ol' : 'ul'}
             sx={{
-              marginLeft: { xs: '0.5rem', md: '1rem' },
+              marginLeft: { xs: '1rem', md: '1rem' },
               padding: '0',
               listStyleType: `${format === 'ordered' ? 'decimal' : 'disc'}`,
               fontSize: { xs: '1rem', md: '1.125rem', lg: '1.25rem' },

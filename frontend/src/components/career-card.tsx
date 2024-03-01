@@ -1,13 +1,15 @@
+'use client';
+
 import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
-import Stack from '@mui/material/Stack/Stack';
-import Typography from '@mui/material/Typography/Typography';
 import Card from '@mui/material/Card/Card';
-import { Grid } from '@mui/material';
+import { Box, alpha, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import placeholder from '@/assets/images/no_image_available.png';
+import Paragraph from '@/styles/p';
+import Heading5 from '@/styles/h5';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -19,6 +21,8 @@ interface CareerCardProps {
   university_name?: string;
   university_acronym?: string;
   university_logo?: string | StaticImageData;
+  university_logo_width?: number;
+  university_logo_height?: number;
 }
 
 const CareerCard = ({
@@ -26,46 +30,58 @@ const CareerCard = ({
   university_name = 'Centro de educación superior no especificado',
   university_acronym = '',
   university_logo,
-}: CareerCardProps) => (
-  <Link
-    href={`/careers/${university_acronym.toLowerCase()}/${career_name}`}
-    style={{ textDecoration: 'none' }}
-  >
-    <StyledCard
-      elevation={2}
-      sx={{
-        minHeight: 120,
-        transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
-        ':hover': {
-          color: 'rgba(25, 118, 210, 1)',
-          cursor: 'pointer',
-          transform: 'scale(1.005)',
-          boxShadow: '0px 4px 20px rgba(25, 118, 210, 0.25)',
-        },
-      }}
+  university_logo_width,
+  university_logo_height,
+}: CareerCardProps) => {
+  const theme = useTheme();
+  return (
+    <Link
+      href={`/careers/${university_acronym.toLowerCase()}/${career_name}`}
+      style={{ textDecoration: 'none' }}
     >
-      <Grid container spacing={3}>
-        <Grid item xs={12} sm={1} md={2}>
+      <StyledCard
+        elevation={2}
+        sx={{
+          minHeight: { xs: '0', md: '125px' },
+          transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
+          ':hover': {
+            color: theme.palette.primary.main,
+            cursor: 'pointer',
+            transform: 'scale(1.005)',
+            boxShadow: `0px 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
+          },
+        }}
+      >
+        <Box sx={{ display: 'flex', alignItems: 'start' }}>
           <Image
             src={university_logo || placeholder}
-            width={100}
-            height={100}
+            width={university_logo_width}
+            height={university_logo_height}
             alt={university_name}
-            objectFit="contain"
+            style={{
+              height: '100%',
+              minWidth: '40px',
+              maxWidth: '0',
+              objectFit: 'contain',
+            }}
             layout="responsive"
           />
-        </Grid>
-        <Grid item xs={12} sm={11} md={10}>
-          <Stack direction="column" spacing={1}>
-            <Typography sx={{ fontSize: 18 }}>{career_name}</Typography>
-            <Typography sx={{ fontSize: 16 }} color="text.secondary">
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              marginLeft: '1rem',
+            }}
+          >
+            <Heading5>{career_name}</Heading5>
+            <Paragraph>
               {university_name} {university_acronym ? `(${university_acronym})` : ''}
-            </Typography>
-          </Stack>
-        </Grid>
-      </Grid>
-    </StyledCard>
-  </Link>
-);
+            </Paragraph>
+          </Box>
+        </Box>
+      </StyledCard>
+    </Link>
+  );
+};
 
 export default CareerCard;

@@ -4,7 +4,6 @@ import Link from 'next/link';
 
 const NotFoundPage = () => (
   <Container
-    component="main"
     maxWidth="sm"
     sx={{
       mt: 8,
