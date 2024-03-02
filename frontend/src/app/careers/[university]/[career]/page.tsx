@@ -34,7 +34,7 @@ const CareerPage = ({ params }: CareerPageProps) => {
   });
 
   if (loading) return <Loading />;
-  if (error) return <p>Error: {error.message}</p>;
+  if (error) throw new Error(`Error: ${error.message}`);
 
   const career = format(data);
 

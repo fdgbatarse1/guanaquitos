@@ -1,6 +1,5 @@
 'use client';
 
-import client from '@/lib/apollo-client';
 import { Grid } from '@mui/material';
 
 import Pagination from '@/components/pagination';
@@ -9,6 +8,10 @@ import CareerCard from '@/components/career-card';
 import careersSearchQuery from '@/services/gql/careersSearchQuery';
 import careersQuery from '@/services/gql/careersQuery';
 import { useQuery } from '@apollo/client';
+import Loading from '@/components/loading';
+import getFilters from './utils/getFilters';
+import getTotalPages from './utils/getTotalPages';
+import getFetchOptions from './utils/getFetchOptions';
 
 const Home = ({
   searchParams,
@@ -43,156 +46,23 @@ const Home = ({
     },
   });
 
-  const totalPages = Math.ceil(
-    (data?.careers?.meta?.pagination?.total || 0) /
-      (data?.careers?.meta?.pagination?.pageSize || 1),
-  );
+  if (loading) return <Loading />;
+  if (error) throw new Error(`Error: ${error.message}`);
 
-  const fetchOptions = async (newInputValue: string) => {
-    const { data: newData } = await client.query({
-      query: careersSearchQuery,
-      variables: {
-        query: newInputValue,
-        academic_grade: degree,
-        educational_field: category,
-        university_acronym: institution,
-        sort: order || 'name:asc',
-        page: 1,
-        page_size: 10,
-      },
-    });
+  const totalPages = getTotalPages({
+    total: data?.careers?.meta?.pagination?.total,
+    pageSize: data?.careers?.meta?.pagination?.pageSize,
+  });
 
-    const names = newData.careers.data.map((career: any) => career.attributes.name);
+  const fetchOptions = getFetchOptions({
+    careersSearchQuery,
+    degree,
+    category,
+    institution,
+    order,
+  });
 
-    return names;
-  };
-
-  const filters = [
-    {
-      value: degree,
-      id: 'degree',
-      items: [
-        {
-          label: 'Técnico',
-          id: 'Técnico',
-        },
-        {
-          label: 'Profesorado',
-          id: 'Profesorado',
-        },
-        {
-          label: 'Tecnólogo',
-          id: 'Tecnólogo',
-        },
-        {
-          label: 'Licenciatura',
-          id: 'Licenciatura',
-        },
-        {
-          label: 'Arquitectura',
-          id: 'Arquitectura',
-        },
-        {
-          label: 'Ingeniería',
-          id: 'Ingeniería',
-        },
-        {
-          label: 'Doctorado (grado)',
-          id: 'Doctorado (grado)',
-        },
-        {
-          label: 'Especialista',
-          id: 'Especialista',
-        },
-        {
-          label: 'Maestría',
-          id: 'Maestría',
-        },
-        {
-          label: 'Doctorado posgrado',
-          id: 'Doctorado posgrado',
-        },
-      ],
-      label: 'Grado académico',
-    },
-    {
-      value: category,
-      id: 'category',
-      items: [
-        {
-          label: 'Programas generales',
-          id: 'Programas generales',
-        },
-        {
-          label: 'Educación',
-          id: 'Educación',
-        },
-        {
-          label: 'Humanidades y artes',
-          id: 'Humanidades y artes',
-        },
-        {
-          label: 'Ciencias sociales, educación comercial y derecho',
-          id: 'Ciencias sociales, educación comercial y derecho',
-        },
-        {
-          label: 'Ciencias',
-          id: 'Ciencias',
-        },
-        {
-          label: 'Ingeniería, industria y construcción',
-          id: 'Ingeniería, industria y construcción',
-        },
-        {
-          label: 'Agricultura',
-          id: 'Agricultura',
-        },
-        {
-          label: 'Salud y servicios sociales',
-          id: 'Salud y servicios sociales',
-        },
-        {
-          label: 'Servicios',
-          id: 'Servicios',
-        },
-        {
-          label: 'Sectores desconocidos o no especificados',
-          id: 'Sectores desconocidos o no especificados',
-        },
-      ],
-      label: 'Categoría',
-    },
-    {
-      value: institution,
-      id: 'institution',
-      items: [
-        {
-          label: 'UCA',
-          id: 'UCA',
-        },
-        {
-          label: 'UDB',
-          id: 'UDB',
-        },
-      ],
-      label: 'Institución',
-    },
-    {
-      value: order,
-      id: 'order',
-      items: [
-        {
-          label: 'Nombre (Ascendente)',
-          id: 'name:asc',
-        },
-        {
-          label: 'Nombre (Descendente)',
-          id: 'name:desc',
-        },
-      ],
-      label: 'Ordenar por',
-    },
-  ];
+  const filters = getFilters({ degree, category, institution, order });
 
   return (
     <Grid container padding={4} gap={4} direction="column" alignItems="center">
