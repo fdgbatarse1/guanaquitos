@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Box, Typography } from '@mui/material';
 
 import Map from '@/components/map';
-import Heading5 from '@/styles/h5';
 import Paragraph from '@/styles/p';
 import { spacing1, spacing2, spacing3 } from '@/styles/spacing';
 
@@ -113,7 +112,8 @@ const University = ({
                 }}
                 key={information.singularTitle}
               >
-                <Heading5
+                <Typography
+                  variant="h5"
                   sx={{
                     marginTop: index === 0 ? 0 : spacing2, // TODO - Update Heading5 margin top
                   }}
@@ -121,7 +121,7 @@ const University = ({
                   {information.content.length > 1
                     ? information.pluralTitle
                     : information.singularTitle}
-                </Heading5>
+                </Typography>
                 {information.content.map((content) => {
                   if (!content) return null;
                   return (

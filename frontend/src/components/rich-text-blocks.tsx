@@ -2,10 +2,9 @@
 import { ReactNode } from 'react';
 import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
 
-import { Box, ListItem, ListItemText, Stack, Typography } from '@mui/material';
+import { Box, ListItem, ListItemText, Typography } from '@mui/material';
 
 import Paragraph from '@/styles/p';
-import Heading5 from '@/styles/h5';
 
 interface ListItemProps {
   children: ReactNode;
@@ -90,7 +89,7 @@ const RichTextBlocks = ({ content }: { content: BlocksContent }) => (
       content={content}
       blocks={{
         paragraph: ({ children }) => <Paragraph>{children}</Paragraph>,
-        heading: ({ children }) => <Heading5>{children}</Heading5>,
+        heading: ({ children }) => <Typography variant="h5">{children}</Typography>,
         list: ({ children, format }) => (
           <Box
             component={format === 'ordered' ? 'ol' : 'ul'}
