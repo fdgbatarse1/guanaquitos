@@ -4,8 +4,6 @@ import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-rendere
 
 import { Box, ListItem, ListItemText, Typography } from '@mui/material';
 
-import Paragraph from '@/styles/p';
-
 interface ListItemProps {
   children: ReactNode;
   format?: 'ordered' | 'unordered';
@@ -88,7 +86,7 @@ const RichTextBlocks = ({ content }: { content: BlocksContent }) => (
     <BlocksRenderer
       content={content}
       blocks={{
-        paragraph: ({ children }) => <Paragraph>{children}</Paragraph>,
+        paragraph: ({ children }) => <Typography variant="body1">{children}</Typography>,
         heading: ({ children }) => <Typography variant="h5">{children}</Typography>,
         list: ({ children, format }) => (
           <Box

@@ -8,7 +8,6 @@ import { Box, alpha, useTheme, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import placeholder from '@/assets/images/no_image_available.png';
-import Paragraph from '@/styles/p';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -73,9 +72,9 @@ const CareerCard = ({
             }}
           >
             <Typography variant="h5">{career_name}</Typography>
-            <Paragraph>
+            <Typography variant="body1">
               {university_name} {university_acronym ? `(${university_acronym})` : ''}
-            </Paragraph>
+            </Typography>
           </Box>
         </Box>
       </StyledCard>

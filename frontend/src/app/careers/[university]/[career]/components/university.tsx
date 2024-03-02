@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { Box, Typography } from '@mui/material';
 
 import Map from '@/components/map';
-import Paragraph from '@/styles/p';
 import { spacing1, spacing2, spacing3 } from '@/styles/spacing';
 
 interface UniversityProps {
@@ -125,14 +124,15 @@ const University = ({
                 {information.content.map((content) => {
                   if (!content) return null;
                   return (
-                    <Paragraph
+                    <Typography
+                      variant="body1"
                       sx={{
                         marginTop: spacing1, // TODO - Update Heading5 margin top
                       }}
                       key={content}
                     >
                       {content}
-                    </Paragraph>
+                    </Typography>
                   );
                 })}
               </Box>

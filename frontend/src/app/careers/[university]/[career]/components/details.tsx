@@ -3,7 +3,6 @@
 import { Fragment } from 'react';
 import { Paper, useMediaQuery, useTheme, Typography } from '@mui/material';
 
-import Paragraph from '@/styles/p';
 import { Enum_Career_Educational_Field } from '@/gql/graphql';
 import { spacing1, spacing2 } from '@/styles/spacing';
 
@@ -49,13 +48,14 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
             >
               {detail.title}
             </Typography>
-            <Paragraph
+            <Typography
+              variant="body1"
               sx={{
                 marginTop: spacing1, // TODO - Update paragraph margin top
               }}
             >
               {detail.paragraph}
-            </Paragraph>
+            </Typography>
           </Fragment>
         );
       })}

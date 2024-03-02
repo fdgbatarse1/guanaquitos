@@ -1,7 +1,6 @@
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
 import Link from 'next/link';
-import Paragraph from '@/styles/p';
 import { spacing3 } from '@/styles/spacing';
 
 interface ResourcesProps {
@@ -37,7 +36,11 @@ const Resources = ({ links }: ResourcesProps) => {
             >
               <Link href={link}>
                 <ListItemText
-                  primary={<Paragraph sx={{ overflowWrap: 'break-word' }}>{link}</Paragraph>}
+                  primary={
+                    <Typography variant="body1" sx={{ overflowWrap: 'break-word' }}>
+                      {link}
+                    </Typography>
+                  }
                 />
               </Link>
             </ListItem>
