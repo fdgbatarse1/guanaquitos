@@ -1,9 +1,8 @@
 import Image from 'next/image';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import Map from '@/components/map';
-import Heading3 from '@/styles/h3';
 import Heading5 from '@/styles/h5';
 import Paragraph from '@/styles/p';
 import { spacing1, spacing2, spacing3 } from '@/styles/spacing';
@@ -84,14 +83,15 @@ const University = ({
           />
         )} */}
         {universityName && universityAcronym && (
-          <Heading3
+          <Typography
+            variant="h3"
             sx={{
               marginLeft: '0',
               weight: '900',
             }}
           >
             {`${universityName} (${universityAcronym})`}
-          </Heading3>
+          </Typography>
         )}
       </Box>
       <Box
