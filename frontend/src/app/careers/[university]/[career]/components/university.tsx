@@ -94,7 +94,7 @@ const University = ({
       </Box>
       <Box
         sx={{
-          marginTop: spacing3, // TODO - Update Box university margin top
+          marginTop: spacing3,
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
         }}
@@ -107,14 +107,14 @@ const University = ({
               <Box
                 sx={{
                   marginLeft: { xs: '0', md: '2rem' },
-                  marginTop: { xs: '1rem', md: '0' }, // TODO - Update Box list margin top
+                  marginTop: { xs: '1rem', md: '0' },
                 }}
                 key={information.singularTitle}
               >
                 <Typography
                   variant="h5"
                   sx={{
-                    marginTop: index === 0 ? 0 : spacing2, // TODO - Update Heading5 margin top
+                    marginTop: index === 0 ? 0 : spacing2,
                   }}
                 >
                   {information.content.length > 1
@@ -127,7 +127,7 @@ const University = ({
                     <Typography
                       variant="body1"
                       sx={{
-                        marginTop: spacing1, // TODO - Update Heading5 margin top
+                        marginTop: spacing1,
                       }}
                       key={content}
                     >

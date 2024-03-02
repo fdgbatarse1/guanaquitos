@@ -34,7 +34,7 @@ const Banner = ({ name, curriculum }: BannerProps) => (
         <Link href={curriculum} target="_blank">
           <Button
             sx={{
-              marginTop: { xs: '1rem', sm: '0' }, // TODO - Update Button margin top
+              marginTop: { xs: '1rem', sm: '0' },
               fontSize: { xs: '1rem', md: '1.125rem' },
               lineHeight: { xs: '1.5rem', md: '1.75rem' },
               letterSpacing: { xs: '0' },
@@ -50,7 +50,7 @@ const Banner = ({ name, curriculum }: BannerProps) => (
     </Box>
     <Divider
       sx={{
-        marginTop: spacing3, // TODO - Update Divider margin top
+        marginTop: spacing3,
       }}
     />
   </>

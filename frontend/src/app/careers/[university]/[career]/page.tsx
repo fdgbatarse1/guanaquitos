@@ -57,7 +57,7 @@ const CareerPage = ({ params }: CareerPageProps) => {
         <Banner name={career.name} curriculum={career?.curriculum} />
         <Box
           sx={{
-            marginTop: spacing3, // TODO - Update Box margin top
+            marginTop: spacing3,
             display: 'grid',
             gridTemplateColumns: { xs: '1fr', sm: '2fr 1fr' },
             gridTemplateRows: 'min-content 1fr',

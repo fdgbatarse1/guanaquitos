@@ -19,7 +19,7 @@ const Resources = ({ links }: ResourcesProps) => {
         variant="h4"
         sx={{
           textAlign: { xs: 'center', md: 'left' },
-          marginTop: spacing3, // TODO - Update Heading4 margin top
+          marginTop: spacing3,
         }}
       >
         Más información

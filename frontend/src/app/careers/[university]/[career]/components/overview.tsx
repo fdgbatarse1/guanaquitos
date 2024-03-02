@@ -35,7 +35,7 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
         <Typography
           variant="h3"
           sx={{
-            marginTop: spacing3, // TODO - Update Heading3 margin top
+            marginTop: spacing3,
           }}
         >
           Áreas de estudio
@@ -44,7 +44,7 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
           array={studyAreas}
           type="ul"
           sx={{
-            marginTop: spacing3, // TODO - Update List margin top
+            marginTop: spacing3,
             marginLeft: '1rem',
           }}
         />
@@ -55,7 +55,7 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
         <Typography
           variant="h3"
           sx={{
-            marginTop: spacing3, // TODO - Update Heading3 margin top
+            marginTop: spacing3,
           }}
         >
           Áreas de desempeño laboral
@@ -64,7 +64,7 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
           array={jobAreas}
           type="ul"
           sx={{
-            marginTop: spacing3, // TODO - Update List margin top
+            marginTop: spacing3,
             marginLeft: '1rem',
           }}
         />

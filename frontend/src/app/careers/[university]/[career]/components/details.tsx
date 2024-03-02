@@ -43,7 +43,7 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
             <Typography
               variant="h4"
               sx={{
-                marginTop: index === 0 ? '0' : spacing2, // TODO - Update Heading4 margin top
+                marginTop: index === 0 ? '0' : spacing2,
               }}
             >
               {detail.title}
@@ -51,7 +51,7 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
             <Typography
               variant="body1"
               sx={{
-                marginTop: spacing1, // TODO - Update paragraph margin top
+                marginTop: spacing1,
               }}
             >
               {detail.paragraph}

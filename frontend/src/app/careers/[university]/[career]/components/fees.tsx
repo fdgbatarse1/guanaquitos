@@ -25,7 +25,7 @@ const Fees = ({ costs, discounts }: FeesProps) => {
             <Typography
               variant="h3"
               sx={{
-                marginTop: index === 0 ? '0' : spacing3, // TODO - Update Heading3 margin top
+                marginTop: index === 0 ? '0' : spacing3,
               }}
             >
               {fee.title}
