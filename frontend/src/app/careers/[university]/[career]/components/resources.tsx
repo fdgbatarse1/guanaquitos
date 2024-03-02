@@ -1,6 +1,5 @@
-import { Box, List, ListItem, ListItemText } from '@mui/material';
+import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
-import Heading4 from '@/styles/h4';
 import Link from 'next/link';
 import Paragraph from '@/styles/p';
 import { spacing3 } from '@/styles/spacing';
@@ -17,14 +16,15 @@ const Resources = ({ links }: ResourcesProps) => {
         gridArea: 'resources',
       }}
     >
-      <Heading4
+      <Typography
+        variant="h4"
         sx={{
           textAlign: { xs: 'center', md: 'left' },
           marginTop: spacing3, // TODO - Update Heading4 margin top
         }}
       >
         Más información
-      </Heading4>
+      </Typography>
       <List dense>
         {links.map((link) => {
           if (!link) return null;
