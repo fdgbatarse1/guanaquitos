@@ -11,6 +11,15 @@ const inter = Inter({
 });
 
 export const themeOptions: ThemeOptions = {
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          wordWrap: 'break-word',
+        },
+      },
+    },
+  },
   palette: {
     mode: 'light',
     primary: {
@@ -63,53 +72,33 @@ export const themeOptions: ThemeOptions = {
   typography: {
     fontFamily: inter.style.fontFamily,
     h1: {
-      fontSize: '3.75rem',
-      lineHeight: 1,
       letterSpacing: '0em',
     },
     h2: {
-      fontSize: '3rem',
-      lineHeight: 1,
       letterSpacing: '0em',
     },
     h3: {
-      fontSize: '2.25rem',
-      lineHeight: 1,
       letterSpacing: '0em',
     },
     h4: {
-      fontSize: '1.875rem',
-      lineHeight: 1.33,
       letterSpacing: '0em',
     },
     h5: {
-      fontSize: '1.5rem',
-      lineHeight: 1.2,
       letterSpacing: '0em',
     },
     h6: {
-      fontSize: '1.25rem',
-      lineHeight: 1.4,
       letterSpacing: '0em',
     },
     subtitle1: {
-      fontSize: '1.25rem',
-      lineHeight: 1.4,
       letterSpacing: '0em',
     },
     subtitle2: {
-      fontSize: '1.125rem',
-      lineHeight: 1.55,
       letterSpacing: '0em',
     },
     body1: {
-      fontSize: '1.125rem',
-      lineHeight: 1.55,
       letterSpacing: '0em',
     },
     body2: {
-      fontSize: '1rem',
-      lineHeight: 1.5,
       letterSpacing: '0em',
     },
   },
@@ -358,4 +347,148 @@ export const themeInnovative: ThemeOptions = {
   },
 };
 
-export default createTheme(themeOptions);
+const theme = createTheme(themeOptions);
+
+// h1
+theme.typography.h1 = {
+  ...theme.typography.h1,
+  fontSize: '1.875rem',
+  lineHeight: '2.25rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2.25rem',
+    lineHeight: '2.5rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '3rem',
+    lineHeight: '3rem',
+  },
+};
+
+// h2
+theme.typography.h2 = {
+  ...theme.typography.h2,
+  fontSize: '1.5rem',
+  lineHeight: '2rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.875rem',
+    lineHeight: '2.25rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '2.25rem',
+    lineHeight: '2.5rem',
+  },
+};
+
+// h3
+theme.typography.h3 = {
+  ...theme.typography.h3,
+  fontSize: '1.25rem',
+  lineHeight: '1.75rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.5rem',
+    lineHeight: '2rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1.875rem',
+    lineHeight: '2.25rem',
+  },
+};
+
+// h4
+theme.typography.h4 = {
+  ...theme.typography.h4,
+  fontSize: '1.125rem',
+  lineHeight: '1.75rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.25rem',
+    lineHeight: '1.75rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1.5rem',
+    lineHeight: '2rem',
+  },
+};
+
+// h5
+theme.typography.h5 = {
+  ...theme.typography.h5,
+  fontSize: '1rem',
+  lineHeight: '1.5rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.125rem',
+    lineHeight: '1.75rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1.25rem',
+    lineHeight: '1.75rem',
+  },
+};
+
+// h6
+theme.typography.h6 = {
+  ...theme.typography.h6,
+  fontSize: '0.875rem',
+  lineHeight: '1.25rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1rem',
+    lineHeight: '1.5rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1.125rem',
+    lineHeight: '1.75rem',
+  },
+};
+
+// subtitle1
+theme.typography.subtitle1 = {
+  ...theme.typography.subtitle1,
+  fontSize: '1.25rem',
+  lineHeight: '1.75rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.5rem',
+    lineHeight: '2rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1.875rem',
+    lineHeight: '2.25rem',
+  },
+};
+
+// subtitle2
+theme.typography.subtitle2 = {
+  ...theme.typography.subtitle2,
+  fontSize: '1.125rem',
+  lineHeight: '1.75rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.25rem',
+    lineHeight: '1.75rem',
+  },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1.5rem',
+    lineHeight: '2rem',
+  },
+};
+
+// body1
+theme.typography.body1 = {
+  ...theme.typography.body1,
+  fontSize: '1rem',
+  lineHeight: '1.5rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1.125rem',
+    lineHeight: '1.75rem',
+  },
+};
+
+// body2
+theme.typography.body2 = {
+  ...theme.typography.body2,
+  fontSize: '0.875rem',
+  lineHeight: '1.25rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '1rem',
+    lineHeight: '1.5rem',
+  },
+};
+
+export default theme;
