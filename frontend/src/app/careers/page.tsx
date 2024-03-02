@@ -1,17 +1,18 @@
 'use client';
 
+import { useQuery } from '@apollo/client';
 import { Grid } from '@mui/material';
 
-import Pagination from '@/components/pagination';
-import ComplexSearch from '@/components/complex-search';
 import CareerCard from '@/components/career-card';
-import careersSearchQuery from '@/services/gql/careersSearchQuery';
-import careersQuery from '@/services/gql/careersQuery';
-import { useQuery } from '@apollo/client';
+import ComplexSearch from '@/components/complex-search';
 import Loading from '@/components/loading';
+import Pagination from '@/components/pagination';
+import careersQuery from '@/services/gql/careersQuery';
+import careersSearchQuery from '@/services/gql/careersSearchQuery';
+
+import getFetchOptions from './utils/getFetchOptions';
 import getFilters from './utils/getFilters';
 import getTotalPages from './utils/getTotalPages';
-import getFetchOptions from './utils/getFetchOptions';
 
 const Home = ({
   searchParams,

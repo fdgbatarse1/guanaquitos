@@ -1,7 +1,7 @@
 import Link from 'next/link';
 
-import { Box, Button, Divider, Typography } from '@mui/material';
 import { School } from '@mui/icons-material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 
 import { spacing3 } from '@/styles/spacing';
 

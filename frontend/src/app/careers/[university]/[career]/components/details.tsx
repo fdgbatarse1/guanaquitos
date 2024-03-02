@@ -1,7 +1,8 @@
 'use client';
 
 import { Fragment } from 'react';
-import { Paper, useMediaQuery, useTheme, Typography } from '@mui/material';
+
+import { Paper, Typography } from '@mui/material';
 
 import { Enum_Career_Educational_Field } from '@/gql/graphql';
 import { spacing1, spacing2 } from '@/styles/spacing';
@@ -15,9 +16,6 @@ interface DetailsProps {
 }
 
 const Details = ({ title, modality, academicDegree, educationalField, duration }: DetailsProps) => {
-  const theme = useTheme();
-  const isMediumScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
   const details = [
     { title: 'Título obtenido', paragraph: title },
     { title: 'Modalidad', paragraph: modality },

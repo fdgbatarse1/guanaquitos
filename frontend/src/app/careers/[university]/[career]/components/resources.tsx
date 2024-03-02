@@ -1,6 +1,7 @@
+import Link from 'next/link';
+
 import { Box, List, ListItem, ListItemText, Typography } from '@mui/material';
 
-import Link from 'next/link';
 import { spacing3 } from '@/styles/spacing';
 
 interface ResourcesProps {

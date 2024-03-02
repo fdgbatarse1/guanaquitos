@@ -1,8 +1,9 @@
+import { Fragment } from 'react';
+
 import { Box, Typography } from '@mui/material';
 import { type BlocksContent } from '@strapi/blocks-react-renderer';
 
 import RichTextBlocks from '@/components/rich-text-blocks';
-import { Fragment } from 'react';
 import { spacing3 } from '@/styles/spacing';
 
 interface FeesProps {
