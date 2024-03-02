@@ -1,9 +1,8 @@
 import Link from 'next/link';
 
-import { Box, Button, Divider } from '@mui/material';
+import { Box, Button, Divider, Typography } from '@mui/material';
 import { School } from '@mui/icons-material';
 
-import Heading1 from '@/styles/h1';
 import { spacing3 } from '@/styles/spacing';
 
 interface BannerProps {
@@ -23,13 +22,14 @@ const Banner = ({ name, curriculum }: BannerProps) => (
         alignItems: 'center',
       }}
     >
-      <Heading1
+      <Typography
+        variant="h1"
         sx={{
           textAlign: { xs: 'center', sm: 'left' },
         }}
       >
         {name}
-      </Heading1>
+      </Typography>
       {curriculum && (
         <Link href={curriculum} target="_blank">
           <Button
