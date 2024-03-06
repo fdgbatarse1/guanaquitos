@@ -4,14 +4,13 @@ import { Fragment } from 'react';
 
 import { Paper, Typography } from '@mui/material';
 
-import { Enum_Career_Educational_Field } from '@/gql/graphql';
 import { spacing1, spacing2 } from '@/styles/spacing';
 
 interface DetailsProps {
   title?: string;
   modality?: string;
   academicDegree?: string;
-  educationalField?: Enum_Career_Educational_Field | null | undefined;
+  educationalField?: string;
   duration?: string;
 }
 

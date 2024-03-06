@@ -134,7 +134,8 @@
         "Salud y servicios sociales",
         "Servicios",
         "Sectores desconocidos o no especificados"
-      ]
+      ],
+      "required": true
     },
     "university": {
       "type": "relation",

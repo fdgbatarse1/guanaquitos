@@ -912,6 +912,7 @@ export interface ApiCareerCareer extends Schema.CollectionType {
         'Sectores desconocidos o no especificados'
       ]
     > &
+      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
