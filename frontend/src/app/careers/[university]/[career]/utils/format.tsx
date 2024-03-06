@@ -1,4 +1,5 @@
 import { GetCareerQuery } from '@/gql/graphql';
+import getAcademicGrade from '@/utils/getAcademicGrade';
 
 const format = (data: GetCareerQuery | undefined) => {
   const careerData = data?.careers?.data?.[0]?.attributes;
@@ -11,7 +12,7 @@ const format = (data: GetCareerQuery | undefined) => {
   return {
     name: careerData?.name,
     title: careerData?.title,
-    academicDegree: careerData?.academic_grade,
+    academicDegree: getAcademicGrade(careerData?.academic_grade),
     educationalField: careerData?.educational_field,
     modality: careerData?.modality,
     duration: careerData?.duration,
