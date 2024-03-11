@@ -1,8 +1,7 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { type BlocksContent } from '@strapi/blocks-react-renderer';
 
 import RichTextBlocks from '@/components/rich-text-blocks';
-import Heading3 from '@/styles/h3';
 import List from '@/styles/list';
 import { spacing3 } from '@/styles/spacing';
 
@@ -20,30 +19,32 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
   >
     {description && (
       <>
-        <Heading3
+        <Typography
+          variant="h3"
           sx={{
             marginBottom: '0.5rem',
           }}
         >
           Descripción
-        </Heading3>
+        </Typography>
         <RichTextBlocks content={description} />
       </>
     )}
     {studyAreas && studyAreas.length > 0 && (
       <>
-        <Heading3
+        <Typography
+          variant="h3"
           sx={{
-            marginTop: spacing3, // TODO - Update Heading3 margin top
+            marginTop: spacing3,
           }}
         >
           Áreas de estudio
-        </Heading3>
+        </Typography>
         <List
           array={studyAreas}
           type="ul"
           sx={{
-            marginTop: spacing3, // TODO - Update List margin top
+            marginTop: spacing3,
             marginLeft: '1rem',
           }}
         />
@@ -51,18 +52,19 @@ const Overview = ({ description, studyAreas, jobAreas }: OverviewProps) => (
     )}
     {jobAreas && jobAreas.length > 0 && (
       <>
-        <Heading3
+        <Typography
+          variant="h3"
           sx={{
-            marginTop: spacing3, // TODO - Update Heading3 margin top
+            marginTop: spacing3,
           }}
         >
           Áreas de desempeño laboral
-        </Heading3>
+        </Typography>
         <List
           array={jobAreas}
           type="ul"
           sx={{
-            marginTop: spacing3, // TODO - Update List margin top
+            marginTop: spacing3,
             marginLeft: '1rem',
           }}
         />

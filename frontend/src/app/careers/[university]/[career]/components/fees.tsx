@@ -1,9 +1,9 @@
-import { Box } from '@mui/material';
+import { Fragment } from 'react';
+
+import { Box, Typography } from '@mui/material';
 import { type BlocksContent } from '@strapi/blocks-react-renderer';
 
 import RichTextBlocks from '@/components/rich-text-blocks';
-import Heading3 from '@/styles/h3';
-import { Fragment } from 'react';
 import { spacing3 } from '@/styles/spacing';
 
 interface FeesProps {
@@ -23,13 +23,14 @@ const Fees = ({ costs, discounts }: FeesProps) => {
         if (!fee.content) return null;
         return (
           <Fragment key={fee.title}>
-            <Heading3
+            <Typography
+              variant="h3"
               sx={{
-                marginTop: index === 0 ? '0' : spacing3, // TODO - Update Heading3 margin top
+                marginTop: index === 0 ? '0' : spacing3,
               }}
             >
               {fee.title}
-            </Heading3>
+            </Typography>
             <RichTextBlocks content={fee.content} />
           </Fragment>
         );

@@ -1,11 +1,8 @@
 import Image from 'next/image';
 
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import Map from '@/components/map';
-import Heading3 from '@/styles/h3';
-import Heading5 from '@/styles/h5';
-import Paragraph from '@/styles/p';
 import { spacing1, spacing2, spacing3 } from '@/styles/spacing';
 
 interface UniversityProps {
@@ -84,19 +81,20 @@ const University = ({
           />
         )} */}
         {universityName && universityAcronym && (
-          <Heading3
+          <Typography
+            variant="h3"
             sx={{
               marginLeft: '0',
               weight: '900',
             }}
           >
             {`${universityName} (${universityAcronym})`}
-          </Heading3>
+          </Typography>
         )}
       </Box>
       <Box
         sx={{
-          marginTop: spacing3, // TODO - Update Box university margin top
+          marginTop: spacing3,
           display: 'grid',
           gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
         }}
@@ -109,30 +107,32 @@ const University = ({
               <Box
                 sx={{
                   marginLeft: { xs: '0', md: '2rem' },
-                  marginTop: { xs: '1rem', md: '0' }, // TODO - Update Box list margin top
+                  marginTop: { xs: '1rem', md: '0' },
                 }}
                 key={information.singularTitle}
               >
-                <Heading5
+                <Typography
+                  variant="h5"
                   sx={{
-                    marginTop: index === 0 ? 0 : spacing2, // TODO - Update Heading5 margin top
+                    marginTop: index === 0 ? 0 : spacing2,
                   }}
                 >
                   {information.content.length > 1
                     ? information.pluralTitle
                     : information.singularTitle}
-                </Heading5>
+                </Typography>
                 {information.content.map((content) => {
                   if (!content) return null;
                   return (
-                    <Paragraph
+                    <Typography
+                      variant="body1"
                       sx={{
-                        marginTop: spacing1, // TODO - Update Heading5 margin top
+                        marginTop: spacing1,
                       }}
                       key={content}
                     >
                       {content}
-                    </Paragraph>
+                    </Typography>
                   );
                 })}
               </Box>

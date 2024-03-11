@@ -1,6 +1,4 @@
-import { Box, ListItem, ListItemText } from '@mui/material';
-
-import Paragraph from '@/styles/p';
+import { Box, ListItem, ListItemText, Typography } from '@mui/material';
 
 interface ListProps {
   array: (string | null | undefined)[];
@@ -31,7 +29,7 @@ const List = ({ array, type, sx }: ListProps) => (
             sx={{
               padding: '0',
             }}
-            primary={<Paragraph>{element}</Paragraph>}
+            primary={<Typography variant="body1">{element}</Typography>}
           />
         </ListItem>
       );

@@ -1,25 +1,20 @@
 'use client';
 
 import { Fragment } from 'react';
-import { Paper, useMediaQuery, useTheme } from '@mui/material';
 
-import Heading4 from '@/styles/h4';
-import Paragraph from '@/styles/p';
-import { Enum_Career_Educational_Field } from '@/gql/graphql';
+import { Paper, Typography } from '@mui/material';
+
 import { spacing1, spacing2 } from '@/styles/spacing';
 
 interface DetailsProps {
   title?: string;
   modality?: string;
   academicDegree?: string;
-  educationalField?: Enum_Career_Educational_Field | null | undefined;
+  educationalField?: string;
   duration?: string;
 }
 
 const Details = ({ title, modality, academicDegree, educationalField, duration }: DetailsProps) => {
-  const theme = useTheme();
-  const isMediumScreen = useMediaQuery(theme.breakpoints.down('sm'));
-
   const details = [
     { title: 'Título obtenido', paragraph: title },
     { title: 'Modalidad', paragraph: modality },
@@ -42,20 +37,22 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
         if (!detail.paragraph) return null;
         return (
           <Fragment key={detail.title}>
-            <Heading4
+            <Typography
+              variant="h4"
               sx={{
-                marginTop: index === 0 ? '0' : spacing2, // TODO - Update Heading4 margin top
+                marginTop: index === 0 ? '0' : spacing2,
               }}
             >
               {detail.title}
-            </Heading4>
-            <Paragraph
+            </Typography>
+            <Typography
+              variant="body1"
               sx={{
-                marginTop: spacing1, // TODO - Update paragraph margin top
+                marginTop: spacing1,
               }}
             >
               {detail.paragraph}
-            </Paragraph>
+            </Typography>
           </Fragment>
         );
       })}

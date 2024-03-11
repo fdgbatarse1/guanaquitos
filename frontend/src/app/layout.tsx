@@ -1,16 +1,17 @@
 'use client';
 
 import { Inter } from 'next/font/google';
+
 import { ApolloProvider } from '@apollo/client';
+import { Box } from '@mui/material';
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter';
 import { ThemeProvider } from '@mui/material/styles';
+
+import Navbar from '@/components/navbar';
+import client from '@/lib/apollo-client';
 import theme from '@/styles/theme';
 
-import client from '@/lib/apollo-client';
-
 import './globals.css';
-import Navbar from '@/components/navbar';
-import { Box } from '@mui/material';
 
 const inter = Inter({ subsets: ['latin'] });
 

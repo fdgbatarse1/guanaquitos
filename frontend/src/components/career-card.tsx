@@ -4,12 +4,10 @@ import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
 import Card from '@mui/material/Card/Card';
-import { Box, alpha, useTheme } from '@mui/material';
+import { Box, alpha, useTheme, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import placeholder from '@/assets/images/no_image_available.png';
-import Paragraph from '@/styles/p';
-import Heading5 from '@/styles/h5';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -73,10 +71,10 @@ const CareerCard = ({
               marginLeft: '1rem',
             }}
           >
-            <Heading5>{career_name}</Heading5>
-            <Paragraph>
+            <Typography variant="h5">{career_name}</Typography>
+            <Typography variant="body1">
               {university_name} {university_acronym ? `(${university_acronym})` : ''}
-            </Paragraph>
+            </Typography>
           </Box>
         </Box>
       </StyledCard>
