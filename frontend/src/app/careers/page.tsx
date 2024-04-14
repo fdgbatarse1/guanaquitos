@@ -14,7 +14,7 @@ import getFetchOptions from './utils/getFetchOptions';
 import getFilters from './utils/getFilters';
 import getTotalPages from './utils/getTotalPages';
 
-const Home = ({
+const Careers = ({
   searchParams,
 }: {
   searchParams?: {
@@ -98,4 +98,4 @@ const Home = ({
   );
 };
 
-export default Home;
+export default Careers;
