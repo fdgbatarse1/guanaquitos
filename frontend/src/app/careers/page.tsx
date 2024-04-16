@@ -14,9 +14,7 @@ import getFetchOptions from './utils/getFetchOptions';
 import getFilters from './utils/getFilters';
 import getTotalPages from './utils/getTotalPages';
 
-const Careers = ({
-  searchParams,
-}: {
+interface CareersProps {
   searchParams?: {
     query?: string;
     filters?: string;
@@ -26,7 +24,9 @@ const Careers = ({
     institution?: string;
     order?: string;
   };
-}) => {
+}
+
+const Careers = ({ searchParams }: CareersProps) => {
   const query = searchParams?.query || '';
   const showFilters = searchParams?.filters || '';
   const degree = searchParams?.degree || '';
