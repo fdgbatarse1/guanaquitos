@@ -9,10 +9,10 @@ import Loading from '@/components/loading';
 import Pagination from '@/components/pagination';
 import careersQuery from '@/services/gql/careersQuery';
 import careersSearchQuery from '@/services/gql/careersSearchQuery';
+import getTotalPages from '@/utils/getTotalPages/getTotalPages';
 
 import getFetchOptions from './utils/getFetchOptions';
 import getFilters from './utils/getFilters';
-import getTotalPages from './utils/getTotalPages';
 
 interface CareersProps {
   searchParams?: {
