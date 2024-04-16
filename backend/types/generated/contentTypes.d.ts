@@ -965,6 +965,95 @@ export interface ApiCareerCareer extends Schema.CollectionType {
   };
 }
 
+export interface ApiEntityEntity extends Schema.CollectionType {
+  collectionName: 'entities';
+  info: {
+    singularName: 'entity';
+    pluralName: 'entities';
+    displayName: 'Entity';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    name: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    addresses: Attribute.Component<'map.map', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    logo: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    phones: Attribute.Component<'text.text', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    emails: Attribute.Component<'text.text', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    websites: Attribute.Component<'text.text', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    acronym: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    scholarships: Attribute.Relation<
+      'api::entity.entity',
+      'manyToMany',
+      'api::scholarship.scholarship'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::entity.entity',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::entity.entity',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::entity.entity',
+      'oneToMany',
+      'api::entity.entity'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiScholarshipScholarship extends Schema.CollectionType {
   collectionName: 'scholarships';
   info: {
@@ -982,7 +1071,7 @@ export interface ApiScholarshipScholarship extends Schema.CollectionType {
     };
   };
   attributes: {
-    title: Attribute.String &
+    name: Attribute.String &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
@@ -1020,14 +1109,12 @@ export interface ApiScholarshipScholarship extends Schema.CollectionType {
         };
       }>;
     studies_start_date: Attribute.Date &
-      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
     studies_final_date: Attribute.Date &
-      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1102,15 +1189,31 @@ export interface ApiScholarshipScholarship extends Schema.CollectionType {
           localized: true;
         };
       }>;
-    Type: Attribute.String &
+    how_to_apply: Attribute.Blocks &
       Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
         };
       }>;
-    how_to_apply: Attribute.Blocks &
-      Attribute.Required &
+    entities: Attribute.Relation<
+      'api::scholarship.scholarship',
+      'manyToMany',
+      'api::entity.entity'
+    >;
+    documents: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    country: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    type: Attribute.Enumeration<['Parcial', 'Completa']> &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1251,6 +1354,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::career.career': ApiCareerCareer;
+      'api::entity.entity': ApiEntityEntity;
       'api::scholarship.scholarship': ApiScholarshipScholarship;
       'api::university.university': ApiUniversityUniversity;
     }
