@@ -6,6 +6,8 @@ import Loading from '@/components/loading';
 import scholarshipsQuery from '@/services/gql/scholarshipsQuery';
 import getTotalPages from '@/utils/getTotalPages/getTotalPages';
 
+import getFilters from './utils/getFilters';
+
 interface CareersProps {
   searchParams?: {
     query?: string;
@@ -51,6 +53,8 @@ const Scholarships = ({ searchParams }: CareersProps) => {
   });
 
   console.log(data, totalPages);
+
+  const filters = getFilters({ type, category, country, entity, order });
 
   return (
     <div>
