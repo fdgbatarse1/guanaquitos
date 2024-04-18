@@ -23,6 +23,7 @@ const scholarshipsQuery = gql`
       pagination: { page: $page, pageSize: $page_size }
     ) {
       data {
+        id
         attributes {
           name
           country
@@ -37,6 +38,8 @@ const scholarshipsQuery = gql`
                   data {
                     attributes {
                       url
+                      width
+                      height
                     }
                   }
                 }
