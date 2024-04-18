@@ -9,6 +9,9 @@ import { styled } from '@mui/material/styles';
 
 import placeholder from '@/assets/images/no_image_available.png';
 
+import formatDate from '../utils/formatDate';
+import getColorByStatus from '../utils/getColorByStatus';
+
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
   ...theme.typography.body2,
@@ -17,8 +20,8 @@ const StyledCard = styled(Card)(({ theme }) => ({
 interface ScholarshipCardProps {
   scholarship_name?: string;
   scholarship_country?: string;
-  scholarship_application_start_date?: Date;
-  scholarship_application_end_date?: Date;
+  scholarship_application_start_date?: string;
+  scholarship_application_final_date?: string;
   entity_name?: string;
   entity_logo?: string | StaticImageData;
   entity_logo_width?: number;
@@ -28,8 +31,8 @@ interface ScholarshipCardProps {
 const ScholarshipCard = ({
   scholarship_name,
   scholarship_country,
-  scholarship_application_start_date,
-  scholarship_application_end_date,
+  scholarship_application_start_date = '',
+  scholarship_application_final_date = '',
   entity_name = 'Instituto no especificado',
   entity_logo,
   entity_logo_width,
@@ -75,6 +78,25 @@ const ScholarshipCard = ({
               marginLeft: '1rem',
             }}
           >
+            <Typography
+              variant="body1"
+              sx={{
+                backgroundColor: alpha(
+                  getColorByStatus(
+                    scholarship_application_start_date,
+                    scholarship_application_final_date,
+                    theme,
+                  ),
+                  0.75,
+                ),
+                borderRadius: '4px',
+                padding: '0.25rem 0.5rem',
+                width: 'fit-content',
+              }}
+            >
+              {formatDate(scholarship_application_start_date)} -{' '}
+              {formatDate(scholarship_application_final_date)}
+            </Typography>
             <Typography variant="h5">{scholarship_name}</Typography>
             <Typography variant="body1">
               {entity_name} {scholarship_country ? `(${scholarship_country})` : ''}

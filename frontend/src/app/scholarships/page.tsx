@@ -66,7 +66,7 @@ const Scholarships = ({ searchParams }: CareersProps) => {
               scholarship_name={scholarship.attributes.name}
               scholarship_country={scholarship.attributes.country}
               scholarship_application_start_date={scholarship.attributes.application_start_date}
-              scholarship_application_end_date={scholarship.attributes.application_end_date}
+              scholarship_application_final_date={scholarship.attributes.application_final_date}
               entity_name={scholarship?.attributes?.entities?.data[0]?.attributes?.name}
               entity_logo={
                 scholarship?.attributes?.entities?.data[0]?.attributes?.logo?.data[0]?.attributes
