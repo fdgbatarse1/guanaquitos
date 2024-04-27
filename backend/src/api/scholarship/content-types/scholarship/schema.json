@@ -221,7 +221,8 @@
       "enum": [
         "Parcial",
         "Completa"
-      ]
+      ],
+      "required": true
     }
   }
 }

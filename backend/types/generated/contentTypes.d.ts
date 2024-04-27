@@ -1214,6 +1214,7 @@ export interface ApiScholarshipScholarship extends Schema.CollectionType {
         };
       }>;
     type: Attribute.Enumeration<['Parcial', 'Completa']> &
+      Attribute.Required &
       Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
