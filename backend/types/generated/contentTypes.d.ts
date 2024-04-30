@@ -1054,6 +1054,60 @@ export interface ApiEntityEntity extends Schema.CollectionType {
   };
 }
 
+export interface ApiHomepageHomepage extends Schema.SingleType {
+  collectionName: 'homepages';
+  info: {
+    singularName: 'homepage';
+    pluralName: 'homepages';
+    displayName: 'Homepage';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    announcements: Attribute.Component<'announcement.announcement', true> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    videos: Attribute.Component<'video.video', true> &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::homepage.homepage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::homepage.homepage',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::homepage.homepage',
+      'oneToMany',
+      'api::homepage.homepage'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiScholarshipScholarship extends Schema.CollectionType {
   collectionName: 'scholarships';
   info: {
@@ -1356,6 +1410,7 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::career.career': ApiCareerCareer;
       'api::entity.entity': ApiEntityEntity;
+      'api::homepage.homepage': ApiHomepageHomepage;
       'api::scholarship.scholarship': ApiScholarshipScholarship;
       'api::university.university': ApiUniversityUniversity;
     }

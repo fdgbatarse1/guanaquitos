@@ -2,59 +2,50 @@
 
 import { Box } from '@mui/material';
 
+import { useQuery } from '@apollo/client';
+import homepageQuery from '@/services/gql/homepageQuery';
+import { GetHomepageQuery } from '@/gql/graphql';
+
 import Announcement from './components/announcement';
 import Video from './components/video';
+import Loading from './loading';
 
 const Home = () => {
-  const videos = [
-    {
-      id: '1',
-      url: 'https://www.youtube.com/embed/DKGW4l73wM4?si=isrdFCer9F7_RJcx',
-      title: 'Orientación Vocacional',
-      description:
-        'Para descubrir tu verdadera vocación tienes que tener la disposición de aprender y sobre todo de estar dispuesto a dar tu mayor esfuerzo para descubrir quién eres y las cosas que te hacen diferente de otros.',
-    },
-    {
-      id: '2',
-      url: 'https://www.youtube.com/embed/DKGW4l73wM4?si=isrdFCer9F7_RJcx',
-      title: 'Carreras',
-      description:
-        'Para descubrir tu verdadera vocación tienes que tener la disposición de aprender y sobre todo de estar dispuesto a dar tu mayor esfuerzo para descubrir quién eres y las cosas que te hacen diferente de otros.',
-    },
-    {
-      id: '3',
-      url: 'https://www.youtube.com/embed/DKGW4l73wM4?si=isrdFCer9F7_RJcx',
-      title: 'Becas',
-      description:
-        'Para descubrir tu verdadera vocación tienes que tener la disposición de aprender y sobre todo de estar dispuesto a dar tu mayor esfuerzo para descubrir quién eres y las cosas que te hacen diferente de otros.',
-    },
-  ];
+  const { loading, error, data } = useQuery<GetHomepageQuery>(homepageQuery);
 
-  const announcement = {
-    title: 'Feria de Orientación Vocacional 2024',
-    description:
-      'La "Feria de Orientación Vocacional 2024: Explorando Futuros" es un evento interactivo y enriquecedor diseñado para estudiantes de secundaria y universitarios que están en la búsqueda de su camino profesional.',
-    url: 'https://calendar.app.google/3qBCMEUwCBnXVmq96',
-  };
+  if (loading) return <Loading />;
+  if (error) throw new Error(`Error: ${error.message}`);
+
+  const { announcements = [], videos = [] } = data?.homepage?.data?.attributes || {};
+  const announcement = announcements[0];
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', padding: { xs: '2rem' } }}>
-      <Announcement
-        title={announcement.title}
-        description={announcement.description}
-        url={announcement.url}
-      />
-      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-        {videos.map(({ id, title, description, url }, index) => (
-          <Video
-            title={title}
-            description={description}
-            url={url}
-            key={id}
-            right={index % 2 === 0}
-          />
-        ))}
-      </Box>
+      {announcement && (
+        <Announcement
+          title={announcement.title}
+          description={announcement.description}
+          url={announcement.url}
+        />
+      )}
+      {videos && (
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          {videos.map((video, index) => {
+            if (!video) return null;
+            const { title, description, url, id } = video;
+            if (!title || !description || !url || !id) return null;
+            return (
+              <Video
+                title={title}
+                description={description}
+                url={url}
+                key={id}
+                right={index % 2 === 0}
+              />
+            );
+          })}
+        </Box>
+      )}
     </Box>
   );
 };
