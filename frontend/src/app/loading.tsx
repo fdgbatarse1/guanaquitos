@@ -1,3 +1,1 @@
-const Loading = () => <p>Loading...</p>;
-
-export default Loading;
+export { default } from '@/components/loading';

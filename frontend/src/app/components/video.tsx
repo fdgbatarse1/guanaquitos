@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ReactPlayer from 'react-player/lazy';
 import { Typography, Box, useTheme } from '@mui/material';
 
+import Loading from '@/components/loading';
+
 interface VideoProps {
   url: string;
   title: string;
@@ -25,7 +27,7 @@ const Video = ({ url, title, description, right }: VideoProps) => {
         width: '100%',
         height: 'auto',
         marginTop: '2rem',
-        paddingRight: '1rem',
+        paddingRight: { sm: '1rem' },
       }}
     >
       <Box
@@ -44,7 +46,7 @@ const Video = ({ url, title, description, right }: VideoProps) => {
             style={{ position: 'absolute', top: 0, left: 0, borderRadius: '1rem' }}
           />
         ) : (
-          <div>Loading...</div>
+          <Loading />
         )}
       </Box>
       <Box
@@ -64,7 +66,7 @@ const Video = ({ url, title, description, right }: VideoProps) => {
           order: { xs: 2, sm: right ? -1 : 2 },
         }}
       >
-        <Typography variant="h2" color={theme.palette.primary.main}>
+        <Typography variant="h3" color={theme.palette.primary.main}>
           {title}
         </Typography>
         <Typography variant="body1" sx={{ marginTop: '0.5rem' }}>
