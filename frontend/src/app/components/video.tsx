@@ -26,8 +26,8 @@ const Video = ({ url, title, description, right }: VideoProps) => {
         flexDirection: { xs: 'column', sm: 'row' },
         width: '100%',
         height: 'auto',
-        marginTop: '2rem',
-        paddingRight: { sm: '1rem' },
+        marginTop: { xs: '1rem', sm: '2rem', md: '4rem' },
+        paddingRight: { sm: '2rem', md: '4rem' },
       }}
     >
       <Box
@@ -56,11 +56,13 @@ const Video = ({ url, title, description, right }: VideoProps) => {
           marginTop: { xs: '1rem', sm: '0' },
           marginLeft: {
             xs: '0',
-            sm: right ? '0' : '1rem',
+            sm: right ? '0' : '2rem',
+            md: right ? '0' : '4rem',
           },
           marginRight: {
             xs: '0',
-            sm: right ? '1rem' : '0',
+            sm: right ? '2rem' : '0',
+            md: right ? '4rem' : '0',
           },
           flex: { sm: '1 0 50%' },
           order: { xs: 2, sm: right ? -1 : 2 },
