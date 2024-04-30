@@ -3,20 +3,18 @@
 import { useQuery } from '@apollo/client';
 import { Grid } from '@mui/material';
 
-import CareerCard from '@/components/career-card';
 import ComplexSearch from '@/components/complex-search';
 import Loading from '@/components/loading';
 import Pagination from '@/components/pagination';
 import careersQuery from '@/services/gql/careersQuery';
 import careersSearchQuery from '@/services/gql/careersSearchQuery';
+import getTotalPages from '@/utils/getTotalPages/getTotalPages';
 
+import CareerCard from './components/career-card';
 import getFetchOptions from './utils/getFetchOptions';
 import getFilters from './utils/getFilters';
-import getTotalPages from './utils/getTotalPages';
 
-const Home = ({
-  searchParams,
-}: {
+interface CareersProps {
   searchParams?: {
     query?: string;
     filters?: string;
@@ -26,7 +24,9 @@ const Home = ({
     institution?: string;
     order?: string;
   };
-}) => {
+}
+
+const Careers = ({ searchParams }: CareersProps) => {
   const query = searchParams?.query || '';
   const showFilters = searchParams?.filters || '';
   const degree = searchParams?.degree || '';
@@ -98,4 +98,4 @@ const Home = ({
   );
 };
 
-export default Home;
+export default Careers;
