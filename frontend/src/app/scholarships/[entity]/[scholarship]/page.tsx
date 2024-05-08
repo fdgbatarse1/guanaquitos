@@ -40,8 +40,6 @@ const ScholarshipPage = ({ params }: ScholarshipPageProps) => {
 
   if (!scholarship) return <p>Error: No data</p>;
 
-  console.log(scholarship);
-
   return (
     <Box
       sx={{
