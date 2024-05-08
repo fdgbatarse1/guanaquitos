@@ -154,6 +154,10 @@ const Navbar = () => {
       name: 'Becas',
       path: '/scholarships',
     },
+    {
+      name: 'Chat',
+      path: '/chat',
+    },
   ];
 
   return (
