@@ -813,7 +813,8 @@ export interface ApiAdvisorAdvisor extends Schema.CollectionType {
   info: {
     singularName: 'advisor';
     pluralName: 'advisors';
-    displayName: 'advisor';
+    displayName: 'Advisor';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -1182,6 +1183,79 @@ export interface ApiHomepageHomepage extends Schema.SingleType {
   };
 }
 
+export interface ApiResourceResource extends Schema.CollectionType {
+  collectionName: 'resources';
+  info: {
+    singularName: 'resource';
+    pluralName: 'resources';
+    displayName: 'Resource';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    title: Attribute.String &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    description: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    type: Attribute.Enumeration<['pdf', 'docx', 'xlsx', 'pptx', 'txt']> &
+      Attribute.Required &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    media: Attribute.Media &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    link: Attribute.String &
+      Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::resource.resource',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    localizations: Attribute.Relation<
+      'api::resource.resource',
+      'oneToMany',
+      'api::resource.resource'
+    >;
+    locale: Attribute.String;
+  };
+}
+
 export interface ApiScholarshipScholarship extends Schema.CollectionType {
   collectionName: 'scholarships';
   info: {
@@ -1486,6 +1560,7 @@ declare module '@strapi/types' {
       'api::career.career': ApiCareerCareer;
       'api::entity.entity': ApiEntityEntity;
       'api::homepage.homepage': ApiHomepageHomepage;
+      'api::resource.resource': ApiResourceResource;
       'api::scholarship.scholarship': ApiScholarshipScholarship;
       'api::university.university': ApiUniversityUniversity;
     }

@@ -28,6 +28,7 @@
     "@mui/material": "^5.15.7",
     "@mui/material-nextjs": "^5.15.11",
     "@react-google-maps/api": "^2.19.3",
+    "@remixicon/react": "^4.2.0",
     "@strapi/blocks-react-renderer": "^1.0.0",
     "date-fns": "^3.6.0",
     "graphql": "^16.8.1",
