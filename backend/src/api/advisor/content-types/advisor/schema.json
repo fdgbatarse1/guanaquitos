@@ -4,7 +4,8 @@
   "info": {
     "singularName": "advisor",
     "pluralName": "advisors",
-    "displayName": "advisor"
+    "displayName": "Advisor",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -43,36 +44,36 @@
       "required": false
     },
     "picture": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ],
-      "type": "media",
-      "multiple": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "required": true
+      }
     },
     "resume": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
       ],
-      "type": "media",
-      "multiple": false,
       "pluginOptions": {
         "i18n": {
           "localized": true
         }
-      },
-      "required": true
+      }
     }
   }
 }

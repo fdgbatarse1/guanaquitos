@@ -813,7 +813,8 @@ export interface ApiAdvisorAdvisor extends Schema.CollectionType {
   info: {
     singularName: 'advisor';
     pluralName: 'advisors';
-    displayName: 'advisor';
+    displayName: 'Advisor';
+    description: '';
   };
   options: {
     draftAndPublish: true;
