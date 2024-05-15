@@ -62,7 +62,7 @@ const Resources = ({ searchParams }: OrientationProps) => {
   return (
     <div style={{ width: '100%' }}>
       <Typography variant="h3" color={theme.palette.primary.main}>
-        Asesores
+        Recursos
       </Typography>
       <Grid container gap={4} direction="column" alignItems="center" sx={{ marginTop: spacing3 }}>
         <ComplexSearch
