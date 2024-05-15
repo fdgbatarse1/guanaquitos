@@ -24,6 +24,17 @@ const StyledCard = styled(Card)(({ theme }) => ({
   ...theme.typography.body2,
 }));
 
+const StyledLink = styled(Link)(({ theme }) => ({
+  display: 'flex',
+  flexDirection: 'column',
+  color: theme.palette.text.primary,
+  textDecoration: 'none',
+  transition: 'color 0.3s ease-in-out',
+  ':hover': {
+    color: theme.palette.primary.main,
+  },
+}));
+
 const ResourceLogo = ({ type }: { type: Enum_Resource_Type | '' }) =>
   ({
     docx: <RiFileWord2Fill size={80} />,
@@ -49,16 +60,7 @@ const Resource = ({ title, description, type, url }: ResourceProps) => {
         },
       }}
     >
-      <Link
-        href={url}
-        target="_blank"
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          color: theme.palette.text.primary,
-          textDecoration: 'none',
-        }}
-      >
+      <StyledLink href={url} target="_blank">
         <Box sx={{ display: 'flex' }}>
           <Box sx={{ paddingRight: spacing1 }}>
             <ResourceLogo type={type} />
@@ -75,7 +77,7 @@ const Resource = ({ title, description, type, url }: ResourceProps) => {
         >
           {description}
         </Typography>
-      </Link>
+      </StyledLink>
     </StyledCard>
   );
 };
