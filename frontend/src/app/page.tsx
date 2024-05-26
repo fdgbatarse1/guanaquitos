@@ -13,8 +13,6 @@ import Loading from './loading';
 const Home = () => {
   const { loading, error, data } = useQuery<GetHomepageQuery>(homepageQuery);
 
-  console.log(loading, error, data);
-
   if (loading) return <Loading />;
   if (error) throw new Error(`Error: ${error.message}`);
 
