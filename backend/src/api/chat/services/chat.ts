@@ -12,6 +12,8 @@ import { RunnableWithMessageHistory } from "@langchain/core/runnables";
 import { TavilySearchResults } from "@langchain/community/tools/tavily_search";
 import { createRetrieverTool } from "langchain/tools/retriever";
 import { createOpenAIFunctionsAgent, AgentExecutor } from "langchain/agents";
+import { traceable } from "langsmith/traceable";
+import { awaitAllCallbacks } from "@langchain/core/callbacks/promises";
 
 const OPENAI_SECRET_KEY = process.env.OPENAI_SECRET_KEY;
 const PINECONE_INDEX = process.env.PINECONE_INDEX;
@@ -50,98 +52,106 @@ const searchTool = new TavilySearchResults({
 // ];
 
 const Service = () => ({
-  async chat(params) {
-    try {
-      const { prompt, sessionId } = params;
+  chat: traceable(
+    async (params) => {
+      try {
+        const { prompt, sessionId } = params;
 
-      //   strapi.log.debug(JSON.stringify(params));
+        //   strapi.log.debug(JSON.stringify(params));
 
-      const vectorStore = await PineconeStore.fromExistingIndex(
-        textEmbedding3Small,
-        { pineconeIndex }
-      );
+        const vectorStore = await PineconeStore.fromExistingIndex(
+          textEmbedding3Small,
+          {
+            pineconeIndex,
+          }
+        );
+        // const documentContents = "Brief answer";
 
-      // const documentContents = "Brief answer";
+        const retriever = vectorStore.asRetriever();
 
-      const retriever = vectorStore.asRetriever();
+        const retrieverTool = createRetrieverTool(retriever, {
+          name: "careers_and_scholarships_search",
+          description:
+            "Search for information about careers and scholarships in El salvador. For any questions about orientation, careers or scholarships, you must use this tool!",
+        });
 
-      const retrieverTool = createRetrieverTool(retriever, {
-        name: "careers_and_scholarships_search",
-        description:
-          "Search for information about careers and scholarships in El salvador. For any questions about orientation, careers or scholarships, you must use this tool!",
-      });
+        const tools = [searchTool, retrieverTool];
 
-      const tools = [searchTool, retrieverTool];
+        // const selfQueryRetriever = SelfQueryRetriever.fromLLM({
+        //   llm,
+        //   vectorStore,
+        //   documentContents,
+        //   attributeInfo,
+        //   structuredQueryTranslator: new PineconeTranslator(),
+        // });
 
-      // const selfQueryRetriever = SelfQueryRetriever.fromLLM({
-      //   llm,
-      //   vectorStore,
-      //   documentContents,
-      //   attributeInfo,
-      //   structuredQueryTranslator: new PineconeTranslator(),
-      // });
+        //   const query = await selfQueryRetriever.invoke(prompt);
 
-      //   const query = await selfQueryRetriever.invoke(prompt);
+        // const systemTemplate = "Translate the following into {language}:";
 
-      // const systemTemplate = "Translate the following into {language}:";
+        const promptTemplate = ChatPromptTemplate.fromMessages([
+          ["system", "You are a helpful assistant"],
+          ["placeholder", "{chat_history}"],
+          ["human", "{input}"],
+          ["placeholder", "{agent_scratchpad}"],
+        ]);
 
-      const promptTemplate = ChatPromptTemplate.fromMessages([
-        [
-          "system",
-          `You are a helpful assistant who help in career search giving a description of a career. To do this you first need to search for the career in the database. You can ask me to search for a career or scholarship in El Salvador.`,
-        ],
-        // ["placeholder", "{chat_history}"],
-        ["human", "{input}"],
-      ]);
+        // const parser = new StringOutputParser();
 
-      // const parser = new StringOutputParser();
+        const chain = promptTemplate.pipe(llm);
 
-      // const chain = promptTemplate.pipe(llm);
+        // const withMessageHistory = new RunnableWithMessageHistory({
+        //   runnable: chain,
+        //   getMessageHistory: async (sessionId) => {
+        //     if (messageHistories[sessionId] === undefined) {
+        //       messageHistories[sessionId] = new InMemoryChatMessageHistory();
+        //     }
+        //     return messageHistories[sessionId];
+        //   },
+        //   inputMessagesKey: "input",
+        //   historyMessagesKey: "chat_history",
+        // });
 
-      // const withMessageHistory = new RunnableWithMessageHistory({
-      //   runnable: chain,
-      //   getMessageHistory: async (sessionId) => {
-      //     if (messageHistories[sessionId] === undefined) {
-      //       messageHistories[sessionId] = new InMemoryChatMessageHistory();
-      //     }
-      //     return messageHistories[sessionId];
-      //   },
-      //   inputMessagesKey: "input",
-      //   historyMessagesKey: "chat_history",
-      // });
+        // const config = {
+        //   configurable: {
+        //     sessionId: sessionId,
+        //   },
+        // };
 
-      // const config = {
-      //   configurable: {
-      //     sessionId: sessionId,
-      //   },
-      // };
+        const agent = await createOpenAIFunctionsAgent({
+          llm,
+          tools,
+          prompt: promptTemplate,
+        });
 
-      const agent = await createOpenAIFunctionsAgent({
-        llm,
-        tools,
-        prompt: promptTemplate,
-      });
-      const agentExecutor = new AgentExecutor({
-        agent,
-        tools,
-      });
-      const result = await agentExecutor.invoke({
-        input: prompt,
-      });
-      // const response = await withMessageHistory.invoke(
-      //   {
-      //     input: prompt,
-      //   },
-      //   config
-      // );
+        const agentExecutor = new AgentExecutor({
+          agent,
+          tools,
+        });
 
-      await llm.invoke("Hello, world!");
+        const result = await agentExecutor.invoke({
+          input: prompt,
+        });
+        // const response = await withMessageHistory.invoke(
+        //   {
+        //     input: prompt,
+        //   },
+        //   config
+        // );
 
-      return result;
-    } catch (error) {
-      console.log(error);
+        // const result = await llmWithTracing.invoke("Hello, world!");
+
+        return result;
+      } catch (error) {
+        console.log(error);
+      } finally {
+        await awaitAllCallbacks();
+      }
+    },
+    {
+      name: "guanaquitos_chat",
     }
-  },
+  ),
 });
 
 export default Service;
