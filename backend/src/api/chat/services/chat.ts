@@ -20,7 +20,7 @@ const PINECONE_INDEX = process.env.PINECONE_INDEX;
 const PINECONE_API_KEY = process.env.PINECONE_API_KEY;
 const TAVILY_API_KEY = process.env.TAVILY_API_KEY;
 
-// const messageHistories: Record<string, InMemoryChatMessageHistory> = {};
+const messageHistories: Record<string, InMemoryChatMessageHistory> = {};
 
 const llm = new ChatOpenAI({
   model: "gpt-3.5-turbo",
@@ -98,7 +98,7 @@ const Service = () => ({
 
         // const parser = new StringOutputParser();
 
-        const chain = promptTemplate.pipe(llm);
+        // const chain = promptTemplate.pipe(llm);
 
         // const withMessageHistory = new RunnableWithMessageHistory({
         //   runnable: chain,
@@ -129,9 +129,28 @@ const Service = () => ({
           tools,
         });
 
-        const result = await agentExecutor.invoke({
-          input: prompt,
+        const agentWithChatHistory = new RunnableWithMessageHistory({
+          runnable: agentExecutor,
+          getMessageHistory: async (sessionId) => {
+            if (messageHistories[sessionId] === undefined) {
+              messageHistories[sessionId] = new InMemoryChatMessageHistory();
+            }
+            return messageHistories[sessionId];
+          },
+          inputMessagesKey: "input",
+          historyMessagesKey: "chat_history",
         });
+
+        const result = await agentWithChatHistory.invoke(
+          {
+            input: prompt,
+          },
+          {
+            configurable: {
+              sessionId: sessionId,
+            },
+          }
+        );
         // const response = await withMessageHistory.invoke(
         //   {
         //     input: prompt,
