@@ -65,12 +65,12 @@ services:
       - guanaquitos
     entrypoint: ["npm"]
 
-  # npm-backend:
-  #   image: node:lts-alpine
-  #   working_dir: /backend/app
-  #   volumes:
-  #     - ./backend:/backend/app
-  #   entrypoint: ["npm"]
+  npm-backend:
+    image: node:lts-alpine
+    working_dir: /backend/app
+    volumes:
+      - ./backend:/backend/app
+    entrypoint: ["npm"]
 
 volumes:
   postgres-data:

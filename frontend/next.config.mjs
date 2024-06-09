@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   env: {
+    BACKEND_API_URL: process.env.BACKEND_API_URL,
     GOOGLE_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY,
     BACKEND_GRAPHQL_URL: process.env.BACKEND_GRAPHQL_URL,
   },

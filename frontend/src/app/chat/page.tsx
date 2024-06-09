@@ -1,193 +1,84 @@
 'use client';
 
-import { type ChangeEvent, useState } from 'react';
+import { type ChangeEvent, useState, useEffect } from 'react';
 
-import { Box, Typography } from '@mui/material';
-import theme from '@/styles/theme';
+import { Box } from '@mui/material';
 
 import Streaming from './components/streaming';
 import Prompt from './components/prompt';
+import { MessagesProps } from './types';
+
+const BACKEND_API_URL = process.env.BACKEND_API_URL || '';
 
 const Chat = () => {
   const [prompt, setPrompt] = useState('');
+  const [error, setError] = useState('');
 
-  const messages = [
+  const [messages, setMessages] = useState<MessagesProps>([
     {
-      output:
-        'Este servicio está diseñado para proporcionar recomendaciones. Sin embargo, es importante recordar que solo es una herramienta de apoyo y no debe ser utilizado como el único recurso para sus decisiones. No podemos asegurar la precisión completa de las recomendaciones por lo que es aconsejable también acudir a un orientador vocacional.',
+      type: 'system',
+      text: 'Cargando...',
+      sourceDocuments: null,
     },
-    {
-      output: 'This is a test output',
-      sourceDocuments: [
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-      ],
-    },
-    {
-      output: 'This is a test output',
-      sourceDocuments: [
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-      ],
-    },
-    {
-      output: 'This is a test output',
-      sourceDocuments: [
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-      ],
-    },
-    {
-      output: 'This is a test output',
-      sourceDocuments: [
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-      ],
-    },
-    {
-      output: 'This is a test output',
-      sourceDocuments: [
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-      ],
-    },
-    {
-      output: 'This is a test output',
-      sourceDocuments: [
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-      ],
-    },
-    {
-      output: 'This is a test output',
-      sourceDocuments: [
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-        {
-          pageContent: 'This is a test page content',
-          metadata: {
-            source: 'This is a test source',
-          },
-        },
-      ],
-    },
-  ];
+  ]);
 
-  const handleSubmit = () => {
-    console.log('Submitted');
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const chatHistory = window.sessionStorage.getItem('chatHistory');
+
+    if (!chatHistory) return;
+
+    setMessages(() => JSON.parse(chatHistory));
+  }, []);
+
+  const handleSubmit = async () => {
+    try {
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: prompt, type: 'user', sourceDocuments: null },
+      ]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: '...', type: 'bot', sourceDocuments: null },
+      ]);
+
+      const sessionId = sessionStorage.getItem('sessionId');
+
+      const response = await fetch(`${BACKEND_API_URL}api/chat`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt, sessionId }),
+      });
+      const data = await response.json();
+
+      setMessages((prevMessages) => prevMessages.slice(0, -1));
+
+      setMessages((prevMessages) => {
+        const newMessages: MessagesProps = [
+          ...prevMessages,
+          {
+            text: data?.response?.output,
+            type: 'bot',
+            sourceDocuments: null,
+          },
+        ];
+        window.sessionStorage.setItem('chatHistory', JSON.stringify(newMessages));
+        return newMessages;
+      });
+
+      setPrompt('');
+    } catch (e) {
+      console.log(e);
+      setError('Something went wrong! 🤯');
+    }
   };
 
   const handlePromptChange = (e: ChangeEvent<HTMLInputElement>) => {
     setPrompt(e.target.value);
   };
-
-  const error = '';
 
   return (
     <Box

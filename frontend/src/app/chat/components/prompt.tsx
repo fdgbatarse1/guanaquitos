@@ -62,7 +62,9 @@ const Prompt = ({
           </Button>
         )}
       </Box>
-      <p className={`text-red-500 ${error ? 'block' : 'hidden'}`}>{error}</p>
+      <p className={`${error ? 'block' : 'hidden'}`} style={{ color: 'rgb(239 68 68)' }}>
+        {error}
+      </p>
     </>
   );
 };
