@@ -1,9 +1,9 @@
-import { Pinecone } from "@pinecone-database/pinecone";
-
-import { OpenAIEmbeddings } from "@langchain/openai";
-import { Document } from "@langchain/core/documents";
 import { traceable } from "langsmith/traceable";
+
 import { awaitAllCallbacks } from "@langchain/core/callbacks/promises";
+import { Document } from "@langchain/core/documents";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { Pinecone } from "@pinecone-database/pinecone";
 
 const OPENAI_SECRET_KEY = process.env.OPENAI_SECRET_KEY;
 const PINECONE_INDEX = process.env.PINECONE_INDEX;
@@ -98,13 +98,13 @@ export default {
 
           await pineconeIndex.upsert([
             {
-              id: `${result?.id}`,
+              id: `career-${result?.id}`,
               values: embeddings[0],
               metadata: careerMetadata,
             },
           ]);
         } else {
-          await pineconeIndex.deleteOne(`${result?.id}`);
+          await pineconeIndex.deleteOne(`career-${result?.id}`);
         }
       } catch (error) {
         strapi.log.error(error);
@@ -124,7 +124,7 @@ export default {
           apiKey: PINECONE_API_KEY,
         });
         const pineconeIndex = pinecone.Index(PINECONE_INDEX);
-        await pineconeIndex.deleteOne(`${result?.id}`);
+        await pineconeIndex.deleteOne(`career-${result?.id}`);
       } catch (error) {
         strapi.log.error(error);
       } finally {
