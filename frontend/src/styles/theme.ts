@@ -472,6 +472,7 @@ theme.typography.subtitle2 = {
 // body1
 theme.typography.body1 = {
   ...theme.typography.body1,
+  maxWidth: 'calc(100vw - 3rem)',
   fontSize: '1rem',
   lineHeight: '1.5rem',
   [theme.breakpoints.up('md')]: {
