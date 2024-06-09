@@ -22,9 +22,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   useEffect(() => {
-    if (!sessionStorage.getItem('sessionId')) {
-      sessionStorage.setItem('sessionId', crypto.randomUUID());
-    }
+    if (typeof window === 'undefined') return;
+    if (window.sessionStorage.getItem('sessionId')) return;
+
+    window.sessionStorage.setItem('sessionId', crypto.randomUUID());
+    window.sessionStorage.setItem(
+      'chatHistory',
+      JSON.stringify([
+        {
+          type: 'system',
+          text: 'Este servicio está diseñado para proporcionar recomendaciones. Sin embargo, es importante recordar que solo es una herramienta de apoyo y no debe ser utilizado como el único recurso para sus decisiones. No podemos asegurar la precisión completa de las recomendaciones por lo que es aconsejable también acudir a un orientador vocacional.',
+          sourceDocuments: null,
+        },
+      ]),
+    );
   }, []);
 
   return (

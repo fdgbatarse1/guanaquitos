@@ -1,6 +1,6 @@
 'use client';
 
-import { type ChangeEvent, useState } from 'react';
+import { type ChangeEvent, useState, useEffect } from 'react';
 
 import { Box } from '@mui/material';
 
@@ -17,10 +17,20 @@ const Chat = () => {
   const [messages, setMessages] = useState<MessagesProps>([
     {
       type: 'system',
-      text: 'Este servicio está diseñado para proporcionar recomendaciones. Sin embargo, es importante recordar que solo es una herramienta de apoyo y no debe ser utilizado como el único recurso para sus decisiones. No podemos asegurar la precisión completa de las recomendaciones por lo que es aconsejable también acudir a un orientador vocacional.',
+      text: 'Cargando...',
       sourceDocuments: null,
     },
   ]);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const chatHistory = window.sessionStorage.getItem('chatHistory');
+
+    if (!chatHistory) return;
+
+    setMessages(() => JSON.parse(chatHistory));
+  }, []);
 
   const handleSubmit = async () => {
     try {
@@ -28,11 +38,13 @@ const Chat = () => {
         ...prevMessages,
         { text: prompt, type: 'user', sourceDocuments: null },
       ]);
-      // setMessages((prevMessages) => [
-      //   ...prevMessages,
-      //   { text: '...', type: 'bot', sourceDocuments: null },
-      // ]);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: '...', type: 'bot', sourceDocuments: null },
+      ]);
+
       const sessionId = sessionStorage.getItem('sessionId');
+
       const response = await fetch(`${BACKEND_API_URL}api/chat`, {
         method: 'POST',
         headers: {
@@ -40,9 +52,23 @@ const Chat = () => {
         },
         body: JSON.stringify({ prompt, sessionId }),
       });
-      console.log(response);
       const data = await response.json();
-      console.log(data);
+
+      setMessages((prevMessages) => prevMessages.slice(0, -1));
+
+      setMessages((prevMessages) => {
+        const newMessages: MessagesProps = [
+          ...prevMessages,
+          {
+            text: data?.response?.output,
+            type: 'bot',
+            sourceDocuments: null,
+          },
+        ];
+        window.sessionStorage.setItem('chatHistory', JSON.stringify(newMessages));
+        return newMessages;
+      });
+
       setPrompt('');
     } catch (e) {
       console.log(e);
