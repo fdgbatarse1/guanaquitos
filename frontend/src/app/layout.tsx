@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect } from 'react';
 import { Inter } from 'next/font/google';
 
 import { ApolloProvider } from '@apollo/client';
@@ -20,6 +21,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  useEffect(() => {
+    if (!sessionStorage.getItem('sessionId')) {
+      sessionStorage.setItem('sessionId', crypto.randomUUID());
+    }
+  }, []);
+
   return (
     <html lang="en">
       <body className={inter.className}>

@@ -2,28 +2,10 @@
 
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
+
 import theme from '@/styles/theme';
 
-interface MessageProps {
-  output?: string;
-  sourceDocuments?: {
-    pageContent: string;
-    metadata: {
-      source: string;
-    };
-  }[];
-}
-
-type MessagesProps = MessageProps[];
-
-interface MessageItemProps {
-  message: MessageProps;
-}
-
-interface StreamingProps {
-  messages?: MessagesProps;
-  maxMsgs?: number;
-}
+import { MessageItemProps, StreamingProps } from '../types';
 
 const MessageItem = ({ message }: MessageItemProps) => {
   const [showSources, setShowSources] = React.useState(false);
@@ -47,7 +29,7 @@ const MessageItem = ({ message }: MessageItemProps) => {
       )}
       {typeof message === 'object' && (
         <Typography variant="body2" sx={{ marginBottom: '0.25rem' }}>
-          {message?.output}
+          {message?.text}
         </Typography>
       )}
       {typeof message === 'object' && message.sourceDocuments && showSources ? (
