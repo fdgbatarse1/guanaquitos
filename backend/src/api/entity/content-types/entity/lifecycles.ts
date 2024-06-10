@@ -82,11 +82,6 @@ export default {
             }.
           `;
 
-          strapi.log.debug(JSON.stringify(result));
-          strapi.log.debug(JSON.stringify(entity));
-          strapi.log.debug(JSON.stringify(entityMetadata));
-          strapi.log.debug(JSON.stringify(entityPageContent));
-
           const doc = new Document({
             pageContent: entityPageContent,
             metadata: entityMetadata,

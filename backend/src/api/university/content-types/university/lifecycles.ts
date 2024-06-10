@@ -82,11 +82,6 @@ export default {
             }.
           `;
 
-          strapi.log.debug(JSON.stringify(result));
-          strapi.log.debug(JSON.stringify(university));
-          strapi.log.debug(JSON.stringify(universityMetadata));
-          strapi.log.debug(JSON.stringify(universityPageContent));
-
           const doc = new Document({
             pageContent: universityPageContent,
             metadata: universityMetadata,
