@@ -37,21 +37,21 @@ export default {
 
         if (result.publishedAt) {
           const universityMetadata = {
-            id: result?.id,
-            name: result?.name,
-            acronym: result?.acronym,
+            id: result?.id || "unknown",
+            name: result?.name || "unknown",
+            acronym: result?.acronym || "unknown",
             addresses: result?.addresses
               ? JSON.stringify(result?.addresses)
-              : undefined,
-            phones: result?.phones ? JSON.stringify(result?.phones) : undefined,
-            emails: result?.emails ? JSON.stringify(result?.emails) : undefined,
+              : "unknown",
+            phones: result?.phones ? JSON.stringify(result?.phones) : "unknown",
+            emails: result?.emails ? JSON.stringify(result?.emails) : "unknown",
             websites: result?.websites
               ? JSON.stringify(result?.websites)
-              : undefined,
-            createdAt: result?.createdAt,
-            updatedAt: result?.updatedAt,
-            publishedAt: result?.publishedAt,
-            locale: result?.locale,
+              : "unknown",
+            createdAt: result?.createdAt || "unknown",
+            updatedAt: result?.updatedAt || "unknown",
+            publishedAt: result?.publishedAt || "unknown",
+            locale: result?.locale || "unknown",
           };
 
           const universityPageContent = `

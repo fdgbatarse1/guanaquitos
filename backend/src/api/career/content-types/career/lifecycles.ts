@@ -38,13 +38,13 @@ export default {
 
         if (result.publishedAt) {
           const careerMetadata = {
-            id: result?.id,
-            name: result?.name,
-            links: result?.links ? JSON.stringify(result?.links) : undefined,
-            createdAt: result?.createdAt,
-            updatedAt: result?.updatedAt,
-            publishedAt: result?.publishedAt,
-            locale: result?.locale,
+            id: result?.id || "unknown",
+            name: result?.name || "unknown",
+            links: result?.links ? JSON.stringify(result?.links) : "unknown",
+            createdAt: result?.createdAt || "unknown",
+            updatedAt: result?.updatedAt || "unknown",
+            publishedAt: result?.publishedAt || "unknown",
+            locale: result?.locale || "unknown",
           };
 
           const careerPageContent = `
