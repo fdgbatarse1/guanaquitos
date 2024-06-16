@@ -61,7 +61,7 @@ export default {
             actualizadoEn: formatField(result?.updatedAt, "desconocido"),
             publicadoEn: formatField(result?.publishedAt, "desconocido"),
             localizacion: formatField(result?.locale, "desconocida"),
-            universityPageContent: `Esta página proporciona información detallada de la universidad '${formatField(
+            contenidoPagina: `Esta página proporciona información detallada de la universidad '${formatField(
               result?.name || "desconocida"
             )}', incluyendo el acrónimo, direcciones, teléfonos, correos electrónicos, sitios web y el nombre de algunas de sus carreras`,
           };
