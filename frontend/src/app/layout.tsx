@@ -7,7 +7,6 @@ import Navbar from '@/components/navbar';
 
 import './globals.css';
 import Providers from './providers';
-import styles from './layout.module.css';
 
 export const metadata: Metadata = {
   title: 'Guanaquitos',
@@ -27,7 +26,6 @@ export default function RootLayout({
           <Navbar />
           <Box
             component="main"
-            className={styles.layoutBox}
             sx={{
               backgroundColor: '#F5F5F5',
               marginTop: { xs: '4rem', md: '80px' },

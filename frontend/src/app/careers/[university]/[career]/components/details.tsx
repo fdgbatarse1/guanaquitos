@@ -25,6 +25,7 @@ const Details = ({ title, modality, academicDegree, educationalField, duration }
 
   return (
     <Paper
+      elevation={1}
       sx={{
         gridArea: 'details',
         boxShadow: '0px 4px 20px rgba(0, 20, 40, 0.25)',

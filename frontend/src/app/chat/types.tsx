@@ -11,6 +11,7 @@ export interface MessageProps {
   text: string;
   type: 'user' | 'system' | 'bot';
   sourceDocuments: SourceDocumentsProps;
+  animate?: boolean;
 }
 
 export type MessagesProps = MessageProps[];

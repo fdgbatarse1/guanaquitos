@@ -40,7 +40,7 @@ const Chat = () => {
       ]);
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: '...', type: 'bot', sourceDocuments: null },
+        { text: '...', type: 'bot', sourceDocuments: null, animate: true },
       ]);
 
       const sessionId = sessionStorage.getItem('sessionId');
@@ -97,6 +97,7 @@ const Chat = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
+          width: '800px',
           maxWidth: '800px',
         }}
       >

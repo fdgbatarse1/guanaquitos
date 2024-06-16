@@ -80,7 +80,7 @@ const Entity = ({
             height={entityLogoHeight}
           />
         )} */}
-        {entityName && entityAcronym && (
+        {entityName && (
           <Typography
             variant="h3"
             sx={{
@@ -88,7 +88,7 @@ const Entity = ({
               weight: '900',
             }}
           >
-            {`${entityName} (${entityAcronym})`}
+            {`${entityName} ${entityAcronym ? `(${entityAcronym})` : ''}`}
           </Typography>
         )}
       </Box>
