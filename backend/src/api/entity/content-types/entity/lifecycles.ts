@@ -107,8 +107,6 @@ export default {
             }
           );
 
-          strapi.log.debug(JSON.stringify(docOutput));
-
           const ids = docOutput.map(
             (_, index) => `entity-${result?.id}-${index}`
           );
