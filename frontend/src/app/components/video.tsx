@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+'use client';
+
 import ReactPlayer from 'react-player/lazy';
 import { Typography, Box, useTheme } from '@mui/material';
 
@@ -12,12 +13,7 @@ interface VideoProps {
 }
 
 const Video = ({ url, title, description, right }: VideoProps) => {
-  const [isClient, setIsClient] = useState(false);
   const theme = useTheme();
-
-  useEffect(() => {
-    setIsClient(true);
-  }, []);
 
   return (
     <Box
@@ -37,17 +33,13 @@ const Video = ({ url, title, description, right }: VideoProps) => {
           flex: { sm: '1 0 50%' },
         }}
       >
-        {isClient ? (
-          <ReactPlayer
-            controls
-            url={url}
-            width="100%"
-            height="100%"
-            style={{ position: 'absolute', top: 0, left: 0, borderRadius: '1rem' }}
-          />
-        ) : (
-          <Loading />
-        )}
+        <ReactPlayer
+          controls
+          url={url}
+          width="100%"
+          height="100%"
+          style={{ position: 'absolute', top: 0, left: 0, borderRadius: '1rem' }}
+        />
       </Box>
       <Box
         sx={{

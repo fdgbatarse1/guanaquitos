@@ -347,7 +347,7 @@ export const themeInnovative: ThemeOptions = {
   },
 };
 
-const theme = createTheme(themeOptions);
+const theme = createTheme(themeBlue);
 
 // h1
 theme.typography.h1 = {

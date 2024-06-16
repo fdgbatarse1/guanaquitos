@@ -1,3 +1,5 @@
+'use client';
+
 import useToggle from '@/hooks/useToogle';
 import { Menu, Close } from '@mui/icons-material';
 import { type Theme, styled, useTheme } from '@mui/material/styles';
