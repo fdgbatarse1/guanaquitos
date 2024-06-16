@@ -47,11 +47,11 @@ export default {
             universidad: formatField(
               career?.university ? career.university.name : "desconocida"
             ),
-            enlaces: formatArrayField(result?.links, "desconocido"),
+            enlaces: formatArrayField(result?.links, "desconocidos"),
             creadoEn: formatField(result?.createdAt, "desconocido"),
             actualizadoEn: formatField(result?.updatedAt, "desconocido"),
             publicadoEn: formatField(result?.publishedAt, "desconocido"),
-            localizacion: formatField(result?.locale, "desconocido"),
+            localizacion: formatField(result?.locale, "desconocida"),
             contenidoPagina: `Esta página proporciona información detallada de la carrera de '${formatField(
               result?.name,
               "desconocida"
@@ -61,11 +61,6 @@ export default {
               career?.university ? career.university.acronym : "desconocida"
             )})', incluyendo el título obtenido, grado académico, campo educacional, modalidad, duración, descripción, áreas de estudio, áreas de desempeño laboral, enlaces, costos, descuentos y detalles de la universidad.`,
           };
-
-          const splitter = new RecursiveCharacterTextSplitter({
-            chunkSize: 1000,
-            chunkOverlap: 0,
-          });
 
           const careerPageContent = `Nombre de la carrera:'${formatField(
             result?.name
@@ -94,6 +89,11 @@ export default {
           )}'. Universidad:'${formatField(
             career?.university ? career.university.name : "Desconocida"
           )}'.`;
+
+          const splitter = new RecursiveCharacterTextSplitter({
+            chunkSize: 1000,
+            chunkOverlap: 0,
+          });
 
           const docOutput = await splitter.splitDocuments([
             new Document({

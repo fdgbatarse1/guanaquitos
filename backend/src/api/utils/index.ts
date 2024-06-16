@@ -2,11 +2,27 @@ export const formatField = (field: any, defaultValue = "Desconocido") => {
   return field ? field : defaultValue;
 };
 
-export const formatArrayField = (field: any, defaultValue = "Desconocido") => {
+export const formatArrayField = (
+  field: { text: string }[],
+  defaultValue = "Desconocido"
+) => {
   return field && Array.isArray(field)
     ? field
         .map((item) =>
           typeof item === "object" ? item.text || JSON.stringify(item) : item
+        )
+        .join(", ")
+    : defaultValue;
+};
+
+export const formatAddressesArrayField = (
+  field: { address: string }[],
+  defaultValue = "Desconocido"
+) => {
+  return field && Array.isArray(field)
+    ? field
+        .map((item) =>
+          typeof item === "object" ? item.address || JSON.stringify(item) : item
         )
         .join(", ")
     : defaultValue;
