@@ -1,9 +1,17 @@
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { traceable } from "langsmith/traceable";
 
 import { awaitAllCallbacks } from "@langchain/core/callbacks/promises";
 import { Document } from "@langchain/core/documents";
 import { OpenAIEmbeddings } from "@langchain/openai";
+import { PineconeStore } from "@langchain/pinecone";
 import { Pinecone } from "@pinecone-database/pinecone";
+
+import {
+  formatArrayField,
+  formatField,
+  formatAddressesArrayField,
+} from "../../../utils";
 
 const OPENAI_SECRET_KEY = process.env.OPENAI_SECRET_KEY;
 const PINECONE_INDEX = process.env.PINECONE_INDEX;
@@ -37,69 +45,85 @@ export default {
 
         if (result.publishedAt) {
           const entityMetadata = {
-            id: result?.id || "unknown",
-            name: result?.name || "unknown",
-            acronym: result?.acronym || "unknown",
-            addresses: result?.addresses
-              ? JSON.stringify(result?.addresses)
-              : "unknown",
-            phones: result?.phones ? JSON.stringify(result?.phones) : "unknown",
-            emails: result?.emails ? JSON.stringify(result?.emails) : "unknown",
-            websites: result?.websites
-              ? JSON.stringify(result?.websites)
-              : "unknown",
-            createdAt: result?.createdAt || "unknown",
-            updatedAt: result?.updatedAt || "unknown",
-            publishedAt: result?.publishedAt || "unknown",
-            locale: result?.locale || "unknown",
+            id: `entity-${result?.id}`,
+            nombre: formatField(result?.name, "desconocido"),
+            acronimo: formatField(result?.acronym, "desconocido"),
+            direcciones: formatAddressesArrayField(
+              result?.addresses,
+              "desconocidas"
+            ),
+            telefonos: formatArrayField(result?.phones, "desconocidos"),
+            correosElectronicos: formatArrayField(
+              result?.emails,
+              "desconocidos"
+            ),
+            sitiosWeb: formatArrayField(result?.websites, "desconocidos"),
+            creadoEn: formatField(result?.createdAt, "desconocido"),
+            actualizadoEn: formatField(result?.updatedAt, "desconocido"),
+            publicadoEn: formatField(result?.publishedAt, "desconocido"),
+            localizacion: formatField(result?.locale, "desconocida"),
+            contenidoPagina: `Esta página proporciona información detallada de la entidad '${formatField(
+              result?.name || "desconocida"
+            )}', incluyendo el acrónimo, direcciones, teléfonos, correos electrónicos, sitios web y el nombre de algunas de sus becas`,
           };
 
-          const entityPageContent = `
-            Nombre de la entidad: ${result?.name || "Desconocido"}.
-            Acrónimo de la entidad: ${result?.acronym || "Desconocido"}.
-            Direcciones: ${
-              result?.addresses
-                ? JSON.stringify(result?.addresses)
-                : "Desconocidas"
-            },
-            Teléfonos: ${
-              result?.phones ? JSON.stringify(result?.phones) : "Desconocidos"
-            },
-            Correos electrónicos: ${
-              result?.emails ? JSON.stringify(result?.emails) : "Desconocidos"
-            },
-            Sitios webs: ${
-              result?.websites
-                ? JSON.stringify(result?.websites)
-                : "Desconocidos"
-            },
-            Becas: ${
-              entity?.scholarships
-                ? JSON.stringify(
-                    entity?.scholarships.map((scholarship) => scholarship.name)
-                  )
-                : "Desconocida"
-            }.
-          `;
+          const entityPageContent = `Nombre de la entidad:'${formatField(
+            result?.name || "Desconocido"
+          )}'. Acrónimo de la entidad:'${formatField(
+            result?.acronym || "Desconocido"
+          )}'. Direcciones:'${formatAddressesArrayField(
+            result?.addresses || "Desconocidas"
+          )}'. Teléfonos:'${formatArrayField(
+            result?.phones || "Desconocidos"
+          )}'. Correos electrónicos:'${formatArrayField(
+            result?.emails || "Desconocidos"
+          )}'. Sitios webs:'${formatArrayField(
+            result?.websites || "Desconocidos"
+          )}'. Becas:'${formatArrayField(
+            entity?.scholarships
+              ? entity.scholarships.map((scholarship) => ({
+                  text: scholarship.name,
+                }))
+              : [{ text: "Desconocidas" }]
+          )}'.`;
 
-          const doc = new Document({
-            pageContent: entityPageContent,
-            metadata: entityMetadata,
+          const splitter = new RecursiveCharacterTextSplitter({
+            chunkSize: 1000,
+            chunkOverlap: 0,
           });
 
-          const embeddings = await textEmbedding3Small.embedDocuments([
-            JSON.stringify(doc),
+          const docOutput = await splitter.splitDocuments([
+            new Document({
+              pageContent: entityPageContent,
+              metadata: entityMetadata,
+            }),
           ]);
 
-          await pineconeIndex.upsert([
+          const vectorStore = await PineconeStore.fromExistingIndex(
+            textEmbedding3Small,
             {
-              id: `entity-${result?.id}`,
-              values: embeddings[0],
-              metadata: entityMetadata,
-            },
-          ]);
+              pineconeIndex,
+              maxConcurrency: 5,
+            }
+          );
+
+          strapi.log.debug(JSON.stringify(docOutput));
+
+          const ids = docOutput.map(
+            (_, index) => `entity-${result?.id}-${index}`
+          );
+
+          vectorStore.addDocuments(docOutput, ids);
         } else {
-          await pineconeIndex.deleteOne(`entity-${result?.id}`);
+          const pageOneList = await pineconeIndex.listPaginated({
+            prefix: `entity-${result?.id}`,
+          });
+
+          const pageOneVectorIds = pageOneList.vectors.map(
+            (vector) => vector.id
+          );
+
+          await pineconeIndex.deleteMany(pageOneVectorIds);
         }
       } catch (error) {
         strapi.log.error(error);
@@ -115,11 +139,13 @@ export default {
     async (event) => {
       try {
         const { result } = event;
-        const pinecone = new Pinecone({
-          apiKey: PINECONE_API_KEY,
+        const pageOneList = await pineconeIndex.listPaginated({
+          prefix: `entity-${result?.id}`,
         });
-        const pineconeIndex = pinecone.Index(PINECONE_INDEX);
-        await pineconeIndex.deleteOne(`entity-${result?.id}`);
+
+        const pageOneVectorIds = pageOneList.vectors.map((vector) => vector.id);
+
+        await pineconeIndex.deleteMany(pageOneVectorIds);
       } catch (error) {
         strapi.log.error(error);
       } finally {

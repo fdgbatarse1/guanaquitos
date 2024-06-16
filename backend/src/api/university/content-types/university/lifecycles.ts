@@ -1,16 +1,17 @@
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 import { traceable } from "langsmith/traceable";
 
 import { awaitAllCallbacks } from "@langchain/core/callbacks/promises";
 import { Document } from "@langchain/core/documents";
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { Pinecone } from "@pinecone-database/pinecone";
 import { PineconeStore } from "@langchain/pinecone";
+import { Pinecone } from "@pinecone-database/pinecone";
+
 import {
-  formatField,
   formatArrayField,
+  formatField,
   formatAddressesArrayField,
 } from "../../../utils";
-import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
 const OPENAI_SECRET_KEY = process.env.OPENAI_SECRET_KEY;
 const PINECONE_INDEX = process.env.PINECONE_INDEX;
