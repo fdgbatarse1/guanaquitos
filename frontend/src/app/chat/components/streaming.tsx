@@ -19,7 +19,7 @@ const MessageItem = ({ message }: MessageItemProps) => {
     >
       {typeof message === 'object' && (
         <Typography variant="body1" sx={{ fontWeight: '600', marginBottom: '0.25rem' }}>
-          Inteligencia artificial
+          {message.type === 'user' ? 'Vos' : 'Inteligencia artificial'}
         </Typography>
       )}
       {typeof message === 'string' && (
