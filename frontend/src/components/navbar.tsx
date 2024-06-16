@@ -5,6 +5,7 @@ import { Menu, Close } from '@mui/icons-material';
 import { type Theme, styled, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Logo from '@/assets/logo.svg';
 
 interface StyledProps {
   theme: Theme;
@@ -34,27 +35,11 @@ const Header = styled('header', {
   },
 }));
 
-// const LeftSide = styled('div')(({ theme, isOpen }: StyledProps) => ({
-//   position: 'fixed',
-//   left: '1rem',
-//   top: '1rem',
-//   display: 'flex',
-//   alignItems: 'center',
-//   [theme.breakpoints.up('sm')]: {
-//     left: '1.5rem',
-//     top: '1.5rem',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     position: isOpen ? 'fixed' : 'static',
-//   },
-// }));
-
-// const Name = styled('span')(({ theme }) => ({
-//   paddingLeft: '0.5rem',
-//   [theme.breakpoints.up('md')]: {
-//     paddingLeft: '1rem',
-//   },
-// }));
+const IconContainer = styled('div')(() => ({
+  position: 'absolute',
+  left: '1.5rem',
+  top: '1.5rem',
+}));
 
 const Navigation = styled('nav', {
   shouldForwardProp: (prop) => prop !== 'isOpen',
@@ -101,11 +86,11 @@ const List = styled('ul')(({ theme }) => ({
   display: 'grid',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '0.5',
+  gap: '1rem',
   textAlign: 'center',
   [theme.breakpoints.up('md')]: {
     gridAutoFlow: 'column',
-    gap: '0.5',
+    gap: '1rem',
     fontSize: '1.25rem',
   },
 }));
@@ -116,7 +101,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
   fontSize: '1.25rem',
   lineHeight: '1.75rem',
   letterSpacing: '0',
-  padding: '0.5rem',
+  fontWeight: 500,
   [theme.breakpoints.up('md')]: {
     fontSize: '1.5rem',
     lineHeight: '2rem',
@@ -128,7 +113,6 @@ const StyledLink = styled(Link)(({ theme }) => ({
 
   '&:hover': {
     color: theme.palette.primary.main,
-    backgroundColor: theme.palette.background.paper,
     borderRadius: '0.5rem',
   },
 }));
@@ -168,10 +152,9 @@ const Navbar = () => {
 
   return (
     <Header theme={theme} isOpen={isOpen}>
-      {/* <LeftSide theme={theme} isOpen={isOpen}>
-        <LogoDev aria-label="Developer Logo" className="h-12 w-12" />
-        <Name>Fernando González</Name>
-      </LeftSide> */}
+      <IconContainer theme={theme}>
+        {/* <Logo aria-label="Torogoz con birrete" className="h-12 w-12" /> */}
+      </IconContainer>
       {isOpen ? (
         <CloseToogle theme={theme} aria-label="Cerrar" onClick={toggle} isOpen={isOpen} />
       ) : (

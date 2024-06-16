@@ -72,7 +72,7 @@ const Chat = () => {
       setPrompt('');
     } catch (e) {
       console.log(e);
-      setError('Something went wrong! 🤯');
+      setError('Algo ha salido mal! 🤯');
     }
   };
 
@@ -97,7 +97,7 @@ const Chat = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          maxWidth: '640px',
+          maxWidth: '800px',
         }}
       >
         <Streaming messages={messages} />

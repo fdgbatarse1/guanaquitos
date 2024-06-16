@@ -1,13 +1,18 @@
 'use client';
 
-import { Inter } from 'next/font/google';
+import { Montserrat, Lato } from 'next/font/google';
 
 import { ThemeOptions, createTheme } from '@mui/material/styles';
 
-const inter = Inter({
+const montserrat = Montserrat({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
   display: 'swap',
+});
+
+const lato = Lato({
+  weight: ['400'],
+  subsets: ['latin'],
 });
 
 export const themeOptions: ThemeOptions = {
@@ -35,7 +40,7 @@ export const themeOptions: ThemeOptions = {
       contrastText: '#232323',
     },
     background: {
-      paper: '#F3F8FF',
+      paper: '#FFFFFF',
       default: '#E3E6F3', // A slightly different shade for the general background
     },
     divider: '#3a3637',
@@ -70,7 +75,7 @@ export const themeOptions: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: inter.style.fontFamily,
+    fontFamily: montserrat.style.fontFamily,
     h1: {
       letterSpacing: '0em',
     },
@@ -131,7 +136,7 @@ export const themeBlue: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: inter.style.fontFamily,
+    fontFamily: montserrat.style.fontFamily,
     h1: {
       fontSize: '3.75rem',
       lineHeight: 1,
@@ -212,7 +217,7 @@ export const anotherTheme: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: inter.style.fontFamily,
+    fontFamily: montserrat.style.fontFamily,
     h1: {
       fontSize: '3.75rem',
       lineHeight: 1,
@@ -272,7 +277,7 @@ export const themeInnovative: ThemeOptions = {
     primary: {
       main: '#1a237e', // A deep navy, symbolizing depth of knowledge and reliability
       dark: '#000051', // An even deeper navy for added contrast and sophistication
-      light: '#534bae', // A lighter navy for a subtle contrast and visual interest
+      light: '#534bae', // A lighter navy for a subtle contrast and visual montserratest
       contrastText: '#ffffff', // Pure white for clear legibility against the dark backgrounds
     },
     secondary: {
@@ -293,7 +298,7 @@ export const themeInnovative: ThemeOptions = {
     },
   },
   typography: {
-    fontFamily: inter.style.fontFamily,
+    fontFamily: montserrat.style.fontFamily,
     h1: {
       fontSize: '3.75rem',
       lineHeight: 1,
@@ -347,13 +352,108 @@ export const themeInnovative: ThemeOptions = {
   },
 };
 
-const theme = createTheme(themeOptions);
+export const guanaquitosTheme: ThemeOptions = {
+  components: {
+    MuiTypography: {
+      styleOverrides: {
+        root: {
+          wordWrap: 'break-word',
+        },
+      },
+    },
+  },
+  palette: {
+    mode: 'light',
+    primary: {
+      main: '#1392C9', // A vibrant shade of blue for primary actions
+      dark: '#115293', // A darker shade of blue for primary actions on hover or active
+      light: '#4791db', // A lighter shade of blue for primary buttons, links, etc.
+      contrastText: '#FFFFFF', // White text for better readability on primary colors
+    },
+    secondary: {
+      main: '#E6EAE9',
+      dark: '#EBF3FF',
+      light: '#FFFFFF',
+      contrastText: '#232323',
+    },
+    background: {
+      paper: '#E6EAE9',
+      default: '#F5F5F5',
+    },
+    divider: '#3a3637',
+    text: {
+      primary: '#3a3637',
+      secondary: '#4A4546',
+      disabled: '#6A6264',
+    },
+    error: {
+      light: '#e57373', // Light red for error highlights
+      main: '#f44336', // Standard error red
+      dark: '#d32f2f', // Dark red for deeper error states
+      contrastText: '#FFFFFF', // White text for better visibility on error backgrounds
+    },
+    warning: {
+      light: '#ffb74d', // Light orange for warning highlights
+      main: '#ff9800', // Standard warning orange
+      dark: '#f57c00', // Dark orange for deeper warning states
+      contrastText: '#232323', // Dark text for better visibility on warning backgrounds
+    },
+    info: {
+      light: '#64b5f6', // Light blue for info highlights
+      main: '#2196f3', // Standard info blue
+      dark: '#1976d2', // Dark blue for deeper info states
+      contrastText: '#FFFFFF', // White text for better visibility on info backgrounds
+    },
+    success: {
+      light: '#81c784', // Light green for success highlights
+      main: '#4caf50', // Standard success green
+      dark: '#388e3c', // Dark green for deeper success states
+      contrastText: '#FFFFFF', // White text for better visibility on success backgrounds
+    },
+  },
+  typography: {
+    fontFamily: montserrat.style.fontFamily,
+    h1: {
+      letterSpacing: '0em',
+    },
+    h2: {
+      letterSpacing: '0em',
+    },
+    h3: {
+      letterSpacing: '0em',
+    },
+    h4: {
+      letterSpacing: '0em',
+    },
+    h5: {
+      letterSpacing: '0em',
+    },
+    h6: {
+      letterSpacing: '0em',
+    },
+    subtitle1: {
+      letterSpacing: '0em',
+    },
+    subtitle2: {
+      letterSpacing: '0em',
+    },
+    body1: {
+      letterSpacing: '0em',
+    },
+    body2: {
+      letterSpacing: '0em',
+    },
+  },
+};
+
+const theme = createTheme(guanaquitosTheme);
 
 // h1
 theme.typography.h1 = {
   ...theme.typography.h1,
   fontSize: '1.875rem',
   lineHeight: '2.25rem',
+  fontWeight: 700,
   [theme.breakpoints.up('md')]: {
     fontSize: '2.25rem',
     lineHeight: '2.5rem',
@@ -369,6 +469,7 @@ theme.typography.h2 = {
   ...theme.typography.h2,
   fontSize: '1.5rem',
   lineHeight: '2rem',
+  fontWeight: 700,
   [theme.breakpoints.up('md')]: {
     fontSize: '1.875rem',
     lineHeight: '2.25rem',
@@ -384,6 +485,7 @@ theme.typography.h3 = {
   ...theme.typography.h3,
   fontSize: '1.25rem',
   lineHeight: '1.75rem',
+  fontWeight: 700,
   [theme.breakpoints.up('md')]: {
     fontSize: '1.5rem',
     lineHeight: '2rem',
@@ -399,6 +501,7 @@ theme.typography.h4 = {
   ...theme.typography.h4,
   fontSize: '1.125rem',
   lineHeight: '1.75rem',
+  fontWeight: 700,
   [theme.breakpoints.up('md')]: {
     fontSize: '1.25rem',
     lineHeight: '1.75rem',
@@ -414,6 +517,7 @@ theme.typography.h5 = {
   ...theme.typography.h5,
   fontSize: '1rem',
   lineHeight: '1.5rem',
+  fontWeight: 700,
   [theme.breakpoints.up('md')]: {
     fontSize: '1.125rem',
     lineHeight: '1.75rem',
@@ -429,6 +533,7 @@ theme.typography.h6 = {
   ...theme.typography.h6,
   fontSize: '0.875rem',
   lineHeight: '1.25rem',
+  fontWeight: 700,
   [theme.breakpoints.up('md')]: {
     fontSize: '1rem',
     lineHeight: '1.5rem',
@@ -444,6 +549,7 @@ theme.typography.subtitle1 = {
   ...theme.typography.subtitle1,
   fontSize: '1.25rem',
   lineHeight: '1.75rem',
+  fontWeight: 700,
   [theme.breakpoints.up('md')]: {
     fontSize: '1.5rem',
     lineHeight: '2rem',
@@ -459,6 +565,7 @@ theme.typography.subtitle2 = {
   ...theme.typography.subtitle2,
   fontSize: '1.125rem',
   lineHeight: '1.75rem',
+  fontWeight: 700,
   [theme.breakpoints.up('md')]: {
     fontSize: '1.25rem',
     lineHeight: '1.75rem',
@@ -472,6 +579,7 @@ theme.typography.subtitle2 = {
 // body1
 theme.typography.body1 = {
   ...theme.typography.body1,
+  fontFamily: lato.style.fontFamily,
   maxWidth: 'calc(100vw - 3rem)',
   fontSize: '1rem',
   lineHeight: '1.5rem',
@@ -484,6 +592,7 @@ theme.typography.body1 = {
 // body2
 theme.typography.body2 = {
   ...theme.typography.body2,
+  fontFamily: lato.style.fontFamily,
   fontSize: '0.875rem',
   lineHeight: '1.25rem',
   [theme.breakpoints.up('md')]: {

@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Montserrat } from 'next/font/google';
 
 import { Box } from '@mui/material';
 
@@ -7,12 +7,13 @@ import Navbar from '@/components/navbar';
 
 import './globals.css';
 import Providers from './providers';
+import styles from './layout.module.css';
 
 export const metadata: Metadata = {
   title: 'Guanaquitos',
 };
 
-const inter = Inter({ subsets: ['latin'] });
+const montserrat = Montserrat({ subsets: ['latin'] });
 
 export default function RootLayout({
   children,
@@ -21,13 +22,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={montserrat.className}>
         <Providers>
           <Navbar />
           <Box
             component="main"
+            className={styles.layoutBox}
             sx={{
-              backgroundColor: '#E3E6F3',
+              backgroundColor: '#F5F5F5',
               marginTop: { xs: '4rem', md: '80px' },
               minHeight: { xs: 'calc(100vh - 4rem)', sm: 'calc(100vh - 80px)' },
             }}

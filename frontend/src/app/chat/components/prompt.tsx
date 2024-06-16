@@ -44,7 +44,7 @@ const Prompt = ({
           value={prompt}
           onChange={handlePromptChange}
           onKeyDown={handleKeyDown}
-          placeholder={placeHolderText || 'Enter your prompt'}
+          placeholder={placeHolderText || 'Escribe tu prompt'}
           className="w-full mr-4 py-2 px-4 bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded shadow"
           sx={{ width: '100%', marginTop: '1rem', paddingY: '0.5rem' }}
         />
@@ -58,7 +58,7 @@ const Prompt = ({
               marginTop: '1rem',
             }}
           >
-            {buttonText || 'Enter'}
+            {buttonText || 'Enviar'}
           </Button>
         )}
       </Box>
