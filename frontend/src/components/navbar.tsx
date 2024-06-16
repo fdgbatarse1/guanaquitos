@@ -4,6 +4,7 @@ import useToggle from '@/hooks/useToogle';
 import { Menu, Close } from '@mui/icons-material';
 import { type Theme, styled, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 interface StyledProps {
   theme: Theme;
@@ -100,11 +101,11 @@ const List = styled('ul')(({ theme }) => ({
   display: 'grid',
   alignItems: 'center',
   justifyContent: 'center',
-  gap: '1rem',
+  gap: '0.5',
   textAlign: 'center',
   [theme.breakpoints.up('md')]: {
     gridAutoFlow: 'column',
-    gap: '1rem',
+    gap: '0.5',
     fontSize: '1.25rem',
   },
 }));
@@ -115,6 +116,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
   fontSize: '1.25rem',
   lineHeight: '1.75rem',
   letterSpacing: '0',
+  padding: '0.5rem',
   [theme.breakpoints.up('md')]: {
     fontSize: '1.5rem',
     lineHeight: '2rem',
@@ -126,13 +128,15 @@ const StyledLink = styled(Link)(({ theme }) => ({
 
   '&:hover': {
     color: theme.palette.primary.main,
-    borderBottom: `2px solid ${theme.palette.primary.main}`,
+    backgroundColor: theme.palette.background.paper,
+    borderRadius: '0.5rem',
   },
 }));
 
 const Navbar = () => {
   const theme = useTheme();
   const [isOpen, toggle] = useToggle();
+  const pathname = usePathname();
 
   const handleLink = () => {
     if (!isOpen) return;
@@ -178,8 +182,12 @@ const Navbar = () => {
           {routes.map((route) => (
             <li key={route.path}>
               <StyledLink
+                theme={theme}
                 onClick={() => {
                   handleLink();
+                }}
+                style={{
+                  color: (pathname === route.path && theme.palette.primary.main) || '',
                 }}
                 href={route.path}
               >

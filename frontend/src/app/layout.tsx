@@ -27,7 +27,7 @@ export default function RootLayout({
           <Box
             component="main"
             sx={{
-              backgroundColor: '#f0f0f0',
+              backgroundColor: '#E3E6F3',
               marginTop: { xs: '4rem', md: '80px' },
               minHeight: { xs: 'calc(100vh - 4rem)', sm: 'calc(100vh - 80px)' },
             }}
