@@ -1,0 +1,16 @@
+.baseLayout {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: calc(100vh - 4rem);
+}
+
+.baseLayout > * {
+  max-width: 1300px;
+}
+
+@media (min-width: 600px) {
+  .baseLayout {
+    min-height: calc(100vh - 80px);
+  }
+}

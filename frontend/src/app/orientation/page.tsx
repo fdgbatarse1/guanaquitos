@@ -1,5 +1,7 @@
 import { Grid } from '@mui/material';
 
+import BaseLayout from '@/layouts/BaseLayout';
+
 import Advisors from './components/advisors';
 import Resources from './components/resources';
 
@@ -14,10 +16,12 @@ interface OrientationProps {
 }
 
 const Orientation = ({ searchParams }: OrientationProps) => (
-  <Grid container padding={4}>
-    <Resources searchParams={searchParams} />
-    <Advisors />
-  </Grid>
+  <BaseLayout>
+    <Grid container sx={{ padding: { xs: '2rem', md: '2rem 4rem' } }}>
+      <Resources searchParams={searchParams} />
+      <Advisors />
+    </Grid>
+  </BaseLayout>
 );
 
 export default Orientation;

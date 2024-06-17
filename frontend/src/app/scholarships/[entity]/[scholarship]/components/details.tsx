@@ -37,6 +37,7 @@ const Details = ({
 
   return (
     <Paper
+      elevation={1}
       sx={{
         gridArea: 'details',
 

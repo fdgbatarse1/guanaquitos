@@ -2,84 +2,114 @@
 
 import { Box, Typography } from '@mui/material';
 import React, { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
+import BlackCap from '@/assets/pngs/black_cap.png';
+import BlackTorogoz from '@/assets/pngs/black_torogoz.png';
 import theme from '@/styles/theme';
 
 import { MessageItemProps, StreamingProps } from '../types';
+import DotFlashing from './dot-flashing';
 
 const MessageItem = ({ message }: MessageItemProps) => {
   const [showSources, setShowSources] = React.useState(false);
 
   return (
-    <Box
-      sx={{
-        marginBottom: '1rem',
-        width: '100%',
-      }}
-    >
-      {typeof message === 'object' && (
-        <Typography variant="body1" sx={{ fontWeight: '600', marginBottom: '0.25rem' }}>
-          Inteligencia artificial
-        </Typography>
-      )}
-      {typeof message === 'string' && (
-        <Typography variant="body2" sx={{ marginBottom: '0.25rem' }}>
-          <pre>{message}</pre>
-        </Typography>
-      )}
-      {typeof message === 'object' && (
-        <Typography variant="body2" sx={{ marginBottom: '0.25rem' }}>
-          {message?.text}
-        </Typography>
-      )}
-      {typeof message === 'object' && message.sourceDocuments && showSources ? (
-        <div>
-          <Box>
-            {message.sourceDocuments.map((doc, index) => (
-              <Box
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                sx={{
-                  paddingLeft: '1rem',
-                  marginBottom: '0.25rem',
-                }}
-              >
-                <Typography variant="body2">
-                  Fuente {index + 1}: {doc.pageContent}
-                </Typography>
-                <Typography variant="body2">De: {doc.metadata.source}</Typography>
-              </Box>
-            ))}
-          </Box>
-          <Typography
-            variant="body2"
-            sx={{
-              color: theme.palette.primary.main,
-              cursor: 'pointer',
-              marginLeft: '1rem',
-              width: 'fit-content',
-            }}
-            onClick={() => setShowSources(false)}
-          >
-            Cerrar
-          </Typography>
-        </div>
+    <Box sx={{ display: 'flex' }}>
+      {message.type === 'user' ? (
+        <Image
+          style={{ marginTop: '0.25rem' }}
+          src={BlackCap}
+          alt="black cap"
+          height="24"
+          width="24"
+        />
       ) : (
-        message?.sourceDocuments && (
-          <Typography
-            variant="body2"
-            sx={{
-              color: theme.palette.primary.main,
-              cursor: 'pointer',
-              marginLeft: '1rem',
-              width: 'fit-content',
-            }}
-            onClick={() => setShowSources(true)}
-          >
-            Fuentes
-          </Typography>
-        )
+        <Image
+          style={{ marginTop: '0.25rem' }}
+          src={BlackTorogoz}
+          alt="black torogoz"
+          height="24"
+          width="24"
+        />
       )}
+      <Box
+        sx={{
+          marginBottom: '1rem',
+          marginLeft: '0.5rem',
+          width: '100%',
+        }}
+      >
+        {typeof message === 'object' && (
+          <Typography variant="body1" sx={{ fontWeight: '600', marginBottom: '0.25rem' }}>
+            {message.type === 'user' ? 'Vos' : 'Guanaquitos bot (Inteligencia Artificial)'}
+          </Typography>
+        )}
+        {typeof message === 'string' && (
+          <Typography variant="body2" sx={{ marginBottom: '0.25rem' }}>
+            <pre>{message}</pre>
+          </Typography>
+        )}
+        {typeof message === 'object' && (
+          <Typography variant="body2" sx={{ marginBottom: '0.25rem' }}>
+            {message.animate ? (
+              <Box sx={{ marginTop: '0.25rem', marginLeft: '1rem' }}>
+                <DotFlashing />
+              </Box>
+            ) : (
+              message?.text
+            )}
+          </Typography>
+        )}
+        {typeof message === 'object' && message.sourceDocuments && showSources ? (
+          <div>
+            <Box>
+              {message.sourceDocuments.map((doc, index) => (
+                <Box
+                  // eslint-disable-next-line react/no-array-index-key
+                  key={index}
+                  sx={{
+                    paddingLeft: '1rem',
+                    marginBottom: '0.25rem',
+                  }}
+                >
+                  <Typography variant="body2">
+                    Fuente {index + 1}: {doc.pageContent}
+                  </Typography>
+                  <Typography variant="body2">De: {doc.metadata.source}</Typography>
+                </Box>
+              ))}
+            </Box>
+            <Typography
+              variant="body2"
+              sx={{
+                color: theme.palette.primary.main,
+                cursor: 'pointer',
+                marginLeft: '1rem',
+                width: 'fit-content',
+              }}
+              onClick={() => setShowSources(false)}
+            >
+              Cerrar
+            </Typography>
+          </div>
+        ) : (
+          message?.sourceDocuments && (
+            <Typography
+              variant="body2"
+              sx={{
+                color: theme.palette.primary.main,
+                cursor: 'pointer',
+                marginLeft: '1rem',
+                width: 'fit-content',
+              }}
+              onClick={() => setShowSources(true)}
+            >
+              Fuentes
+            </Typography>
+          )
+        )}
+      </Box>
     </Box>
   );
 };

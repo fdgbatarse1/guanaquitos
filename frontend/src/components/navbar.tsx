@@ -1,7 +1,12 @@
+'use client';
+
 import useToggle from '@/hooks/useToogle';
 import { Menu, Close } from '@mui/icons-material';
 import { type Theme, styled, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import Logo from '@/assets/pngs/navbar_logo.png';
+import Image from 'next/image';
 
 interface StyledProps {
   theme: Theme;
@@ -31,27 +36,11 @@ const Header = styled('header', {
   },
 }));
 
-// const LeftSide = styled('div')(({ theme, isOpen }: StyledProps) => ({
-//   position: 'fixed',
-//   left: '1rem',
-//   top: '1rem',
-//   display: 'flex',
-//   alignItems: 'center',
-//   [theme.breakpoints.up('sm')]: {
-//     left: '1.5rem',
-//     top: '1.5rem',
-//   },
-//   [theme.breakpoints.up('md')]: {
-//     position: isOpen ? 'fixed' : 'static',
-//   },
-// }));
-
-// const Name = styled('span')(({ theme }) => ({
-//   paddingLeft: '0.5rem',
-//   [theme.breakpoints.up('md')]: {
-//     paddingLeft: '1rem',
-//   },
-// }));
+const IconContainer = styled('div')(() => ({
+  position: 'absolute',
+  left: '2rem',
+  top: '1rem',
+}));
 
 const Navigation = styled('nav', {
   shouldForwardProp: (prop) => prop !== 'isOpen',
@@ -113,6 +102,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
   fontSize: '1.25rem',
   lineHeight: '1.75rem',
   letterSpacing: '0',
+  fontWeight: 500,
   [theme.breakpoints.up('md')]: {
     fontSize: '1.5rem',
     lineHeight: '2rem',
@@ -124,13 +114,14 @@ const StyledLink = styled(Link)(({ theme }) => ({
 
   '&:hover': {
     color: theme.palette.primary.main,
-    borderBottom: `2px solid ${theme.palette.primary.main}`,
+    borderRadius: '0.5rem',
   },
 }));
 
 const Navbar = () => {
   const theme = useTheme();
   const [isOpen, toggle] = useToggle();
+  const pathname = usePathname();
 
   const handleLink = () => {
     if (!isOpen) return;
@@ -162,10 +153,9 @@ const Navbar = () => {
 
   return (
     <Header theme={theme} isOpen={isOpen}>
-      {/* <LeftSide theme={theme} isOpen={isOpen}>
-        <LogoDev aria-label="Developer Logo" className="h-12 w-12" />
-        <Name>Fernando González</Name>
-      </LeftSide> */}
+      {/* <IconContainer theme={theme}>
+        <Image src={Logo} alt="Torogoz con birrete" width={48} height={48} />
+      </IconContainer> */}
       {isOpen ? (
         <CloseToogle theme={theme} aria-label="Cerrar" onClick={toggle} isOpen={isOpen} />
       ) : (
@@ -176,8 +166,12 @@ const Navbar = () => {
           {routes.map((route) => (
             <li key={route.path}>
               <StyledLink
+                theme={theme}
                 onClick={() => {
                   handleLink();
+                }}
+                style={{
+                  color: (pathname === route.path && theme.palette.primary.main) || '',
                 }}
                 href={route.path}
               >

@@ -9,6 +9,7 @@ import Pagination from '@/components/pagination';
 import careersQuery from '@/services/gql/careersQuery';
 import careersSearchQuery from '@/services/gql/careersSearchQuery';
 import getTotalPages from '@/utils/getTotalPages/getTotalPages';
+import BaseLayout from '@/layouts/BaseLayout';
 
 import CareerCard from './components/career-card';
 import getFetchOptions from './utils/getFetchOptions';
@@ -43,7 +44,7 @@ const Careers = ({ searchParams }: CareersProps) => {
       university_acronym: institution,
       sort: order || 'name:asc',
       page: currentPage,
-      page_size: 10,
+      page_size: 9,
     },
   });
 
@@ -66,35 +67,43 @@ const Careers = ({ searchParams }: CareersProps) => {
   const filters = getFilters({ degree, category, institution, order });
 
   return (
-    <Grid container padding={4} gap={4} direction="column" alignItems="center">
-      <ComplexSearch
-        query={query}
-        fetchOptions={fetchOptions}
-        filters={filters}
-        showFilters={showFilters}
-      />
-      <Grid container spacing={2}>
-        {data?.careers.data.map((career: any) => (
-          <Grid key={career.id} item xs={12} md={6} lg={4}>
-            <CareerCard
-              career_name={career.attributes.name}
-              university_name={career.attributes.university.data.attributes.name}
-              university_acronym={career.attributes.university.data.attributes.acronym}
-              university_logo={
-                career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.url
-              }
-              university_logo_width={
-                career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.width
-              }
-              university_logo_height={
-                career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.height
-              }
-            />
-          </Grid>
-        ))}
+    <BaseLayout>
+      <Grid
+        container
+        gap={4}
+        direction="column"
+        alignItems="center"
+        sx={{ padding: { xs: '2rem', md: '2rem 4rem' } }}
+      >
+        <ComplexSearch
+          query={query}
+          fetchOptions={fetchOptions}
+          filters={filters}
+          showFilters={showFilters}
+        />
+        <Grid container spacing={2}>
+          {data?.careers.data.map((career: any) => (
+            <Grid key={career.id} item xs={12} md={6} lg={4}>
+              <CareerCard
+                career_name={career.attributes.name}
+                university_name={career.attributes.university.data.attributes.name}
+                university_acronym={career.attributes.university.data.attributes.acronym}
+                university_logo={
+                  career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.url
+                }
+                university_logo_width={
+                  career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.width
+                }
+                university_logo_height={
+                  career?.attributes?.university?.data?.attributes?.logo?.data?.attributes?.height
+                }
+              />
+            </Grid>
+          ))}
+        </Grid>
+        <Pagination count={totalPages} page={currentPage} />
       </Grid>
-      <Pagination count={totalPages} page={currentPage} />
-    </Grid>
+    </BaseLayout>
   );
 };
 

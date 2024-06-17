@@ -38,15 +38,13 @@ const CareerCard = ({
       style={{ textDecoration: 'none' }}
     >
       <StyledCard
-        elevation={2}
+        elevation={1}
         sx={{
           minHeight: { xs: '0', md: '125px' },
           transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
           ':hover': {
             color: theme.palette.primary.main,
             cursor: 'pointer',
-            transform: 'scale(1.005)',
-            boxShadow: `0px 4px 20px ${alpha(theme.palette.primary.main, 0.2)}`,
           },
         }}
       >

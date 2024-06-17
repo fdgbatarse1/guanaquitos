@@ -4,6 +4,10 @@ import { awaitAllCallbacks } from "@langchain/core/callbacks/promises";
 import { Document } from "@langchain/core/documents";
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { Pinecone } from "@pinecone-database/pinecone";
+import { PineconeStore } from "@langchain/pinecone";
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
+
+import { formatRichText, formatField, formatArrayField } from "../../../utils";
 
 const OPENAI_SECRET_KEY = process.env.OPENAI_SECRET_KEY;
 const PINECONE_INDEX = process.env.PINECONE_INDEX;
@@ -38,73 +42,89 @@ export default {
 
         if (result.publishedAt) {
           const careerMetadata = {
-            id: result?.id,
-            name: result?.name,
-            links: result?.links ? JSON.stringify(result?.links) : undefined,
-            createdAt: result?.createdAt,
-            updatedAt: result?.updatedAt,
-            publishedAt: result?.publishedAt,
-            locale: result?.locale,
+            id: `career-${result?.id}`,
+            nombre: formatField(result?.name, "desconocido"),
+            universidad: formatField(
+              career?.university ? career.university.name : "desconocida"
+            ),
+            enlaces: formatArrayField(result?.links, "desconocidos"),
+            creadoEn: formatField(result?.createdAt, "desconocido"),
+            actualizadoEn: formatField(result?.updatedAt, "desconocido"),
+            publicadoEn: formatField(result?.publishedAt, "desconocido"),
+            localizacion: formatField(result?.locale, "desconocida"),
+            contenidoPagina: `Esta página proporciona información detallada de la carrera de '${formatField(
+              result?.name,
+              "desconocida"
+            )}' en la universidad '${formatField(
+              career?.university ? career.university.name : "desconocida"
+            )} (${formatField(
+              career?.university ? career.university.acronym : "desconocida"
+            )})', incluyendo el título obtenido, grado académico, campo educacional, modalidad, duración, descripción, áreas de estudio, áreas de desempeño laboral, enlaces, costos, descuentos y detalles de la universidad.`,
           };
 
-          const careerPageContent = `
-          Nombre de la carrera: ${result?.name || "Desconocido"}.
-          Titulo que se obtiene: ${result?.title || "Desconocido"}.
-          Grado académico: ${result?.academic_grade || "Desconocido"}.
-          Campo educacional: ${result?.educational_field || "Desconocido"}.
-          Modalidad: ${result?.modality || "Desconocida"}.
-          Duración: ${result?.duration || "Desconocida"}.
-          Descripción: ${
+          const careerPageContent = `Nombre de la carrera:'${formatField(
+            result?.name
+          )}'. Titulo que se obtiene:'${formatField(
+            result?.title
+          )}'. Grado académico:'${formatField(
+            result?.academic_grade
+          )}'. Campo educacional:'${formatField(
+            result?.educational_field
+          )}'. Modalidad:'${formatField(
+            result?.modality
+          )}'. Duración:'${formatField(
+            result?.duration
+          )}'. Descripción:'${formatRichText(
             result?.description
-              ? JSON.stringify(result.description)
-              : "Desconocida"
-          }.
-          Áreas de estudio: ${
+          )}'. Áreas de estudio:'${formatArrayField(
             result?.study_areas
-              ? JSON.stringify(result.study_areas)
-              : "Desconocidas"
-          }
-          Áreas de desempeño laboral: ${
+          )}'. Áreas de desempeño laboral:'${formatArrayField(
             result?.job_areas
-              ? JSON.stringify(result.job_areas)
-              : "Desconocidas"
-          }
-          Links: ${
-            result?.links ? JSON.stringify(result.links) : "Desconocidos"
-          }.
-          Costos: ${
-            result?.costs ? JSON.stringify(result.costs) : "Desconocidos"
-          }.
-          Descuentos: ${
+          )}'. Enlaces:'${formatArrayField(
+            result?.links
+          )}'. Costos:'${formatRichText(
+            result?.costs
+          )}'. Descuentos:'${formatRichText(
             result?.discounts
-              ? JSON.stringify(result.discounts)
-              : "Desconocidos"
-          }.
-          Universidad: ${
-            career?.university
-              ? JSON.stringify(career.university)
-              : "Desconocida"
-          }.
-        `;
+          )}'. Universidad:'${formatField(
+            career?.university ? career.university.name : "Desconocida"
+          )}'.`;
 
-          const doc = new Document({
-            pageContent: careerPageContent,
-            metadata: careerMetadata,
+          const splitter = new RecursiveCharacterTextSplitter({
+            chunkSize: 1000,
+            chunkOverlap: 0,
           });
 
-          const embeddings = await textEmbedding3Small.embedDocuments([
-            JSON.stringify(doc),
+          const docOutput = await splitter.splitDocuments([
+            new Document({
+              pageContent: careerPageContent,
+              metadata: careerMetadata,
+            }),
           ]);
 
-          await pineconeIndex.upsert([
+          const vectorStore = await PineconeStore.fromExistingIndex(
+            textEmbedding3Small,
             {
-              id: `career-${result?.id}`,
-              values: embeddings[0],
-              metadata: careerMetadata,
-            },
-          ]);
+              pineconeIndex,
+              maxConcurrency: 5,
+            }
+          );
+
+          const ids = docOutput.map(
+            (_, index) => `career-${result?.id}-${index}`
+          );
+
+          vectorStore.addDocuments(docOutput, ids);
         } else {
-          await pineconeIndex.deleteOne(`career-${result?.id}`);
+          const pageOneList = await pineconeIndex.listPaginated({
+            prefix: `career-${result?.id}`,
+          });
+
+          const pageOneVectorIds = pageOneList.vectors.map(
+            (vector) => vector.id
+          );
+
+          await pineconeIndex.deleteMany(pageOneVectorIds);
         }
       } catch (error) {
         strapi.log.error(error);
@@ -120,11 +140,14 @@ export default {
     async (event) => {
       try {
         const { result } = event;
-        const pinecone = new Pinecone({
-          apiKey: PINECONE_API_KEY,
+
+        const pageOneList = await pineconeIndex.listPaginated({
+          prefix: `career-${result?.id}`,
         });
-        const pineconeIndex = pinecone.Index(PINECONE_INDEX);
-        await pineconeIndex.deleteOne(`career-${result?.id}`);
+
+        const pageOneVectorIds = pageOneList.vectors.map((vector) => vector.id);
+
+        await pineconeIndex.deleteMany(pageOneVectorIds);
       } catch (error) {
         strapi.log.error(error);
       } finally {

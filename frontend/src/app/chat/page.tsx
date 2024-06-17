@@ -40,7 +40,7 @@ const Chat = () => {
       ]);
       setMessages((prevMessages) => [
         ...prevMessages,
-        { text: '...', type: 'bot', sourceDocuments: null },
+        { text: '...', type: 'bot', sourceDocuments: null, animate: true },
       ]);
 
       const sessionId = sessionStorage.getItem('sessionId');
@@ -72,7 +72,7 @@ const Chat = () => {
       setPrompt('');
     } catch (e) {
       console.log(e);
-      setError('Something went wrong! 🤯');
+      setError('Algo ha salido mal! 🤯');
     }
   };
 
@@ -97,7 +97,8 @@ const Chat = () => {
         sx={{
           display: 'flex',
           flexDirection: 'column',
-          maxWidth: '640px',
+          width: '800px',
+          maxWidth: '800px',
         }}
       >
         <Streaming messages={messages} />
