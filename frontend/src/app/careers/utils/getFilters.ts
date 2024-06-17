@@ -112,6 +112,14 @@ const getFilters = ({ degree, category, institution, order }: GetFiltersProps) =
         label: 'UDB',
         id: 'UDB',
       },
+      {
+        label: 'ESEN',
+        id: 'ESEN',
+      },
+      {
+        label: 'ECMH',
+        id: 'ECMH',
+      },
     ],
     label: 'Institución',
   },

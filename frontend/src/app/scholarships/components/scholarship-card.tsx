@@ -47,7 +47,7 @@ const ScholarshipCard = ({
       <StyledCard
         elevation={1}
         sx={{
-          minHeight: { xs: '0', md: '125px' },
+          height: '100%',
           transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
           ':hover': {
             color: theme.palette.primary.main,
