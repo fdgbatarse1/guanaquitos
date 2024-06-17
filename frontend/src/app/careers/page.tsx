@@ -44,7 +44,7 @@ const Careers = ({ searchParams }: CareersProps) => {
       university_acronym: institution,
       sort: order || 'name:asc',
       page: currentPage,
-      page_size: 10,
+      page_size: 9,
     },
   });
 

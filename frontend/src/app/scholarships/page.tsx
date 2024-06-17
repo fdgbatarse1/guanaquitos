@@ -49,7 +49,7 @@ const Scholarships = ({ searchParams }: CareersProps) => {
       entity_name: entity,
       sort: order || 'name:asc',
       page: currentPage,
-      page_size: 10,
+      page_size: 9,
     },
   });
 
@@ -75,6 +75,7 @@ const Scholarships = ({ searchParams }: CareersProps) => {
   return (
     <BaseLayout>
       <Grid
+        height="100%"
         container
         gap={4}
         direction="column"

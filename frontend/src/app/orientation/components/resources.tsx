@@ -40,7 +40,7 @@ const Resources = ({ searchParams }: OrientationProps) => {
       type,
       sort: order || 'title:asc',
       page: currentPage,
-      page_size: 10,
+      page_size: 9,
     },
   });
 
