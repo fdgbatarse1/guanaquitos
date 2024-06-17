@@ -5,7 +5,7 @@ import { Menu, Close } from '@mui/icons-material';
 import { type Theme, styled, useTheme } from '@mui/material/styles';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import Logo from '@/assets/pngs/navbar_logo.png';
+import Logo from '@/assets/pngs/horizontal_logo.png';
 import Image from 'next/image';
 
 interface StyledProps {
@@ -153,9 +153,9 @@ const Navbar = () => {
 
   return (
     <Header theme={theme} isOpen={isOpen}>
-      {/* <IconContainer theme={theme}>
-        <Image src={Logo} alt="Torogoz con birrete" width={48} height={48} />
-      </IconContainer> */}
+      <IconContainer theme={theme}>
+        <Image src={Logo} alt="Torogoz con birrete" width={165} height={48} />
+      </IconContainer>
       {isOpen ? (
         <CloseToogle theme={theme} aria-label="Cerrar" onClick={toggle} isOpen={isOpen} />
       ) : (
