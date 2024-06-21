@@ -1,0 +1,44 @@
+name: CI
+
+on: [push]
+
+jobs:
+  standard-checks:
+    name: Standard checks
+    runs-on: ubuntu-latest
+    env:
+      BACKEND_URL: ${{ secrets.URI }}
+      PORT: ${{ secrets.TOKEN }}
+      BACKEND_GRAPHQL_URL: ${{ secrets.URI }}
+      BACKEND_API_URL: ${{ secrets.TOKEN }}
+      GOOGLE_MAPS_API_KEY: ${{ secrets.TOKEN }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+
+      - name: Install packages
+        run: npm ci
+        working-directory: frontend
+
+      - name: Run TypeScript checks
+        run: npm run ci:types
+        working-directory: frontend
+
+      - name: Run lint checks
+        run: npm run ci:lint
+        working-directory: frontend
+
+      - name: Run format checks
+        run: npm run ci:types
+        working-directory: frontend
+
+      - name: Run unit tests
+        run: npm run ci:tests
+        working-directory: frontend
+
+      - name: Run build
+        run: npm run build
+        working-directory: frontend

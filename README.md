@@ -18,7 +18,39 @@ The inspiration for Guanaquitos stemmed from a deep-seated desire to improve the
 
 ## Architecture
 
-Content managers, overseen by administrators, handle backend management through a content management system (Strapi) connected to a PostgreSQL database. This backend system allows for the efficient management of information related to counselors, careers, scholarships, and other essential resources. Updated information is embedded with the GPT-3.5-turbo model and indexed to Pinecone using the Langchain library. The user-friendly frontend displays this information across several pages, including a home page, careers page, scholarships page, guidance resources page, and an AI-powered chat interface.
+![Alt text](./assets/architecture.png "Architecture diagram")
+
+The selected architecture consists of three layers: the presentation layer, the business layer, and the data layer.
+
+### Presentation Layer
+
+The presentation layer is responsible for user interaction, managing how information is displayed and received.
+
+Next.js is used as an extended framework of React.js for front-end development because it allows the construction of robust, high-quality applications that are production-ready. This choice facilitates the future incorporation of more developers into the project since Next.js and React.js are widely known and used tools.
+
+Google Maps service is used in the application developed with Next.js to enrich the user experience by providing geospatial functionalities.
+
+### Business Layer
+
+The business layer handles the core logic of the application. It manages all the rules, processes, and operations required to meet the system's functional needs. It acts as a bridge between the presentation layer and the data layer, managing user requests, executing necessary operations on databases and other services, and then returning the appropriate response to the presentation layer.
+
+Strapi is chosen as the CMS in the business layer for its ease of use and efficient content management. Its intuitive interface allows customization according to the project's needs. Being open source, it offers flexibility and has no licensing costs, along with an active community that continuously improves the platform. Its compatibility with TypeScript is beneficial since this language is also used in the presentation layer, making it more attractive for development that works extensively with TypeScript.
+
+The business layer uses several third-party services to extend and enhance its functionalities.
+
+- **LangChain**: Used because it helps develop applications based on large language models (LLMs). It abstracts technical complexity, provides integration tools, functionalities for common tasks, supports multiple models, and offers a flexible architecture, making it the ideal tool to focus on business logic and user experience.
+- **OpenAI**: Its large language models (LLMs) are used to implement chatbots and perform data embeddings, enabling the integration of advanced natural language processing capabilities in interactive applications.
+- **Tavily**: Used as a tool to improve the efficiency and accuracy of external information searches.
+- **Google Maps**: Used to provide geospatial functionalities.
+- **Amazon S3**: Known as Amazon S3 (Amazon Simple Storage Service), it is used for the secure and scalable storage of files and data.
+
+### Data Layer
+
+The data layer is responsible for managing, storing, and retrieving the data used by the application. This layer ensures that the data is organized efficiently and is accessible securely and reliably.
+
+Postgres is chosen as the SQL database for its robustness and flexibility to efficiently and securely store, organize, and retrieve Strapi data, besides being easily integrated with Strapi.
+
+Pinecone is used to facilitate the search and retrieval of high-dimensional data embeddings from Strapi. This tool is essential for optimizing the process of querying and analyzing large volumes of data, allowing efficient and accurate retrieval of relevant information.
 
 ## Installation
 
@@ -50,7 +82,7 @@ Content managers, overseen by administrators, handle backend management through 
 
 4. Navigate to the frontend folder, rename `.env.template` to `.env`, and fill it in with your credentials.
 
-5. Run the following command:
+5. Run the following command at the root of the repository:
    ```sh
    docker compose up
    ```
