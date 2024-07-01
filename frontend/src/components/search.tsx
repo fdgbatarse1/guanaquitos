@@ -49,7 +49,8 @@ const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
 
   const handleInputChange = async (_event: unknown, newInputValue: string) => {
     const newOptions = await fetch(newInputValue);
-    setOptions(newOptions);
+    const uniqueOptions = Array.from(new Set(newOptions));
+    setOptions(uniqueOptions);
   };
 
   const responsiveSize = () => {
