@@ -28,8 +28,8 @@ const ScholarshipPage = ({ params }: ScholarshipPageProps) => {
 
   const { loading, error, data } = useQuery<GetScholarshipQuery>(scholarshipQuery, {
     variables: {
-      career: decodeURIComponent(scholarshipName),
-      university: decodeURIComponent(entityName),
+      scholarship: decodeURIComponent(scholarshipName),
+      entity: decodeURIComponent(entityName),
     },
   });
 
