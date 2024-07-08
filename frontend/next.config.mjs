@@ -6,6 +6,7 @@ const nextConfig = {
     BACKEND_GRAPHQL_URL: process.env.BACKEND_GRAPHQL_URL,
   },
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: 'https',
