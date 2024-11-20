@@ -4,13 +4,10 @@ import Image, { StaticImageData } from 'next/image';
 import Link from 'next/link';
 
 import Card from '@mui/material/Card/Card';
-import { Box, alpha, useTheme, Typography } from '@mui/material';
+import { Box, useTheme, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 import placeholder from '@/assets/images/no_image_available.png';
-
-import formatDate from '../utils/formatDate';
-import getColorByStatus from '../utils/getColorByStatus';
 
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -76,25 +73,6 @@ const ScholarshipCard = ({
               marginLeft: '1rem',
             }}
           >
-            <Typography
-              variant="body1"
-              sx={{
-                backgroundColor: alpha(
-                  getColorByStatus(
-                    scholarship_application_start_date,
-                    scholarship_application_final_date,
-                    theme,
-                  ),
-                  0.75,
-                ),
-                borderRadius: '4px',
-                padding: '0.25rem 0.5rem',
-                width: 'fit-content',
-              }}
-            >
-              {formatDate(scholarship_application_start_date)} -{' '}
-              {formatDate(scholarship_application_final_date)}
-            </Typography>
             <Typography variant="h5">{scholarship_name}</Typography>
             <Typography variant="body1">
               {entity_name} {scholarship_country ? `(${scholarship_country})` : ''}
