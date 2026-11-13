@@ -14,6 +14,7 @@ import {
   usage,
 } from './extract';
 import { fetchPage, openBrowser, type FetchedPage } from './fetch';
+import { geocode } from './geocode';
 
 const DATA = 'data';
 const today = new Date().toISOString().slice(0, 10);
@@ -106,13 +107,24 @@ const main = async () => {
     const digest = hash(page);
     if (existing && unchanged(page.url, digest)) return;
     const extracted = await extractOrganization(page);
+    const addresses = [];
+    for (const address of extracted.addresses) {
+      const known = existing?.addresses.find((item) => item.address === address);
+      const located = known ?? (await geocode(address));
+      if (!known && located.lat !== null) {
+        notes.push(
+          `New map pin, ${source.id}: ${address} → https://www.google.com/maps?q=${located.lat},${located.lng}`,
+        );
+      }
+      addresses.push(located);
+    }
     writeJson(
       file,
       organizationSchema.parse({
         ...extracted,
         id: source.id,
         logo: existing?.logo ?? null,
-        addresses: extracted.addresses.map((address) => ({ address, lat: null, lng: null })),
+        addresses,
         source_urls: [source.contact_url],
       }),
     );
