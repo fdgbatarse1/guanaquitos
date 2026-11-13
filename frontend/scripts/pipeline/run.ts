@@ -149,7 +149,8 @@ const main = async () => {
       const done = await attempt(url, async () => {
         const page = await fetchPage(context, url);
         const digest = hash(page);
-        if (unchanged(url, digest)) return;
+        const current = existing.find(({ record }) => record.source_urls[0] === url);
+        if (current && unchanged(url, digest)) return;
         const extracted = await extractCareer(page);
         const record = careerSchema.parse({
           ...extracted,
@@ -164,9 +165,7 @@ const main = async () => {
         if (written.has(file) || (other && other !== url)) {
           throw new Error(`two pages produce the career id ${record.id}`);
         }
-        existing
-          .filter((item) => item.record.source_urls[0] === url && item.file !== file)
-          .forEach((item) => rmSync(item.file));
+        if (current && current.file !== file) rmSync(current.file);
         writeJson(file, record);
         written.add(file);
         state[url] = { hash: digest, checked: today };
@@ -219,7 +218,10 @@ const main = async () => {
     }
     existing
       .filter(({ record }) => !entity.scholarship_urls.includes(record.source_urls[0]))
-      .forEach(({ file }) => rmSync(file));
+      .forEach(({ file, record }) => {
+        rmSync(file);
+        delete state[record.source_urls[0]];
+      });
   };
 
   for (const university of sources.universities) {
