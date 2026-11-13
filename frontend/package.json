@@ -36,7 +36,8 @@
     "pg-connection-string": "^2.6.2",
     "react": "^18",
     "react-dom": "^18",
-    "react-player": "^2.16.0"
+    "react-player": "^2.16.0",
+    "zod": "^4.6.7"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "^5.0.2",
