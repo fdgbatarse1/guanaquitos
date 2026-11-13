@@ -15,28 +15,27 @@ const StyledCard = styled(Card)(({ theme }) => ({
 }));
 
 interface CareerCardProps {
-  career_name?: string;
-  university_name?: string;
-  university_acronym?: string;
+  href: string;
+  career_name: string;
+  university_name: string;
+  university_acronym: string | null;
   university_logo?: string | StaticImageData;
   university_logo_width?: number;
   university_logo_height?: number;
 }
 
 const CareerCard = ({
+  href,
   career_name,
-  university_name = 'Centro de educación superior no especificado',
-  university_acronym = '',
+  university_name,
+  university_acronym,
   university_logo,
   university_logo_width,
   university_logo_height,
 }: CareerCardProps) => {
   const theme = useTheme();
   return (
-    <Link
-      href={`/careers/${university_acronym.toLowerCase()}/${career_name}`}
-      style={{ textDecoration: 'none' }}
-    >
+    <Link href={href} style={{ textDecoration: 'none' }}>
       <StyledCard
         elevation={1}
         sx={{

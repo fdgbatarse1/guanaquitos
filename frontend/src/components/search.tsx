@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 import { useTheme } from '@mui/material/styles';
@@ -10,23 +9,19 @@ import SearchIcon from '@mui/icons-material/Search';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 
-import debounce from '@/utils/debounce';
-
 interface StyledSearchProps {
   value: string;
   placeholder: string;
-  fetch: (newInputValue: string) => Promise<string[]>;
+  options: string[];
 }
 
-const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
+const StyledSearch = ({ value, placeholder, options }: StyledSearchProps) => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const { replace } = useRouter();
-
-  const [options, setOptions] = useState<string[]>([]);
 
   const handleRenderInput = (params: any) => (
     <TextField
@@ -47,12 +42,6 @@ const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
     replace(`${pathname}?${params.toString()}`);
   };
 
-  const handleInputChange = async (_event: unknown, newInputValue: string) => {
-    const newOptions = await fetch(newInputValue);
-    const uniqueOptions = Array.from(new Set(newOptions));
-    setOptions(uniqueOptions);
-  };
-
   const responsiveSize = () => {
     if (isSmallScreen) return 'small';
     return 'medium';
@@ -65,12 +54,10 @@ const StyledSearch = ({ value, placeholder, fetch }: StyledSearchProps) => {
       id="search"
       options={options}
       renderInput={handleRenderInput}
-      filterOptions={(x) => x}
       freeSolo
       fullWidth
       value={value}
       onChange={handleOnChange}
-      onInputChange={debounce(handleInputChange, 300)}
       size={size}
     />
   );

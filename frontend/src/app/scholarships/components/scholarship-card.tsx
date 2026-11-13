@@ -9,38 +9,40 @@ import { styled } from '@mui/material/styles';
 
 import placeholder from '@/assets/images/no_image_available.png';
 
+import getStatus from '../utils/getStatus';
+
 const StyledCard = styled(Card)(({ theme }) => ({
   padding: theme.spacing(2),
   ...theme.typography.body2,
 }));
 
 interface ScholarshipCardProps {
-  scholarship_name?: string;
-  scholarship_country?: string;
-  scholarship_application_start_date?: string;
-  scholarship_application_final_date?: string;
-  entity_name?: string;
+  href: string;
+  scholarship_name: string;
+  scholarship_country: string | null;
+  scholarship_application_start_date: string | null;
+  scholarship_application_final_date: string | null;
+  entity_name: string;
   entity_logo?: string | StaticImageData;
   entity_logo_width?: number;
   entity_logo_height?: number;
 }
 
 const ScholarshipCard = ({
+  href,
   scholarship_name,
   scholarship_country,
-  scholarship_application_start_date = '',
-  scholarship_application_final_date = '',
-  entity_name = 'Instituto no especificado',
+  scholarship_application_start_date,
+  scholarship_application_final_date,
+  entity_name,
   entity_logo,
   entity_logo_width,
   entity_logo_height,
 }: ScholarshipCardProps) => {
   const theme = useTheme();
+  const status = getStatus(scholarship_application_start_date, scholarship_application_final_date);
   return (
-    <Link
-      href={`/scholarships/${entity_name.toLowerCase()}/${scholarship_name}`}
-      style={{ textDecoration: 'none' }}
-    >
+    <Link href={href} style={{ textDecoration: 'none' }}>
       <StyledCard
         elevation={1}
         sx={{
@@ -77,6 +79,11 @@ const ScholarshipCard = ({
             <Typography variant="body1">
               {entity_name} {scholarship_country ? `(${scholarship_country})` : ''}
             </Typography>
+            {status && (
+              <Typography variant="body2" color={status.color}>
+                {status.label}
+              </Typography>
+            )}
           </Box>
         </Box>
       </StyledCard>

@@ -7,7 +7,7 @@ import Filters from '@/components/filters';
 
 interface ComplexSearchProps {
   query: string;
-  fetchOptions: (newInputValue: string) => Promise<string[]>;
+  options: string[];
   filters: {
     value: string;
     id: string;
@@ -17,10 +17,10 @@ interface ComplexSearchProps {
   showFilters: string;
 }
 
-const ComplexSearch = ({ query, fetchOptions, filters, showFilters }: ComplexSearchProps) => (
+const ComplexSearch = ({ query, options, filters, showFilters }: ComplexSearchProps) => (
   <Stack direction="column" width="100%">
     <Stack direction="row" gap={3} width="100%" alignItems="center">
-      <Search value={query} placeholder="Ingeniería Informática" fetch={fetchOptions} />
+      <Search value={query} placeholder="Ingeniería Informática" options={options} />
       <Box height="100%">
         <FiltersToogleButton selected={showFilters} />
       </Box>
