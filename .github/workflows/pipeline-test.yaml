@@ -1,0 +1,56 @@
+name: Pipeline test
+
+on:
+  push:
+    branches: [feat/automated-data-pipeline]
+    paths:
+      - frontend/data/sources.yaml
+      - frontend/scripts/pipeline/**
+      - .github/workflows/pipeline-test.yaml
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    name: Run pipeline with ${{ matrix.model }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 1
+      matrix:
+        model: [claude-haiku-5-5, claude-opus-5-5]
+    defaults:
+      run:
+        working-directory: frontend
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install packages
+        run: npm ci
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run pipeline
+        run: npm run pipeline
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GOOGLE_GEOCODING_API_KEY: ${{ secrets.GOOGLE_GEOCODING_API_KEY }}
+          EXTRACTION_MODEL: ${{ matrix.model }}
+
+      - name: Push output to a throwaway branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b pipeline-test-output-${{ matrix.model }}
+          git add -f data pipeline-summary.md
+          git commit -m "chore(data): pipeline test output (${{ matrix.model }})"
+          git push -f origin HEAD
