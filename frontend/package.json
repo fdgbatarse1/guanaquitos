@@ -20,6 +20,7 @@
     "typedoc": "typedoc"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0",
     "@apollo/client": "^3.9.4",
     "@emotion/cache": "^11.11.0",
     "@emotion/react": "^11.11.3",
