@@ -137,7 +137,7 @@ const main = async () => {
       await work();
       return true;
     } catch (error) {
-      failures.push(`${label}: ${error instanceof Error ? error.message : String(error)}`);
+      failures.push(`${label}: ${String(error).split('\n')[0]}`);
       return false;
     }
   };
