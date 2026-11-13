@@ -14,7 +14,10 @@ const PAUSE_MS = 2000;
 
 export const openBrowser = async () => {
   const browser = await chromium.launch();
-  const context = await browser.newContext({ locale: 'es-SV' });
+  const context = await browser.newContext({
+    locale: 'es-SV',
+    userAgent: 'Mozilla/5.0 (compatible; GuanaquitosBot/1.0; +https://guanaquitos.com)',
+  });
   return { context, close: () => browser.close() };
 };
 
