@@ -43,3 +43,5 @@ storybook-static
 
 # typedoc
 docs
+# pipeline
+pipeline-summary.md

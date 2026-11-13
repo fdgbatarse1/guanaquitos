@@ -55,9 +55,79 @@ const writeJson = (file: string, value: unknown) => {
   writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`);
 };
 
+const snapshot = () =>
+  new Map(
+    readdirSync(DATA, { recursive: true, encoding: 'utf8' })
+      .filter((name) => name.endsWith('.json') && name !== 'state.json')
+      .map((name) => [name, readFileSync(path.join(DATA, name), 'utf8')]),
+  );
+
+const CRITICAL = [
+  'application_start_date',
+  'application_final_date',
+  'studies_start_date',
+  'studies_final_date',
+  'costs',
+  'duration',
+];
+
+const changedFields = (before: string, after: string) => {
+  const fields = z.record(z.string(), z.unknown());
+  const old = fields.parse(JSON.parse(before));
+  const now = fields.parse(JSON.parse(after));
+  return Object.keys(now).filter((key) => JSON.stringify(old[key]) !== JSON.stringify(now[key]));
+};
+
+const section = (title: string, lines: string[]) =>
+  lines.length ? [`### ${title}`, ...lines.map((line) => `- ${line}`), ''] : [];
+
+const summarize = (
+  before: Map<string, string>,
+  after: Map<string, string>,
+  failures: string[],
+  notes: string[],
+) => {
+  const changed = Array.from(after).flatMap(([file, content]) => {
+    const previous = before.get(file);
+    if (previous === undefined || previous === content) return [];
+    const fields = changedFields(previous, content);
+    return [
+      {
+        line: `${file}: ${fields.join(', ')}`,
+        critical: fields.some((field) => CRITICAL.includes(field)),
+      },
+    ];
+  });
+  return [
+    `## Data update ${today}`,
+    '',
+    ...section(
+      'Changed dates, costs or duration',
+      changed.filter((item) => item.critical).map((item) => item.line),
+    ),
+    ...section(
+      'New',
+      Array.from(after.keys()).filter((file) => !before.has(file)),
+    ),
+    ...section(
+      'Other changes',
+      changed.filter((item) => !item.critical).map((item) => item.line),
+    ),
+    ...section(
+      'Removed',
+      Array.from(before.keys()).filter((file) => !after.has(file)),
+    ),
+    ...section('Sources that failed', failures),
+    ...section('Needs a human check', notes),
+    `Model ${usage.model}: ${usage.inputTokens} input tokens, ${usage.outputTokens} output tokens.`,
+    '',
+  ].join('\n');
+};
+
 const main = async () => {
   const sources = sourcesSchema.parse(parse(readFileSync(`${DATA}/sources.yaml`, 'utf8')));
   const state = readJson(`${DATA}/state.json`, stateSchema) ?? {};
+  const before = snapshot();
   const failures: string[] = [];
   const notes: string[] = [];
   const { context, close } = await openBrowser();
@@ -235,7 +305,7 @@ const main = async () => {
 
   await close();
   writeJson(`${DATA}/state.json`, state);
-  console.log({ failures, notes, usage });
+  writeFileSync('pipeline-summary.md', summarize(before, snapshot(), failures, notes));
 };
 
 main();
