@@ -1,0 +1,32 @@
+universities:
+  - id: uca
+    contact_url: https://uca.edu.sv/
+    careers_url: https://uca.edu.sv/charlas-informativas-de-carreras/
+  - id: udb
+    contact_url: https://www.udb.edu.sv/
+    careers_url: https://www.udb.edu.sv/udb/pagina/nuevoingreso
+  - id: esen
+    contact_url: https://www.esen.edu.sv/acerca-de-la-esen/
+    careers_url: https://www.esen.edu.sv/distintivos-por-carrera/
+
+entities:
+  - id: esen
+    contact_url: https://www.esen.edu.sv/acerca-de-la-esen/
+    scholarship_urls:
+      - https://www.esen.edu.sv/programa-de-asistencia-financiera/
+  - id: uca
+    contact_url: https://uca.edu.sv/
+    scholarship_urls:
+      - https://uca.edu.sv/programa-becas-martires/
+  - id: fundacion-gloria-kriete
+    contact_url: https://fundaciongloriakriete.org/
+    scholarship_urls:
+      - https://fundaciongloriakriete.org/oportunidades/
+  - id: esco
+    contact_url: https://esco.gob.sv/
+    scholarship_urls:
+      - https://esco.gob.sv/convocatoria-de-becas/
+  - id: cancilleria
+    contact_url: https://rree.gob.sv/
+    scholarship_urls:
+      - https://rree.gob.sv/becas
