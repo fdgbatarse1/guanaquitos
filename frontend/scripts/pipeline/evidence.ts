@@ -1,4 +1,4 @@
-type Quoted = { value: string | null; evidence: string };
+export type Quoted = { value: string | null; evidence: string };
 
 const normalize = (text: string) => text.replace(/\s+/g, ' ').trim().toLowerCase();
 

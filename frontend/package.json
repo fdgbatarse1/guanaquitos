@@ -17,7 +17,8 @@
     "storybook": "storybook dev -p 6006 -s ../public",
     "build-storybook": "storybook build -s public",
     "codegen": "graphql-codegen --config codegen.ts",
-    "typedoc": "typedoc"
+    "typedoc": "typedoc",
+    "pipeline": "tsx scripts/pipeline/run.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.8.0",
