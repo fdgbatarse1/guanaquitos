@@ -134,10 +134,6 @@ const Navbar = () => {
       path: '/',
     },
     {
-      name: 'Orientación',
-      path: '/orientation',
-    },
-    {
       name: 'Carreras',
       path: '/careers',
     },
