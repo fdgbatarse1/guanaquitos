@@ -10,7 +10,7 @@ import {
 import type { FetchedPage } from './fetch';
 
 const client = new Anthropic();
-const model = process.env.EXTRACTION_MODEL ?? 'claude-opus-5-5';
+const model = process.env.EXTRACTION_MODEL || 'claude-opus-5-5';
 
 export const usage = { model, inputTokens: 0, outputTokens: 0 };
 
